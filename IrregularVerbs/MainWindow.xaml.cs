@@ -1,18 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
-using IrregularVerbs.Services;
+﻿using System.Windows;
 using IrregularVerbs.Views;
 
 namespace IrregularVerbs
@@ -30,8 +16,32 @@ namespace IrregularVerbs
 
         private void OnWindowLoaded(object sender, RoutedEventArgs args)
         {
-            RevisePage startPage = new RevisePage();
+            ShowMainPage();
+        }
+
+        private void ShowMainPage()
+        {
+            StartPage startPage = new StartPage();
+            startPage.OnDemandRevise += ShowRevisePage;
+            startPage.OnDemandCheck += ShowCheckPage;
             _mainFrame.Navigate(startPage);
         }
+        
+        private void ShowRevisePage()
+        {
+            RevisePage revisePage = new RevisePage();
+            //revisePage.OnDemandBack += ShowMainPage;
+            _mainFrame.Navigate(revisePage);
+        }
+
+        private void ShowCheckPage()
+        {
+            CheckPage checkPage = new CheckPage();
+            //revisePage.OnDemandBack += ShowMainPage;
+            _mainFrame.Navigate(checkPage);
+        }
+
+
+
     }
 }

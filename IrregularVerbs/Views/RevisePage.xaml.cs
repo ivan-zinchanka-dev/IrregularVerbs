@@ -1,25 +1,26 @@
-﻿using System.Windows;
+﻿using System;
+using System.Windows;
 using System.Windows.Controls;
-using IrregularVerbs.Services;
 
 namespace IrregularVerbs.Views;
 
 public partial class RevisePage : Page
 {
+    public event Action OnDemandBack;
+    
     public RevisePage()
     {
         InitializeComponent();
-
         Loaded += OnPageLoaded;
     }
     
     private void OnPageLoaded(object sender, RoutedEventArgs args)
     {
-        IrregularVerbsService s = new IrregularVerbsService();
-
-        _tableView.ItemsSource = s.IrregularVerbs;
-
-
+        _tableView.ItemsSource = App.Instance.IrregularVerbsService.IrregularVerbs;
     }
-    
+
+    private void OnBackButtonClick(object sender, RoutedEventArgs e)
+    {
+        OnDemandBack?.Invoke();
+    }
 }

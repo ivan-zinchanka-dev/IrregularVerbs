@@ -6,6 +6,9 @@ namespace IrregularVerbs.Views;
 
 public partial class StartPage : Page
 {
+    public event Action OnDemandRevise;
+    public event Action OnDemandCheck;
+    
     public StartPage()
     {
         InitializeComponent();
@@ -13,6 +16,11 @@ public partial class StartPage : Page
 
     private void OnReviseClick(object sender, RoutedEventArgs e)
     {
-        Console.WriteLine("Revise");
+        OnDemandRevise?.Invoke();
+    }
+    
+    private void OnCheckClick(object sender, RoutedEventArgs e)
+    {
+        OnDemandCheck?.Invoke();
     }
 }

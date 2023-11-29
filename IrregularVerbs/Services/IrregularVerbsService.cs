@@ -4,6 +4,7 @@ using System.Collections.ObjectModel;
 using System.Data;
 using System.Globalization;
 using System.IO;
+using System.Linq;
 using System.Text;
 using System.Text.Json;
 using System.Text.Json.Serialization;
@@ -55,5 +56,40 @@ public class IrregularVerbsService
             throw new FileNotFoundException("File not found", IrregularVerbsSourcePath);
         }
     }
-    
+
+    public List<IrregularVerb> GetRandomVerbForms(int formsCount)
+    {
+        if (IrregularVerbs == null)
+        {
+            return null;
+        }
+
+        if (formsCount > IrregularVerbs.Count)
+        {
+            throw new ArgumentOutOfRangeException(nameof(formsCount), formsCount, "should be less than " + IrregularVerbs.Count);
+        }
+
+        Random random = new Random();
+        
+        List<IrregularVerb> allEmptyForms = IrregularVerbs.Select(verb => verb.GetEmptyForm()).ToList();
+        List<IrregularVerb> randomEmptyForms = new List<IrregularVerb>(formsCount);
+
+        LinkedList<int> indices = new LinkedList<int>();
+        
+        for (int i = 0; i < formsCount; i++)
+        {
+            int randomFormIndex = random.Next(allEmptyForms.Count);
+
+            while (indices.Contains(randomFormIndex))
+            {
+                randomFormIndex = random.Next(allEmptyForms.Count);
+            }
+
+            indices.AddLast(randomFormIndex);
+            randomEmptyForms.Add(allEmptyForms[randomFormIndex]);
+        }
+
+        return randomEmptyForms;
+    }
+
 }

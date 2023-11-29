@@ -6,6 +6,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
+using IrregularVerbs.Services;
 
 namespace IrregularVerbs
 {
@@ -16,9 +17,19 @@ namespace IrregularVerbs
     {
         public static App Instance { get; private set; } = null!;
 
+        public IrregularVerbsService IrregularVerbsService { get; private set; }
+
         public App()
         {
             Instance = this;
+        }
+
+        protected override void OnStartup(StartupEventArgs e)
+        {
+            base.OnStartup(e);
+
+            IrregularVerbsService = new IrregularVerbsService();
+
         }
     }
 }

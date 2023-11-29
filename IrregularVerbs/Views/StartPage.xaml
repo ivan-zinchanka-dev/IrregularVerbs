@@ -24,7 +24,8 @@
             </Button>
             
             <Button Margin="0 10 0 0"
-                    Content="Test">
+                    Content="Check"
+                    Click="OnCheckClick">
             </Button>
             
             

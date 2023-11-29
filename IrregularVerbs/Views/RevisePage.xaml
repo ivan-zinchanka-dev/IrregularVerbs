@@ -29,7 +29,7 @@
                                     DisplayMemberBinding="{Binding Path=PastSimple}">
                     </GridViewColumn>
                     <GridViewColumn Width="100"
-                                    Header="Past Simple" 
+                                    Header="Past Participle" 
                                     DisplayMemberBinding="{Binding Path=PastParticiple}">
                     </GridViewColumn>
                 </GridView>
@@ -42,7 +42,9 @@
                     HorizontalAlignment="Right" 
                     Margin="0 0 100 0"
                     Width="100"
-                    Content="Back"></Button>
+                    Content="Back"
+                    Click="OnBackButtonClick">
+            </Button>
         </Grid>
         
         
