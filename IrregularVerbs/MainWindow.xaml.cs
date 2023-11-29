@@ -12,6 +12,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using IrregularVerbs.Services;
 
 namespace IrregularVerbs
 {
@@ -30,6 +31,9 @@ namespace IrregularVerbs
         {
             StartPage startPage = new StartPage();
             _mainFrame.Navigate(startPage);
+
+            new IrregularVerbsService();
+            
         }
     }
 }

@@ -4,9 +4,34 @@
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
       xmlns:local="clr-namespace:IrregularVerbs"
+      xmlns:system="clr-namespace:System;assembly=System.Runtime"
       mc:Ignorable="d"
       Title="StartPage" Height="450" Width="800">
     <Grid>
-        <TextBlock>My page!</TextBlock>
+        <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center">
+            <TextBlock Margin="0 0 0 0" 
+                       Text="Your native language: ">
+            </TextBlock>
+            <ComboBox Margin="0 10 0 0">
+                <system:String>english</system:String>
+                <system:String>russian</system:String>
+                <system:String>belarusian</system:String>
+            </ComboBox>
+            
+            <Button Margin="0 10 0 0"
+                    Content="Revise"
+                    Click="OnReviseClick">
+            </Button>
+            
+            <Button Margin="0 10 0 0"
+                    Content="Test">
+            </Button>
+            
+            
+        </StackPanel>
+        
+        
+        
+        
     </Grid>
 </Page>
