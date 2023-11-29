@@ -7,6 +7,29 @@
       mc:Ignorable="d"
       Title="RevisePage" Height="450" Width="800">
     <Grid>
-        
+        <ListView x:FieldModifier="private" x:Name="_tableView">
+            <ListView.View>
+                <GridView>
+                    <GridViewColumn Width = "100"
+                                    Header="Native" 
+                                    DisplayMemberBinding="{Binding Path=Term}">
+                    </GridViewColumn>
+                    <GridViewColumn Width = "100"
+                                    Header="Infinitive" 
+                                    DisplayMemberBinding="{Binding Path=Infinitive}">
+                    </GridViewColumn>
+                    <GridViewColumn Width = "100"
+                                    Header="PastSimple" 
+                                    DisplayMemberBinding="{Binding Path=PastSimple}">
+                    </GridViewColumn>
+                    <GridViewColumn Width = "100"
+                                    Header="PastSimple" 
+                                    DisplayMemberBinding="{Binding Path=PastParticiple}">
+                    </GridViewColumn>
+                </GridView>
+            </ListView.View>
+            
+            
+        </ListView>
     </Grid>
 </Page>

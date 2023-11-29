@@ -30,11 +30,8 @@ namespace IrregularVerbs
 
         private void OnWindowLoaded(object sender, RoutedEventArgs args)
         {
-            StartPage startPage = new StartPage();
+            RevisePage startPage = new RevisePage();
             _mainFrame.Navigate(startPage);
-
-            new IrregularVerbsService();
-            
         }
     }
 }
