@@ -2,7 +2,7 @@
 using System.Windows;
 using System.Windows.Controls;
 
-namespace IrregularVerbs;
+namespace IrregularVerbs.Views;
 
 public partial class StartPage : Page
 {

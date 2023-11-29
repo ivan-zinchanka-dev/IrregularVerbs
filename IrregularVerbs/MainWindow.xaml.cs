@@ -13,6 +13,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 using IrregularVerbs.Services;
+using IrregularVerbs.Views;
 
 namespace IrregularVerbs
 {

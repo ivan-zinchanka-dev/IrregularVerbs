@@ -10,7 +10,6 @@ namespace IrregularVerbs.Services;
 public class IrregularVerbsService
 {
     private const string IrregularVerbsSourcePath = "Resources/irregular_verbs_source.json";
-    //private const string IrregularVerbsSourcePath = "Resources/irregular_verbs_source.json";
     private List<IrregularVerb> _irregularVerbs;
 
     public IrregularVerbsService()
