@@ -10,9 +10,6 @@
 
     <ItemGroup>
       <None Remove="Resources\irregular_verbs_source.json" />
-      <Content Include="Resources\irregular_verbs_source.json">
-        <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-      </Content>
       <None Remove="Resources\irregular_verbs_source.xlsx" />
       <Content Include="Resources\irregular_verbs_source.xlsx">
         <CopyToOutputDirectory>Always</CopyToOutputDirectory>

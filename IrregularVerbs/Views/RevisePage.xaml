@@ -5,25 +5,31 @@
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
       xmlns:local="clr-namespace:IrregularVerbs.Views"
       mc:Ignorable="d"
-      Title="RevisePage" Height="450" Width="800">
+      Title="RevisePage" Height="660" Width="700">
     <Grid>
-        <ListView x:FieldModifier="private" x:Name="_tableView">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="0.9*"/>
+            <RowDefinition Height="0.1*"/>
+        </Grid.RowDefinitions>
+        
+        <ListView Grid.Row="0" 
+                  x:FieldModifier="private" x:Name="_tableView">
             <ListView.View>
                 <GridView>
-                    <GridViewColumn Width = "100"
-                                    Header="Native" 
+                    <GridViewColumn Width="100"
+                                    Header="Native Word" 
                                     DisplayMemberBinding="{Binding Path=Term}">
                     </GridViewColumn>
-                    <GridViewColumn Width = "100"
+                    <GridViewColumn Width="100"
                                     Header="Infinitive" 
                                     DisplayMemberBinding="{Binding Path=Infinitive}">
                     </GridViewColumn>
-                    <GridViewColumn Width = "100"
-                                    Header="PastSimple" 
+                    <GridViewColumn Width="100"
+                                    Header="Past Simple" 
                                     DisplayMemberBinding="{Binding Path=PastSimple}">
                     </GridViewColumn>
-                    <GridViewColumn Width = "100"
-                                    Header="PastSimple" 
+                    <GridViewColumn Width="100"
+                                    Header="Past Simple" 
                                     DisplayMemberBinding="{Binding Path=PastParticiple}">
                     </GridViewColumn>
                 </GridView>
@@ -31,5 +37,14 @@
             
             
         </ListView>
+        <Grid Grid.Row="1">
+            <Button VerticalAlignment="Center" 
+                    HorizontalAlignment="Right" 
+                    Margin="0 0 100 0"
+                    Width="100"
+                    Content="Back"></Button>
+        </Grid>
+        
+        
     </Grid>
 </Page>

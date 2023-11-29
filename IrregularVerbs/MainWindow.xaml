@@ -5,7 +5,10 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:IrregularVerbs"
         mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="800">
+        WindowStartupLocation="CenterScreen"
+        Title="Irregular verbs" 
+        Height="700" MaxHeight="1000" MinHeight="700" 
+        Width="700" MaxWidth="700" MinWidth="500">
     <Frame x:FieldModifier="private" x:Name="_mainFrame">
         
     </Frame>
