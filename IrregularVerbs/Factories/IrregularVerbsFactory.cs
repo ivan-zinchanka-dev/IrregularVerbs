@@ -37,9 +37,9 @@ public class IrregularVerbsFactory
         if (IsVolatileForm(pastSimple) || IsVolatileForm(pastParticiple))
         {
             return new VolatileIrregularVerb(term, 
-                CreateVolatileForm(infinitive), 
-                CreateVolatileForm(pastSimple),
-                CreateVolatileForm(pastParticiple));
+                VolatileFormFactory.FromCombinedNotation(infinitive), 
+                VolatileFormFactory.FromCombinedNotation(pastSimple),
+                VolatileFormFactory.FromCombinedNotation(pastParticiple));
 
         }
         else
@@ -49,7 +49,7 @@ public class IrregularVerbsFactory
     }
 
 
-    private static VolatileForm CreateVolatileForm(string sourceNotation)
+    /*private static VolatileForm CreateVolatileForm(string sourceNotation)
     {
         Tuple<string, string> variants;
         CombineOperation combineOperation;
@@ -66,18 +66,18 @@ public class IrregularVerbsFactory
         }
         else
         {
-            combineOperation = CombineOperation.None;
+            combineOperation = CombineOperation.WithoutCombination;
             variants = new Tuple<string, string>(sourceNotation, string.Empty);
         }
         
         return new VolatileForm(variants, combineOperation);
 
-    }
+    }*/
 
-    private static Tuple<string, string> GetWords(string sourceNotation, string separator)
+    /*private static Tuple<string, string> GetWords(string sourceNotation, string separator)
     {
         string[] words = sourceNotation.Split(separator);
         return new Tuple<string, string>(words[0], words[1]);
-    }
+    }*/
 
 }

@@ -3,6 +3,7 @@
 public enum CombineOperation
 {
     None = 0,
-    And = 1,
-    Or = 2,
+    Unknown = 1,
+    And = 2,
+    Or = 3,
 }

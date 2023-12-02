@@ -15,6 +15,8 @@ public class VolatileForm
     
     public override string ToString()
     {
-        return $"{_variants.Item1}/{_variants.Item2}";
+        return string.IsNullOrEmpty(_variants.Item2) ? 
+            _variants.Item1 : 
+            $"{_variants.Item1}/{_variants.Item2}";
     }
 }
