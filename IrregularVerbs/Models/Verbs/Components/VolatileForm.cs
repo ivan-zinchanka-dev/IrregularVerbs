@@ -9,6 +9,11 @@ public class VolatileForm
     
     public VolatileForm(Tuple<string, string> variants, CombineOperation combineOperation)
     {
+        if (variants.Item1 == variants.Item2)
+        {
+            throw new ArgumentException("Variants cant be equal", nameof(variants));
+        }
+
         _variants = variants;
         _combineOperation = combineOperation;
     }
@@ -26,7 +31,7 @@ public class VolatileForm
         {
             return true;
         }
-        
+
         if (other is VolatileForm otherVerb)
         {
             CombineOperation commonCombineOperation =
@@ -45,7 +50,7 @@ public class VolatileForm
             {
                 return (this._variants.Item1 == otherVerb._variants.Item1 ||
                         this._variants.Item1 == otherVerb._variants.Item2) && 
-                       (string.IsNullOrEmpty(this._variants.Item2) || 
+                       (string.IsNullOrEmpty(this._variants.Item2) || string.IsNullOrEmpty(otherVerb._variants.Item2) ||
                         this._variants.Item2 == otherVerb._variants.Item1 ||
                         this._variants.Item2 == otherVerb._variants.Item2);
             }
