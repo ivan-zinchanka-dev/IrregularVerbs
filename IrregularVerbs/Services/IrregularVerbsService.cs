@@ -64,7 +64,7 @@ public class IrregularVerbsService
         };
     }
 
-    public List<IrregularVerbAnswer> GetRandomVerbAnswers(int formsCount)
+    public ObservableCollection<IrregularVerbAnswer> GetRandomVerbAnswers(int formsCount)
     {
         if (IrregularVerbs == null)
         {
@@ -96,7 +96,21 @@ public class IrregularVerbsService
             randomEmptyAnswers.Add(allEmptyAnswers[randomFormIndex]);
         }
 
-        return randomEmptyAnswers;
+        return new ObservableCollection<IrregularVerbAnswer>(randomEmptyAnswers);
+    }
+
+
+    public bool CheckAnswer(IrregularVerbAnswer answer)
+    {
+        BaseIrregularVerb originalIrregularVerb = IrregularVerbs.Find(verb => verb.Term == answer.Term);
+
+        if (originalIrregularVerb != null)
+        {
+            BaseIrregularVerb answeredIrregularVerb = _verbsFactory.FromAnswer(answer);
+            return originalIrregularVerb.Equals(answeredIrregularVerb);
+        }
+
+        return false;
     }
 
 }

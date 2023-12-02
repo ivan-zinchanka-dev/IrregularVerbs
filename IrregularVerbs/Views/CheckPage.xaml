@@ -25,7 +25,8 @@
                 
                 <DataGridTextColumn Width="100"
                                     Header="Infinitive" 
-                                    Binding="{Binding Path=Infinitive, 
+                                    Binding="{Binding Path=Infinitive,
+                                    NotifyOnSourceUpdated=True, 
                                     Mode=TwoWay, 
                                     UpdateSourceTrigger=PropertyChanged}"/>
                 
@@ -43,7 +44,8 @@
                     HorizontalAlignment="Right" 
                     Margin="0 0 100 0"
                     Width="100"
-                    Content="Check">
+                    Content="Check"
+                    Click="OnCheckButtonClick">
             </Button>
         </Grid>
         

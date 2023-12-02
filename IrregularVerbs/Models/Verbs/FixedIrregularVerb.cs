@@ -1,4 +1,7 @@
-﻿namespace IrregularVerbs.Models.Verbs;
+﻿using System;
+using System.Collections.Generic;
+
+namespace IrregularVerbs.Models.Verbs;
 
 public class FixedIrregularVerb : BaseIrregularVerb
 {
@@ -19,5 +22,4 @@ public class FixedIrregularVerb : BaseIrregularVerb
     {
         return new FixedIrregularVerb(Term, string.Empty, string.Empty, string.Empty);
     }
-
 }

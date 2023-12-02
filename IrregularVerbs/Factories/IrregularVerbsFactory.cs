@@ -1,4 +1,5 @@
 ﻿using System.Data;
+using System.Diagnostics.CodeAnalysis;
 using IrregularVerbs.Models;
 using IrregularVerbs.Models.Verbs;
 using IrregularVerbs.Models.Verbs.Components;
@@ -9,16 +10,29 @@ public class IrregularVerbsFactory
 {
     private static bool IsVolatileForm(string source)
     {
-        return source.Contains('|') || source.Contains('&');
+        return !string.IsNullOrEmpty(source) && (source.Contains('|') || source.Contains('&'));
     }
 
     public BaseIrregularVerb FromDataRow(DataRow dataRow)
     {
-        string term = dataRow[0].ToString();
-        string infinitive = dataRow[1].ToString();
-        string pastSimple = dataRow[2].ToString();
-        string pastParticiple = dataRow[3].ToString();
+        return CreateIrregularVerb(
+            dataRow[0].ToString(), 
+            dataRow[1].ToString(), 
+            dataRow[2].ToString(), 
+            dataRow[3].ToString());
+    }
 
+    public BaseIrregularVerb FromAnswer(IrregularVerbAnswer answer)
+    {
+        return CreateIrregularVerb(
+            answer.Term, 
+            answer.Infinitive,
+            answer.PastSimple, 
+            answer.PastParticiple);
+    }
+
+    private BaseIrregularVerb CreateIrregularVerb([NotNull] string term, string infinitive, string pastSimple, string pastParticiple)
+    {
         if (IsVolatileForm(pastSimple) || IsVolatileForm(pastParticiple))
         {
             return new VolatileIrregularVerb(term, 
@@ -32,5 +46,6 @@ public class IrregularVerbsFactory
             return new FixedIrregularVerb(term, infinitive, pastSimple, pastParticiple);
         }
     }
+
 
 }
