@@ -2,6 +2,8 @@
 Microsoft Visual Studio Solution File, Format Version 12.00
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "IrregularVerbs", "IrregularVerbs\IrregularVerbs.csproj", "{415F02AA-8358-47B7-97C3-A2133AA49F86}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "IrregularVerbs.Tests", "IrregularVerbs.Tests\IrregularVerbs.Tests.csproj", "{FBFAD79F-3E7B-4039-BD42-A97E3EE41921}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -12,5 +14,9 @@ Global
 		{415F02AA-8358-47B7-97C3-A2133AA49F86}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{415F02AA-8358-47B7-97C3-A2133AA49F86}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{415F02AA-8358-47B7-97C3-A2133AA49F86}.Release|Any CPU.Build.0 = Release|Any CPU
+		{FBFAD79F-3E7B-4039-BD42-A97E3EE41921}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{FBFAD79F-3E7B-4039-BD42-A97E3EE41921}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{FBFAD79F-3E7B-4039-BD42-A97E3EE41921}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{FBFAD79F-3E7B-4039-BD42-A97E3EE41921}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal
