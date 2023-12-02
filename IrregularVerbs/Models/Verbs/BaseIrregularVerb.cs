@@ -7,12 +7,10 @@ namespace IrregularVerbs.Models.Verbs;
 public abstract class BaseIrregularVerb
 {
     public abstract string Term { get; protected set; }
-    public abstract string Infinitive { get; protected set; }
-    public abstract string PastSimple { get; protected set;  }
-    public abstract string PastParticiple { get; protected set; }
-
-    public abstract BaseIrregularVerb GetEmptyForm();
-
+    public abstract string Infinitive { get; }
+    public abstract string PastSimple { get; }
+    public abstract string PastParticiple { get; }
+    
     public override bool Equals(object other)
     {
         if (ReferenceEquals(this, other))

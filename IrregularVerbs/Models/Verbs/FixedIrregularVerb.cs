@@ -6,9 +6,9 @@ namespace IrregularVerbs.Models.Verbs;
 public class FixedIrregularVerb : BaseIrregularVerb
 {
     public sealed override string Term { get; protected set; }
-    public sealed override string Infinitive { get; protected set; }
-    public sealed override string PastSimple { get; protected set; }
-    public sealed override string PastParticiple { get; protected set; }
+    public sealed override string Infinitive { get; }
+    public sealed override string PastSimple { get;}
+    public sealed override string PastParticiple { get;}
     
     public FixedIrregularVerb(string term, string infinitive, string pastSimple, string pastParticiple)
     {
@@ -16,10 +16,5 @@ public class FixedIrregularVerb : BaseIrregularVerb
         Infinitive = infinitive;
         PastSimple = pastSimple;
         PastParticiple = pastParticiple;
-    }
-    
-    public override BaseIrregularVerb GetEmptyForm()
-    {
-        return new FixedIrregularVerb(Term, string.Empty, string.Empty, string.Empty);
     }
 }

@@ -1,4 +1,5 @@
-﻿using System.Data;
+﻿using System;
+using System.Data;
 using System.Diagnostics.CodeAnalysis;
 using IrregularVerbs.Models;
 using IrregularVerbs.Models.Verbs;
@@ -36,9 +37,9 @@ public class IrregularVerbsFactory
         if (IsVolatileForm(pastSimple) || IsVolatileForm(pastParticiple))
         {
             return new VolatileIrregularVerb(term, 
-                new VolatileForm(infinitive), 
-                new VolatileForm(pastSimple),
-                new VolatileForm(pastParticiple));
+                CreateVolatileForm(infinitive), 
+                CreateVolatileForm(pastSimple),
+                CreateVolatileForm(pastParticiple));
 
         }
         else
@@ -47,5 +48,36 @@ public class IrregularVerbsFactory
         }
     }
 
+
+    private static VolatileForm CreateVolatileForm(string sourceNotation)
+    {
+        Tuple<string, string> variants;
+        CombineOperation combineOperation;
+        
+        if (sourceNotation.Contains('&'))
+        {
+            combineOperation = CombineOperation.And;
+            variants = GetWords(sourceNotation, " & ");
+        }
+        else if (sourceNotation.Contains('|'))
+        {
+            combineOperation = CombineOperation.Or;
+            variants = GetWords(sourceNotation, " | ");
+        }
+        else
+        {
+            combineOperation = CombineOperation.None;
+            variants = new Tuple<string, string>(sourceNotation, string.Empty);
+        }
+        
+        return new VolatileForm(variants, combineOperation);
+
+    }
+
+    private static Tuple<string, string> GetWords(string sourceNotation, string separator)
+    {
+        string[] words = sourceNotation.Split(separator);
+        return new Tuple<string, string>(words[0], words[1]);
+    }
 
 }

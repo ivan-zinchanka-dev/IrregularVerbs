@@ -1,45 +1,20 @@
-﻿namespace IrregularVerbs.Models.Verbs.Components;
+﻿using System;
+
+namespace IrregularVerbs.Models.Verbs.Components;
 
 public class VolatileForm
 {
-    public VariantsMergeOperation VariantsMergeOperation { get; private set; }
-    private readonly string[] _variants;
-
-    public static VolatileForm Empty => new VolatileForm(string.Empty);
+    private readonly Tuple<string, string> _variants;
+    private CombineOperation _combineOperation;
     
-    public VolatileForm(string notation)
+    public VolatileForm(Tuple<string, string> variants, CombineOperation combineOperation)
     {
-        if (notation.Contains('&'))
-        {
-            VariantsMergeOperation = VariantsMergeOperation.And;
-            _variants = notation.Split(" & ");
-        }
-        else if (notation.Contains('|'))
-        {
-            VariantsMergeOperation = VariantsMergeOperation.Or;
-            _variants = notation.Split(" | ");
-        }
-        else
-        {
-            VariantsMergeOperation = VariantsMergeOperation.None;
-            _variants = new string[] { notation };
-        }
+        _variants = variants;
+        _combineOperation = combineOperation;
     }
-
+    
     public override string ToString()
     {
-        string output = string.Empty;
-            
-        for (int i = 0; i < _variants.Length; i++)
-        {
-            output += _variants[i];
-
-            if (_variants.Length - i > 1)
-            {
-                output += '/';
-            }
-        }
-
-        return output;
+        return $"{_variants.Item1}/{_variants.Item2}";
     }
 }
