@@ -9,6 +9,7 @@ using System.Text;
 using System.Text.Json;
 using System.Text.Json.Serialization;
 using ExcelDataReader;
+using IrregularVerbs.Factories;
 using IrregularVerbs.Models;
 
 namespace IrregularVerbs.Services;
@@ -16,7 +17,9 @@ namespace IrregularVerbs.Services;
 public class IrregularVerbsService
 {
     private const string IrregularVerbsSourcePath = "Resources/irregular_verbs_source.xlsx";
-    public List<IrregularVerb> IrregularVerbs { get; private set; }
+    public List<BaseIrregularVerb> IrregularVerbs { get; private set; }
+
+    private IrregularVerbsFactory _verbsFactory = new IrregularVerbsFactory();
     
     public IrregularVerbsService()
     {
@@ -30,22 +33,17 @@ public class IrregularVerbsService
                 {
                     DataTable dataTable = reader.AsDataSet().Tables[0];
 
-                    IrregularVerbs = new List<IrregularVerb>(dataTable.Rows.Count);
+                    IrregularVerbs = new List<BaseIrregularVerb>(dataTable.Rows.Count);
                     
                     for (int i = 1; i < dataTable.Rows.Count; i++)
                     {
-                        IrregularVerb irregularVerb = new IrregularVerb()
+                        BaseIrregularVerb irregularVerb = _verbsFactory.FromDataRow(dataTable.Rows[i]);
+
+                        if (irregularVerb != null)
                         {
-                            Term = dataTable.Rows[i]["Column0"].ToString(),
-                            Infinitive = dataTable.Rows[i]["Column1"].ToString(),
-                            PastSimple = dataTable.Rows[i]["Column2"].ToString(),
-                            PastParticiple = dataTable.Rows[i]["Column3"].ToString(),
-                        };
+                            IrregularVerbs.Add(irregularVerb);
+                        }
                         
-                        /*Console.WriteLine("Term: " + irregularVerb.Term);
-                        Console.WriteLine("PastSimple: " + irregularVerb.PastSimple);*/
-                        
-                        IrregularVerbs.Add(irregularVerb);
                     }
                     
                 }
@@ -57,7 +55,15 @@ public class IrregularVerbsService
         }
     }
 
-    public List<IrregularVerb> GetRandomVerbForms(int formsCount)
+    private static IrregularVerbAnswer CreateAnswer(BaseIrregularVerb irregularVerb)
+    {
+        return new IrregularVerbAnswer()
+        {
+            Term = irregularVerb.Term,
+        };
+    }
+
+    public List<IrregularVerbAnswer> GetRandomVerbAnswers(int formsCount)
     {
         if (IrregularVerbs == null)
         {
@@ -71,25 +77,25 @@ public class IrregularVerbsService
 
         Random random = new Random();
         
-        List<IrregularVerb> allEmptyForms = IrregularVerbs.Select(verb => verb.GetEmptyForm()).ToList();
-        List<IrregularVerb> randomEmptyForms = new List<IrregularVerb>(formsCount);
+        List<IrregularVerbAnswer> allEmptyAnswers = IrregularVerbs.Select(CreateAnswer).ToList();
+        List<IrregularVerbAnswer> randomEmptyAnswers = new List<IrregularVerbAnswer>(formsCount);
 
         LinkedList<int> indices = new LinkedList<int>();
         
         for (int i = 0; i < formsCount; i++)
         {
-            int randomFormIndex = random.Next(allEmptyForms.Count);
+            int randomFormIndex = random.Next(allEmptyAnswers.Count);
 
             while (indices.Contains(randomFormIndex))
             {
-                randomFormIndex = random.Next(allEmptyForms.Count);
+                randomFormIndex = random.Next(allEmptyAnswers.Count);
             }
 
             indices.AddLast(randomFormIndex);
-            randomEmptyForms.Add(allEmptyForms[randomFormIndex]);
+            randomEmptyAnswers.Add(allEmptyAnswers[randomFormIndex]);
         }
 
-        return randomEmptyForms;
+        return randomEmptyAnswers;
     }
 
 }

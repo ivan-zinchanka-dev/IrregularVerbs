@@ -13,6 +13,6 @@ public partial class CheckPage : Page
     
     private void OnPageLoaded(object sender, RoutedEventArgs args)
     {
-        _tableView.ItemsSource = App.Instance.IrregularVerbsService.GetRandomVerbForms(3);
+        _tableView.ItemsSource = App.Instance.IrregularVerbsService.GetRandomVerbAnswers(3);
     }
 }

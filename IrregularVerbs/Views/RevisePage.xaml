@@ -16,19 +16,19 @@
                   x:FieldModifier="private" x:Name="_tableView">
             <ListView.View>
                 <GridView>
-                    <GridViewColumn Width="100"
+                    <GridViewColumn Width="110"
                                     Header="Native Word" 
                                     DisplayMemberBinding="{Binding Path=Term}">
                     </GridViewColumn>
-                    <GridViewColumn Width="100"
+                    <GridViewColumn Width="110"
                                     Header="Infinitive" 
                                     DisplayMemberBinding="{Binding Path=Infinitive}">
                     </GridViewColumn>
-                    <GridViewColumn Width="100"
+                    <GridViewColumn Width="110"
                                     Header="Past Simple" 
                                     DisplayMemberBinding="{Binding Path=PastSimple}">
                     </GridViewColumn>
-                    <GridViewColumn Width="100"
+                    <GridViewColumn Width="110"
                                     Header="Past Participle" 
                                     DisplayMemberBinding="{Binding Path=PastParticiple}">
                     </GridViewColumn>
