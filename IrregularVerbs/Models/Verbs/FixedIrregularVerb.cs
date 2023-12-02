@@ -1,4 +1,4 @@
-﻿namespace IrregularVerbs.Models;
+﻿namespace IrregularVerbs.Models.Verbs;
 
 public class FixedIrregularVerb : BaseIrregularVerb
 {

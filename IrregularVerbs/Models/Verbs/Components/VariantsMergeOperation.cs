@@ -1,4 +1,4 @@
-﻿namespace IrregularVerbs.Models;
+﻿namespace IrregularVerbs.Models.Verbs.Components;
 
 public enum VariantsMergeOperation
 {

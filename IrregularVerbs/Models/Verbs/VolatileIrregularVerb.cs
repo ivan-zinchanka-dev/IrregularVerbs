@@ -1,4 +1,6 @@
-﻿namespace IrregularVerbs.Models;
+﻿using IrregularVerbs.Models.Verbs.Components;
+
+namespace IrregularVerbs.Models.Verbs;
 
 public class VolatileIrregularVerb : BaseIrregularVerb
 {

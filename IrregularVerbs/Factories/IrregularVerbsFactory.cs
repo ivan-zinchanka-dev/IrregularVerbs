@@ -1,5 +1,7 @@
 ﻿using System.Data;
 using IrregularVerbs.Models;
+using IrregularVerbs.Models.Verbs;
+using IrregularVerbs.Models.Verbs.Components;
 
 namespace IrregularVerbs.Factories;
 

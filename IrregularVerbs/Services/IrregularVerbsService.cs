@@ -11,6 +11,7 @@ using System.Text.Json.Serialization;
 using ExcelDataReader;
 using IrregularVerbs.Factories;
 using IrregularVerbs.Models;
+using IrregularVerbs.Models.Verbs;
 
 namespace IrregularVerbs.Services;
 
