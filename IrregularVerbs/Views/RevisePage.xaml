@@ -15,7 +15,7 @@
         <ListView Grid.Row="0" 
                   x:FieldModifier="private" x:Name="_tableView">
             <ListView.View>
-                <GridView>
+                <GridView AllowsColumnReorder="False">
                     <GridViewColumn Width="110"
                                     Header="Native Word" 
                                     DisplayMemberBinding="{Binding Path=Term}">

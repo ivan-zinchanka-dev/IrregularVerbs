@@ -14,15 +14,20 @@
         
         <DataGrid Grid.Row="0"
                   x:FieldModifier="private" x:Name="_tableView"
-                  AutoGenerateColumns="False">
+                  AutoGenerateColumns="False"
+                  CanUserSortColumns="False"
+                  CanUserReorderColumns="False">
             <DataGrid.Columns>
                 <DataGridTextColumn Width="100"
                                     Header="Native Word" 
-                                    Binding="{Binding Path=Term}"/>
+                                    Binding="{Binding Path=Term}"
+                                    IsReadOnly="True"/>
                 
                 <DataGridTextColumn Width="100"
                                     Header="Infinitive" 
-                                    Binding="{Binding Path=Infinitive}"/>
+                                    Binding="{Binding Path=Infinitive, 
+                                    Mode=TwoWay, 
+                                    UpdateSourceTrigger=PropertyChanged}"/>
                 
                 <DataGridTextColumn Width="100"
                                     Header="Past Simple" 

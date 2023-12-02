@@ -20,7 +20,7 @@ public class IrregularVerbsService
     private const string IrregularVerbsSourcePath = "Resources/irregular_verbs_source.xlsx";
     public List<BaseIrregularVerb> IrregularVerbs { get; private set; }
 
-    private IrregularVerbsFactory _verbsFactory = new IrregularVerbsFactory();
+    private readonly IrregularVerbsFactory _verbsFactory = new IrregularVerbsFactory();
     
     public IrregularVerbsService()
     {
