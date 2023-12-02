@@ -2,12 +2,9 @@
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Data;
-using System.Globalization;
 using System.IO;
 using System.Linq;
 using System.Text;
-using System.Text.Json;
-using System.Text.Json.Serialization;
 using ExcelDataReader;
 using IrregularVerbs.Factories;
 using IrregularVerbs.Models;
@@ -19,8 +16,6 @@ public class IrregularVerbsService
 {
     private const string IrregularVerbsSourcePath = "Resources/irregular_verbs_source.xlsx";
     public List<BaseIrregularVerb> IrregularVerbs { get; private set; }
-
-    private readonly IrregularVerbsFactory _verbsFactory = new IrregularVerbsFactory();
     
     public IrregularVerbsService()
     {
@@ -38,7 +33,7 @@ public class IrregularVerbsService
                     
                     for (int i = 1; i < dataTable.Rows.Count; i++)
                     {
-                        BaseIrregularVerb irregularVerb = _verbsFactory.FromDataRow(dataTable.Rows[i]);
+                        BaseIrregularVerb irregularVerb = IrregularVerbsFactory.FromDataRow(dataTable.Rows[i]);
 
                         if (irregularVerb != null)
                         {
@@ -106,7 +101,7 @@ public class IrregularVerbsService
 
         if (originalIrregularVerb != null)
         {
-            BaseIrregularVerb answeredIrregularVerb = _verbsFactory.FromAnswer(answer);
+            BaseIrregularVerb answeredIrregularVerb = IrregularVerbsFactory.FromAnswer(answer);
             return originalIrregularVerb.Equals(answeredIrregularVerb);
         }
 

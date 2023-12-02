@@ -20,5 +20,25 @@ public class VolatileIrregularVerb : BaseIrregularVerb
         _pastSimple = pastSimple;
         _pastParticiple = pastParticiple;
     }
-    
+
+    public override bool Equals(object other)
+    {
+        if (ReferenceEquals(this, other))
+        {
+            return true;
+        }
+        
+        if (other is VolatileIrregularVerb otherVerb)
+        {
+            if (GetHashCode() == otherVerb.GetHashCode())
+            {
+                return Term == otherVerb.Term && 
+                       Infinitive == otherVerb.Infinitive &&
+                       PastSimple == otherVerb.PastSimple &&
+                       PastParticiple == otherVerb.PastParticiple;
+            }
+        }
+
+        return false;
+    }
 }

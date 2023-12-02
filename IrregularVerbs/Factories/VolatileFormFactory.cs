@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Collections.ObjectModel;
 using IrregularVerbs.Models.Verbs.Components;
 
 namespace IrregularVerbs.Factories;
@@ -16,34 +15,6 @@ public static class VolatileFormFactory
         {'\"', CombineOperation.Unknown},
     };
 
-
-    /*private static VolatileForm FromSpreadsheet(string sourceNotation)
-    {
-        Tuple<string, string> variants;
-        CombineOperation combineOperation;
-        
-        if (sourceNotation.Contains('&'))
-        {
-            combineOperation = CombineOperation.And;
-            variants = ToVariantsTuple(sourceNotation, " & ");
-        }
-        else if (sourceNotation.Contains('|'))
-        {
-            combineOperation = CombineOperation.Or;
-            variants = ToVariantsTuple(sourceNotation, " | ");
-        }
-        else
-        {
-            combineOperation = CombineOperation.None;
-            variants = new Tuple<string, string>(sourceNotation, string.Empty);
-        }
-        
-        return new VolatileForm(variants, combineOperation);
-
-    }*/
-
-    
-    
     public static VolatileForm FromCombinedNotation(string sourceNotation)
     {
         //"  "+word+"  "+"/,\"+"  "+word+"  "
