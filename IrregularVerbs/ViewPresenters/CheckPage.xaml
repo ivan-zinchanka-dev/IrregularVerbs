@@ -41,11 +41,15 @@
                 
                 <DataGridTextColumn Width="200"
                                     Header="Result"
-                                    Binding="{Binding Path=Result}">
+                                    Binding="{Binding 
+                                    Path=Result, 
+                                    Mode=TwoWay, 
+                                    UpdateSourceTrigger=PropertyChanged}"
+                                    >
                     <DataGridTextColumn.ElementStyle>
                         <Style TargetType="{x:Type TextBlock}">
                             <Setter Property="Background" 
-                                    Value="{Binding Result, Converter={StaticResource AnswerResultToBrushConverter}}"/>
+                                    Value="{Binding Result, Converter={StaticResource AnswerResultToBrushConverter}, Mode=TwoWay}"/>
                         </Style>
                     </DataGridTextColumn.ElementStyle>
                     

@@ -35,7 +35,18 @@ public class AnswerResultToBrushConverter : IValueConverter
     {
         if (value is SolidColorBrush brush)
         {
-            return brush.Equals(Brushes.LightGreen);
+            if (brush.Equals(Brushes.LightGreen))
+            {
+                return IrregularVerbAnswer.AnswerResult.Correct;
+            }
+            else if (brush.Equals(Brushes.LightCoral))
+            {
+                return IrregularVerbAnswer.AnswerResult.Incorrect;
+            }
+            else
+            {
+                return IrregularVerbAnswer.AnswerResult.None;
+            }
         }
         else
         {

@@ -30,6 +30,10 @@ public partial class CheckPage : Page
         foreach (IrregularVerbAnswer answer in _answers)
         {
             bool checkResult = _irregularVerbsService.InspectAnswer(answer);
+            answer.Result = checkResult
+                ? IrregularVerbAnswer.AnswerResult.Correct
+                : IrregularVerbAnswer.AnswerResult.Incorrect;
+            
             Console.WriteLine(checkResult + " " + answer);
         }
     }
