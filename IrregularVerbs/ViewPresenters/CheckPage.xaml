@@ -15,7 +15,9 @@
                   x:FieldModifier="private" x:Name="_tableView"
                   AutoGenerateColumns="False"
                   CanUserSortColumns="False"
-                  CanUserReorderColumns="False">
+                  CanUserReorderColumns="False"
+                  CanUserAddRows="False"
+                  CanUserDeleteRows="False">
             <DataGrid.Columns>
                 <DataGridTextColumn Width="100"
                                     Header="Native Word" 
@@ -36,6 +38,19 @@
                 <DataGridTextColumn Width="100"
                                     Header="Past Participle" 
                                     Binding="{Binding Path=PastParticiple}"/>
+                
+                <DataGridTextColumn Width="200"
+                                    Header="Result"
+                                    Binding="{Binding Path=Result}">
+                    <DataGridTextColumn.ElementStyle>
+                        <Style TargetType="{x:Type TextBlock}">
+                            <Setter Property="Background" 
+                                    Value="{Binding Result, Converter={StaticResource AnswerResultToBrushConverter}}"/>
+                        </Style>
+                    </DataGridTextColumn.ElementStyle>
+                    
+                </DataGridTextColumn>
+                
             </DataGrid.Columns>
         </DataGrid>
         <Grid Grid.Row="1">
