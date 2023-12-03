@@ -39,19 +39,14 @@ public static class IrregularVerbsFactory
                 VolatileFormFactory.FromCombinedNotation(infinitive), 
                 VolatileFormFactory.FromCombinedNotation(pastSimple),
                 VolatileFormFactory.FromCombinedNotation(pastParticiple));
-
         }
         else
         {
             return new FixedIrregularVerb(term, 
-                CreateFixedForm(infinitive), 
-                CreateFixedForm(pastSimple), 
-                CreateFixedForm(pastParticiple));
+                FixedFormFactory.FromNotation(infinitive), 
+                FixedFormFactory.FromNotation(pastSimple), 
+                FixedFormFactory.FromNotation(pastParticiple));
         }
     }
-
-    private static string CreateFixedForm(string notation)
-    {
-        return notation.Trim();
-    }
+    
 }

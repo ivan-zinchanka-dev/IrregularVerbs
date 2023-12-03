@@ -1,5 +1,4 @@
-﻿using System;
-using IrregularVerbs.Models.Verbs.Components;
+﻿using IrregularVerbs.Models.Verbs.Components;
 
 namespace IrregularVerbs.Models.Verbs;
 
@@ -22,30 +21,6 @@ public class VolatileIrregularVerb : BaseIrregularVerb
         _pastParticiple = pastParticiple;
     }
 
-    public VolatileIrregularVerb(FixedIrregularVerb fixedIrregularVerb)
-    {
-        Term = fixedIrregularVerb.Term;
-        _infinitive = new VolatileForm(fixedIrregularVerb.Infinitive);
-        _pastSimple = new VolatileForm(fixedIrregularVerb.PastSimple);
-        _pastParticiple = new VolatileForm(fixedIrregularVerb.PastParticiple);
-    }
-    
-    private static VolatileIrregularVerb AssertTypesEquality(BaseIrregularVerb input)
-    {
-        if (input is VolatileIrregularVerb castedInput)
-        {
-            return castedInput;
-        }
-        else if (input is FixedIrregularVerb fixedInput)
-        {
-            return new VolatileIrregularVerb(fixedInput);
-        }
-        else
-        {
-            throw new ArgumentException("Types mismatch", nameof(input));
-        }
-    }
-    
     public override bool Inspect(BaseIrregularVerb input)
     {
         if (input is VolatileIrregularVerb castedInput)

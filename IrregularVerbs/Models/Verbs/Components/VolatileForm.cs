@@ -7,6 +7,8 @@ public class VolatileForm : IOriginal<VolatileForm>
     private readonly Tuple<string, string> _variants;
     private readonly CombineOperation _combineOperation;
     
+    public VolatileForm(string variant) : this(new Tuple<string, string>(variant, string.Empty), CombineOperation.None) { }
+    
     public VolatileForm(Tuple<string, string> variants, CombineOperation combineOperation)
     {
         if (variants.Item1 == variants.Item2)
@@ -22,10 +24,7 @@ public class VolatileForm : IOriginal<VolatileForm>
         _variants = variants;
         _combineOperation = combineOperation;
     }
-
-    public VolatileForm(string variant) 
-        : this(new Tuple<string, string>(variant, string.Empty), CombineOperation.None) { }
-
+    
     public bool Inspect(VolatileForm input)
     {
         switch (_combineOperation)

@@ -22,9 +22,6 @@ public static class VolatileFormFactory
 
     public static VolatileForm FromCombinedNotation(string sourceNotation)
     {
-        //"  "+word+"  "+"/,\"+"  "+word+"  "
-        // use Trim()
-        
         Tuple<string, string> variants;
         CombineOperation combineOperation;
 
@@ -64,7 +61,7 @@ public static class VolatileFormFactory
     
     private static Tuple<string, string> ToVariantsTuple(string sourceNotation)
     {
-        return new Tuple<string, string>(sourceNotation.Trim(), string.Empty);
+        return new Tuple<string, string>(FixedFormFactory.FromNotation(sourceNotation), string.Empty);
     }
     
     private static Tuple<string, string> ToVariantsTuple(string sourceNotation, char separator)
@@ -73,9 +70,17 @@ public static class VolatileFormFactory
         
         switch (variantsArray.Length)
         {
-            case 2: return new Tuple<string, string>(variantsArray[0].Trim(), variantsArray[1].Trim());
-            case 1: return new Tuple<string, string>(variantsArray[0].Trim(), string.Empty);
-            default: return new Tuple<string, string>(string.Empty, string.Empty);
+            case 2: return new Tuple<string, string>(
+                FixedFormFactory.FromNotation(variantsArray[0]), 
+                FixedFormFactory.FromNotation(variantsArray[1]));
+            
+            case 1: return new Tuple<string, string>(
+                FixedFormFactory.FromNotation(variantsArray[0]), 
+                string.Empty);
+            
+            default: return new Tuple<string, string>(
+                string.Empty, 
+                string.Empty);
         }
     }
 }
