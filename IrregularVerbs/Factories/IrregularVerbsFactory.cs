@@ -10,12 +10,6 @@ public static class IrregularVerbsFactory
 {
     private static bool IsVolatileForm(string source)
     {
-        /*if (!string.IsNullOrEmpty(source) && VolatileFormFactory.ContainsSeparator(source, out char foundSeparator))
-        {
-            CombineOperation combineOperation = VolatileFormFactory.GetCombineOperationBySeparator(foundSeparator);
-            return combineOperation == CombineOperation.Or || combineOperation == CombineOperation.And;
-        }*/
-
         return !string.IsNullOrEmpty(source) && VolatileFormFactory.ContainsSeparator(source);
     }
 
@@ -49,7 +43,15 @@ public static class IrregularVerbsFactory
         }
         else
         {
-            return new FixedIrregularVerb(term, infinitive.Trim(), pastSimple.Trim(), pastParticiple.Trim());
+            return new FixedIrregularVerb(term, 
+                CreateFixedForm(infinitive), 
+                CreateFixedForm(pastSimple), 
+                CreateFixedForm(pastParticiple));
         }
+    }
+
+    private static string CreateFixedForm(string notation)
+    {
+        return notation.Trim();
     }
 }

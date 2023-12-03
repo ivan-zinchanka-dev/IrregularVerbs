@@ -6,14 +6,14 @@ namespace IrregularVerbs.Models;
 
 public class IrregularVerbAnswer : INotifyPropertyChanged
 {
+    private AnswerResult _result;
     public event PropertyChangedEventHandler PropertyChanged;
     
     public string Term { get; set; }
     public string Infinitive { get; set; }
     public string PastSimple { get; set; }
     public string PastParticiple { get; set; }
-
-    private AnswerResult _result;
+    
     public AnswerResult Result
     {
         get => _result;
@@ -22,6 +22,13 @@ public class IrregularVerbAnswer : INotifyPropertyChanged
             _result = value;
             OnPropertyChanged();
         }
+    }
+    
+    public enum AnswerResult : byte
+    {
+        None = 0,
+        Correct = 1,
+        Incorrect = 2,
     }
     
     public IrregularVerbAnswer()
@@ -33,13 +40,6 @@ public class IrregularVerbAnswer : INotifyPropertyChanged
         _result = AnswerResult.None;
     }
     
-    public enum AnswerResult : byte
-    {
-        None = 0,
-        Correct = 1,
-        Incorrect = 2,
-    }
-
     public bool HasEmptyFields()
     {
         return Infinitive == string.Empty || PastSimple == string.Empty || PastParticiple == string.Empty;

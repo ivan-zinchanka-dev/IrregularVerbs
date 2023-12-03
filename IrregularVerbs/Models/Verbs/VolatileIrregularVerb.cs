@@ -55,25 +55,4 @@ public class VolatileIrregularVerb : BaseIrregularVerb
                VolatileForm.Inspect(castedInput._pastSimple, _pastSimple) &&
                VolatileForm.Inspect(castedInput._pastParticiple, _pastParticiple);
     }
-
-    public override bool Equals(object other)
-    {
-        if (ReferenceEquals(this, other))
-        {
-            return true;
-        }
-        
-        if (other is VolatileIrregularVerb otherVerb)
-        {
-            if (GetHashCode() == otherVerb.GetHashCode())
-            {
-                return Term == otherVerb.Term && 
-                       Infinitive == otherVerb.Infinitive &&
-                       PastSimple == otherVerb.PastSimple &&
-                       PastParticiple == otherVerb.PastParticiple;
-            }
-        }
-
-        return false;
-    }
 }
