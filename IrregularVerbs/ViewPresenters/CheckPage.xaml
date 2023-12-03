@@ -20,9 +20,9 @@
                   CanUserDeleteRows="False">
             <DataGrid.Columns>
                 <DataGridTextColumn Width="100"
-                                    Header="Native Word" 
-                                    Binding="{Binding Path=Term}"
-                                    IsReadOnly="True"/>
+                                    Header="Native Word"
+                                    IsReadOnly="True"
+                                    Binding="{Binding Path=Term}"/>
                 
                 <DataGridTextColumn Width="100"
                                     Header="Infinitive" 
@@ -41,6 +41,7 @@
                 
                 <DataGridTextColumn Width="200"
                                     Header="Result"
+                                    IsReadOnly="True"
                                     Binding="{Binding 
                                     Path=Result, 
                                     Mode=TwoWay, 

@@ -9,24 +9,72 @@
       Title="StartPage" Height="450" Width="800">
     <Grid>
         <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center">
-            <TextBlock Margin="0 0 0 0" 
-                       Text="Your native language: ">
-            </TextBlock>
-            <ComboBox Margin="0 10 0 0">
-                <system:String>english</system:String>
-                <system:String>russian</system:String>
-                <system:String>belarusian</system:String>
-            </ComboBox>
+            <GroupBox Header="Settings">
+                <Grid Width="300">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="*"/>
+                    </Grid.RowDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="*"/>
+                    </Grid.ColumnDefinitions>
+                    
+                    <TextBlock Grid.Row="0" Grid.Column="0"
+                               Margin="5 5 0 0" 
+                               Text="Your native language: ">
+                    </TextBlock>
+                    <ComboBox Grid.Row="0" Grid.Column="1"
+                              Margin="0 5 5 0">
+                        <system:String>english</system:String>
+                        <system:String>russian</system:String>
+                        <system:String>belarusian</system:String>
+                    </ComboBox>
+                    
+                    <TextBlock Grid.Row="1" Grid.Column="0"
+                               Margin="5 5 0 0" 
+                               Text="Number of verbs: ">
+                    </TextBlock>
+                    <TextBox Grid.Row="1" Grid.Column="1"
+                             Margin="0 5 5 0"
+                             Text="100">
+                    </TextBox>
+                    
+                    <TextBlock Grid.Row="2" Grid.Column="0"
+                               Margin="5 5 0 5" 
+                               Text="Random order of verbs: ">
+                    </TextBlock>
+                    <CheckBox Grid.Row="2" Grid.Column="1"
+                              Margin="0 5 5 5">
+                    </CheckBox>
+                    
+                </Grid>
+                
+            </GroupBox>
             
-            <Button Margin="0 10 0 0"
-                    Content="Revise"
-                    Click="OnReviseClick">
-            </Button>
+            <GroupBox Header="Actions" Margin="0 10 0 0">
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="*"/>
+                    </Grid.ColumnDefinitions>
+                    <Button Grid.Column="0"
+                            Margin="5 5 5 5"
+                            Content="Revise"
+                            Click="OnReviseClick">
+                    </Button>
             
-            <Button Margin="0 10 0 0"
-                    Content="Check"
-                    Click="OnCheckClick">
-            </Button>
+                    <Button Grid.Column="1"
+                            Margin="5 5 5 5"
+                            Content="Check"
+                            Click="OnCheckClick">
+                    </Button>
+                </Grid>
+                
+            </GroupBox>
+            
+            
             
             
         </StackPanel>

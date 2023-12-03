@@ -8,7 +8,7 @@ public static class FixedFormFactory
         
         if (sourceNotation.Length > 0 && char.IsUpper(sourceNotation[0]))
         {
-            sourceNotation = char.ToLower(sourceNotation[0]) + sourceNotation.Substring(1);
+            sourceNotation = $"{char.ToLower(sourceNotation[0])}{sourceNotation.Substring(1)}";
         }
 
         return sourceNotation;
