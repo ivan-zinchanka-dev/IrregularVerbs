@@ -13,13 +13,15 @@ public class IrregularVerbsTeacher
 {
     private readonly IrregularVerbsStorage _storage;
     private readonly int _questionsCount;
+    private readonly bool _disorderVerbs;
 
     private List<IrregularVerbAnswer> _cachedTask;
     
-    public IrregularVerbsTeacher(IrregularVerbsStorage storage, int questionsCount)
+    public IrregularVerbsTeacher(IrregularVerbsStorage storage, int questionsCount, bool disorderVerbs = true)
     {
         _storage = storage;
         _questionsCount = questionsCount;
+        _disorderVerbs = disorderVerbs;
     }
 
     public IEnumerable<IrregularVerbAnswer> GenerateTask()
@@ -28,8 +30,10 @@ public class IrregularVerbsTeacher
         {
             return new List<IrregularVerbAnswer>();
         }
+
+        List<BaseIrregularVerb> verbs = _disorderVerbs ? _storage.IrregularVerbs.Disorder() : _storage.IrregularVerbs;
+        verbs = verbs.Take(_questionsCount).ToList();
         
-        List<BaseIrregularVerb> verbs = _storage.IrregularVerbs.Disorder().Take(_questionsCount).ToList();
         _cachedTask = new List<IrregularVerbAnswer>(verbs.Count);
 
         foreach (BaseIrregularVerb verb in verbs)

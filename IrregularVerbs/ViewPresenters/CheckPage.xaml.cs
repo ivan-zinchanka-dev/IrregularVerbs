@@ -15,7 +15,7 @@ public partial class CheckPage : Page
     public CheckPage()
     {
         InitializeComponent();
-        _teacher = new IrregularVerbsTeacher(App.Instance.IrregularVerbsStorage, 10);
+        _teacher = new IrregularVerbsTeacher(App.Instance.IrregularVerbsStorage, 12, false);
         _answers = new ObservableCollection<IrregularVerbAnswer>(_teacher.GenerateTask());
         Loaded += OnPageLoaded;
     }
@@ -28,15 +28,5 @@ public partial class CheckPage : Page
     private void OnCheckButtonClick(object sender, RoutedEventArgs e)
     {
         _teacher.CheckTask();
-        
-        /*foreach (IrregularVerbAnswer answer in _answers)
-        {
-            bool checkResult = _irregularVerbsStorage.InspectAnswer(answer);
-            answer.Result = checkResult
-                ? IrregularVerbAnswer.AnswerResult.Correct
-                : IrregularVerbAnswer.AnswerResult.Incorrect;
-            
-            Console.WriteLine(checkResult + " " + answer);
-        }*/
     }
 }
