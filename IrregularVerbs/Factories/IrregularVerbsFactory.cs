@@ -10,13 +10,13 @@ public static class IrregularVerbsFactory
 {
     private static bool IsVolatileForm(string source)
     {
-        if (!string.IsNullOrEmpty(source) && VolatileFormFactory.ContainsSeparator(source, out char foundSeparator))
+        /*if (!string.IsNullOrEmpty(source) && VolatileFormFactory.ContainsSeparator(source, out char foundSeparator))
         {
             CombineOperation combineOperation = VolatileFormFactory.GetCombineOperationBySeparator(foundSeparator);
             return combineOperation == CombineOperation.Or || combineOperation == CombineOperation.And;
-        }
+        }*/
 
-        return false;
+        return !string.IsNullOrEmpty(source) && VolatileFormFactory.ContainsSeparator(source);
     }
 
     public static BaseIrregularVerb FromDataRow(DataRow dataRow)
@@ -49,7 +49,7 @@ public static class IrregularVerbsFactory
         }
         else
         {
-            return new FixedIrregularVerb(term, infinitive, pastSimple, pastParticiple);
+            return new FixedIrregularVerb(term, infinitive.Trim(), pastSimple.Trim(), pastParticiple.Trim());
         }
     }
 }

@@ -1,4 +1,5 @@
-﻿using System.ComponentModel;
+﻿using System;
+using System.ComponentModel;
 using System.Runtime.CompilerServices;
 
 namespace IrregularVerbs.Models;
@@ -37,6 +38,11 @@ public class IrregularVerbAnswer : INotifyPropertyChanged
         None = 0,
         Correct = 1,
         Incorrect = 2,
+    }
+
+    public bool HasEmptyFields()
+    {
+        return Infinitive == string.Empty || PastSimple == string.Empty || PastParticiple == string.Empty;
     }
 
     public override string ToString()

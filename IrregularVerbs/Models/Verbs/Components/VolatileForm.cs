@@ -22,7 +22,10 @@ public class VolatileForm
         _variants = variants;
         _combineOperation = combineOperation;
     }
-    
+
+    public VolatileForm(string variant) 
+        : this(new Tuple<string, string>(variant, string.Empty), CombineOperation.None) { }
+
     public override string ToString()
     {
         return string.IsNullOrEmpty(_variants.Item2) ? 

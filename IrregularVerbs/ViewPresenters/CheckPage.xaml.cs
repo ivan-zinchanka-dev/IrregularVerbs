@@ -16,7 +16,7 @@ public partial class CheckPage : Page
     {
         InitializeComponent();
         _irregularVerbsService = App.Instance.IrregularVerbsService;
-        _answers = _irregularVerbsService.GetRandomVerbAnswers(3);
+        _answers = _irregularVerbsService.GetRangedVerbAnswers(22);
         Loaded += OnPageLoaded;
     }
     

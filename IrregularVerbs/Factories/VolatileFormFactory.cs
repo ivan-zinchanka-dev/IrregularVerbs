@@ -42,6 +42,10 @@ public static class VolatileFormFactory
         return new VolatileForm(variants, combineOperation);
     }
 
+    public static bool ContainsSeparator(string sourceNotation)
+    {
+        return ContainsSeparator(sourceNotation, out char foundSeparator);
+    }
 
     public static bool ContainsSeparator(string sourceNotation, out char foundSeparator)
     {

@@ -5,6 +5,7 @@ using System.Data;
 using System.IO;
 using System.Linq;
 using System.Text;
+using System.Windows.Documents;
 using ExcelDataReader;
 using IrregularVerbs.Factories;
 using IrregularVerbs.Models;
@@ -59,6 +60,28 @@ public class IrregularVerbsService
         };
     }
 
+    public ObservableCollection<IrregularVerbAnswer> GetRangedVerbAnswers(int formsCount)
+    {
+        if (IrregularVerbs == null)
+        {
+            return null;
+        }
+
+        if (formsCount > IrregularVerbs.Count)
+        {
+            throw new ArgumentOutOfRangeException(nameof(formsCount), formsCount, "should be less than " + IrregularVerbs.Count);
+        }
+
+        List<IrregularVerbAnswer> answers = new List<IrregularVerbAnswer>(formsCount); 
+        
+        for (int i = 0; i < formsCount; i++)
+        {
+            answers.Add(CreateAnswer(IrregularVerbs[i]));
+        }
+
+        return new ObservableCollection<IrregularVerbAnswer>(answers);
+    }
+    
     public ObservableCollection<IrregularVerbAnswer> GetRandomVerbAnswers(int formsCount)
     {
         if (IrregularVerbs == null)
@@ -97,12 +120,22 @@ public class IrregularVerbsService
 
     public bool InspectAnswer(IrregularVerbAnswer answer)
     {
+        if (answer.HasEmptyFields())
+            return false;
+        
         BaseIrregularVerb originalIrregularVerb = IrregularVerbs.Find(verb => verb.Term == answer.Term);
 
         if (originalIrregularVerb != null)
         {
-            BaseIrregularVerb answeredIrregularVerb = IrregularVerbsFactory.FromAnswer(answer);
-            return originalIrregularVerb.Inspect(answeredIrregularVerb);
+            try
+            {
+                BaseIrregularVerb answeredIrregularVerb = IrregularVerbsFactory.FromAnswer(answer);
+                return originalIrregularVerb.Inspect(answeredIrregularVerb);
+            }
+            catch (Exception ex)
+            {
+                return false;
+            }
         }
 
         return false;
