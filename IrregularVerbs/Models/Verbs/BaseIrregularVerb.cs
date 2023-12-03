@@ -2,7 +2,7 @@
 
 namespace IrregularVerbs.Models.Verbs;
 
-public abstract class BaseIrregularVerb
+public abstract class BaseIrregularVerb : IOriginal<BaseIrregularVerb>
 {
     public abstract string Term { get; protected set; }
     public abstract string Infinitive { get; }

@@ -17,7 +17,7 @@ namespace IrregularVerbs
     {
         public static App Instance { get; private set; } = null!;
 
-        public IrregularVerbsService IrregularVerbsService { get; private set; }
+        public IrregularVerbsStorage IrregularVerbsStorage { get; private set; }
 
         public App()
         {
@@ -28,7 +28,7 @@ namespace IrregularVerbs
         {
             base.OnStartup(e);
 
-            IrregularVerbsService = new IrregularVerbsService();
+            IrregularVerbsStorage = new IrregularVerbsStorage();
 
         }
     }

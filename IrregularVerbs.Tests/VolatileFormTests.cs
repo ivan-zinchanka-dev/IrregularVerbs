@@ -36,36 +36,36 @@ public class VolatileFormTests
     [Test]
     public void InspectEqual0()
     {
-        Assert.That(VolatileForm.Inspect(_learnedVerbEqual0, _learnedVerbOriginal));
+        Assert.That(_learnedVerbOriginal.Inspect(_learnedVerbEqual0));
     }
     
     [Test]
     public void InspectEqual1()
     {
-        Assert.That(VolatileForm.Inspect(_learnedVerbEqual1, _learnedVerbOriginal));
+        Assert.That(_learnedVerbOriginal.Inspect(_learnedVerbEqual1));
     }
     
     [Test]
     public void InspectOneVariant0()
     {
-        Assert.That(VolatileForm.Inspect(_learnedVerbWithOneVariant0, _learnedVerbOriginal));
+        Assert.That(_learnedVerbOriginal.Inspect(_learnedVerbWithOneVariant0));
     }
     
     [Test]
     public void InspectOneVariant1()
     {
-        Assert.That(VolatileForm.Inspect(_learnedVerbWithOneVariant1, _learnedVerbOriginal));
+        Assert.That(_learnedVerbOriginal.Inspect(_learnedVerbWithOneVariant1));
     }
 
     [Test]
     public void InspectWrongInput()
     {
-        Assert.IsFalse(VolatileForm.Inspect(_wrongInput, _learnedVerbOriginal));
+        Assert.IsFalse(_learnedVerbOriginal.Inspect(_wrongInput));
     }
     
     [Test]
     public void InspectOneWrongVariant()
     {
-        Assert.IsFalse(VolatileForm.Inspect(_wrongInputWithOneVariant, _learnedVerbOriginal));
+        Assert.IsFalse(_learnedVerbOriginal.Inspect(_wrongInputWithOneVariant));
     }
 }

@@ -45,14 +45,25 @@ public class VolatileIrregularVerb : BaseIrregularVerb
             throw new ArgumentException("Types mismatch", nameof(input));
         }
     }
-
+    
     public override bool Inspect(BaseIrregularVerb input)
     {
+        if (input is VolatileIrregularVerb castedInput)
+        {
+            return Inspect(castedInput);
+        }
+        else
+        {
+            return false;
+        }
+    }
+
+    private bool Inspect(VolatileIrregularVerb input)
+    {
         AssertTermEquality(input);
-        VolatileIrregularVerb castedInput = AssertTypesEquality(input);
         
-        return VolatileForm.Inspect(castedInput._infinitive, _infinitive) &&
-               VolatileForm.Inspect(castedInput._pastSimple, _pastSimple) &&
-               VolatileForm.Inspect(castedInput._pastParticiple, _pastParticiple);
+        return _infinitive.Inspect(input._infinitive) &&
+               _pastSimple.Inspect(input._pastSimple) &&
+               _pastParticiple.Inspect(input._pastParticiple);
     }
 }

@@ -2,7 +2,7 @@
 
 namespace IrregularVerbs.Models.Verbs.Components;
 
-public class VolatileForm
+public class VolatileForm : IOriginal<VolatileForm>
 {
     private readonly Tuple<string, string> _variants;
     private readonly CombineOperation _combineOperation;
@@ -25,33 +25,32 @@ public class VolatileForm
 
     public VolatileForm(string variant) 
         : this(new Tuple<string, string>(variant, string.Empty), CombineOperation.None) { }
-    
-    public static bool Inspect(VolatileForm input, VolatileForm original)
+
+    public bool Inspect(VolatileForm input)
     {
-        switch (original._combineOperation)
+        switch (_combineOperation)
         {
             case CombineOperation.None: 
-                return input._variants.Item1 == original._variants.Item1;
+                return input._variants.Item1 == _variants.Item1;
             
             case CombineOperation.And:
-                return (input._variants.Item1 == original._variants.Item1 ||
-                        input._variants.Item1 == original._variants.Item2) &&
-                       (input._variants.Item2 == original._variants.Item1 ||
-                        input._variants.Item2 == original._variants.Item2);
+                return (input._variants.Item1 == _variants.Item1 ||
+                        input._variants.Item1 == _variants.Item2) &&
+                       (input._variants.Item2 == _variants.Item1 ||
+                        input._variants.Item2 == _variants.Item2);
             
             case CombineOperation.Or:
-                return (input._variants.Item1 == original._variants.Item1 ||
-                        input._variants.Item1 == original._variants.Item2) && 
+                return (input._variants.Item1 == _variants.Item1 ||
+                        input._variants.Item1 == _variants.Item2) && 
                        (string.IsNullOrEmpty(input._variants.Item2) ||
-                        input._variants.Item2 == original._variants.Item1 ||
-                        input._variants.Item2 == original._variants.Item2);
+                        input._variants.Item2 == _variants.Item1 ||
+                        input._variants.Item2 == _variants.Item2);
             
             default: 
                 return false;
         }
-
     }
-    
+
     public override string ToString()
     {
         return string.IsNullOrEmpty(_variants.Item2) ? 

@@ -9,14 +9,14 @@ namespace IrregularVerbs.ViewPresenters;
 
 public partial class CheckPage : Page
 {
-    private IrregularVerbsService _irregularVerbsService;
     private ObservableCollection<IrregularVerbAnswer> _answers;
+    private IrregularVerbsTeacher _teacher;
     
     public CheckPage()
     {
         InitializeComponent();
-        _irregularVerbsService = App.Instance.IrregularVerbsService;
-        _answers = _irregularVerbsService.GetRangedVerbAnswers(22);
+        _teacher = new IrregularVerbsTeacher(App.Instance.IrregularVerbsStorage, 10);
+        _answers = new ObservableCollection<IrregularVerbAnswer>(_teacher.GenerateTask());
         Loaded += OnPageLoaded;
     }
     
@@ -27,14 +27,16 @@ public partial class CheckPage : Page
     
     private void OnCheckButtonClick(object sender, RoutedEventArgs e)
     {
-        foreach (IrregularVerbAnswer answer in _answers)
+        _teacher.CheckTask();
+        
+        /*foreach (IrregularVerbAnswer answer in _answers)
         {
-            bool checkResult = _irregularVerbsService.InspectAnswer(answer);
+            bool checkResult = _irregularVerbsStorage.InspectAnswer(answer);
             answer.Result = checkResult
                 ? IrregularVerbAnswer.AnswerResult.Correct
                 : IrregularVerbAnswer.AnswerResult.Incorrect;
             
             Console.WriteLine(checkResult + " " + answer);
-        }
+        }*/
     }
 }

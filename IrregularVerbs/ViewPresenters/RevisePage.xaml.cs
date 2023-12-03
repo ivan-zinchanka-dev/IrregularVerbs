@@ -16,7 +16,7 @@ public partial class RevisePage : Page
     
     private void OnPageLoaded(object sender, RoutedEventArgs args)
     {
-        _tableView.ItemsSource = App.Instance.IrregularVerbsService.IrregularVerbs;
+        _tableView.ItemsSource = App.Instance.IrregularVerbsStorage.IrregularVerbs;
     }
 
     private void OnBackButtonClick(object sender, RoutedEventArgs e)
