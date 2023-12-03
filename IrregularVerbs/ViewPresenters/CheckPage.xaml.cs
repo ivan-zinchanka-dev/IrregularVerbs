@@ -1,12 +1,11 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Windows;
 using System.Windows.Controls;
 using IrregularVerbs.Models;
 using IrregularVerbs.Services;
 
-namespace IrregularVerbs.Views;
+namespace IrregularVerbs.ViewPresenters;
 
 public partial class CheckPage : Page
 {
@@ -30,7 +29,7 @@ public partial class CheckPage : Page
     {
         foreach (IrregularVerbAnswer answer in _answers)
         {
-            bool checkResult = _irregularVerbsService.CheckAnswer(answer);
+            bool checkResult = _irregularVerbsService.InspectAnswer(answer);
             Console.WriteLine(checkResult + " " + answer);
         }
     }

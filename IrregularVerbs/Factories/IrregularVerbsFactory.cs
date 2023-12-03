@@ -2,6 +2,7 @@
 using System.Diagnostics.CodeAnalysis;
 using IrregularVerbs.Models;
 using IrregularVerbs.Models.Verbs;
+using IrregularVerbs.Models.Verbs.Components;
 
 namespace IrregularVerbs.Factories;
 
@@ -9,7 +10,13 @@ public static class IrregularVerbsFactory
 {
     private static bool IsVolatileForm(string source)
     {
-        return !string.IsNullOrEmpty(source) && (source.Contains('|') || source.Contains('&'));
+        if (!string.IsNullOrEmpty(source) && VolatileFormFactory.ContainsSeparator(source, out char foundSeparator))
+        {
+            CombineOperation combineOperation = VolatileFormFactory.GetCombineOperationBySeparator(foundSeparator);
+            return combineOperation == CombineOperation.Or || combineOperation == CombineOperation.And;
+        }
+
+        return false;
     }
 
     public static BaseIrregularVerb FromDataRow(DataRow dataRow)
@@ -30,7 +37,7 @@ public static class IrregularVerbsFactory
             answer.PastParticiple);
     }
 
-    private static BaseIrregularVerb CreateIrregularVerb([NotNull] string term, string infinitive, string pastSimple, string pastParticiple)
+    private static BaseIrregularVerb CreateIrregularVerb(string term, string infinitive, string pastSimple, string pastParticiple)
     {
         if (IsVolatileForm(pastSimple) || IsVolatileForm(pastParticiple))
         {

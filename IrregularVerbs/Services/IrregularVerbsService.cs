@@ -95,14 +95,14 @@ public class IrregularVerbsService
     }
 
 
-    public bool CheckAnswer(IrregularVerbAnswer answer)
+    public bool InspectAnswer(IrregularVerbAnswer answer)
     {
         BaseIrregularVerb originalIrregularVerb = IrregularVerbs.Find(verb => verb.Term == answer.Term);
 
         if (originalIrregularVerb != null)
         {
             BaseIrregularVerb answeredIrregularVerb = IrregularVerbsFactory.FromAnswer(answer);
-            return originalIrregularVerb.Equals(answeredIrregularVerb);
+            return originalIrregularVerb.Inspect(answeredIrregularVerb);
         }
 
         return false;

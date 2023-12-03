@@ -1,4 +1,6 @@
-﻿namespace IrregularVerbs.Models;
+﻿using IrregularVerbs.Models.Verbs;
+
+namespace IrregularVerbs.Models;
 
 public class IrregularVerbAnswer
 {
@@ -15,8 +17,13 @@ public class IrregularVerbAnswer
         PastParticiple = string.Empty;
     }
 
+    /*public static bool Inspect(IrregularVerbAnswer input, BaseIrregularVerb original)
+    {
+        
+    }*/
+
     public override string ToString()
     {
-        return Infinitive + " " + PastSimple + " " + PastParticiple;
+        return $"{Infinitive}|{PastSimple}|{PastParticiple}";
     }
 }

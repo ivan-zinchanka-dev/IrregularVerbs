@@ -1,12 +1,13 @@
-﻿using IrregularVerbs.Models.Verbs.Components;
+﻿using System;
+using IrregularVerbs.Models.Verbs.Components;
 
 namespace IrregularVerbs.Models.Verbs;
 
 public class VolatileIrregularVerb : BaseIrregularVerb
 {
-    private VolatileForm _infinitive;
-    private VolatileForm _pastSimple;
-    private VolatileForm _pastParticiple;
+    private readonly VolatileForm _infinitive;
+    private readonly VolatileForm _pastSimple;
+    private readonly VolatileForm _pastParticiple;
     
     public sealed override string Term { get; protected set; }
     public sealed override string Infinitive => _infinitive.ToString();
@@ -19,6 +20,28 @@ public class VolatileIrregularVerb : BaseIrregularVerb
         _infinitive = infinitive;
         _pastSimple = pastSimple;
         _pastParticiple = pastParticiple;
+    }
+
+    private static VolatileIrregularVerb AssertTypesEquality(BaseIrregularVerb input)
+    {
+        if (input is VolatileIrregularVerb castedInput)
+        {
+            return castedInput;
+        }
+        else
+        {
+            throw new ArgumentException("Types mismatch", nameof(input));
+        }
+    }
+
+    public override bool Inspect(BaseIrregularVerb input)
+    {
+        AssertTermEquality(input);
+        VolatileIrregularVerb castedInput = AssertTypesEquality(input);
+
+        return VolatileForm.Inspect(castedInput._infinitive, _infinitive) &&
+               VolatileForm.Inspect(castedInput._pastSimple, _pastSimple) &&
+               VolatileForm.Inspect(castedInput._pastParticiple, _pastParticiple);
     }
 
     public override bool Equals(object other)

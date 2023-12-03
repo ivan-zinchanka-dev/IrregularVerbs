@@ -5,7 +5,7 @@ namespace IrregularVerbs.Models.Verbs.Components;
 public class VolatileForm
 {
     private readonly Tuple<string, string> _variants;
-    private CombineOperation _combineOperation;
+    private readonly CombineOperation _combineOperation;
     
     public VolatileForm(Tuple<string, string> variants, CombineOperation combineOperation)
     {

@@ -1,9 +1,8 @@
-﻿<Page x:Class="IrregularVerbs.Views.RevisePage"
+﻿<Page x:Class="IrregularVerbs.ViewPresenters.RevisePage"
       xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
       xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-      xmlns:local="clr-namespace:IrregularVerbs.Views"
       mc:Ignorable="d"
       Title="RevisePage" Height="660" Width="700">
     <Grid>

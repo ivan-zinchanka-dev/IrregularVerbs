@@ -2,7 +2,7 @@
 using System.Windows;
 using System.Windows.Controls;
 
-namespace IrregularVerbs.Views;
+namespace IrregularVerbs.ViewPresenters;
 
 public partial class RevisePage : Page
 {

@@ -15,6 +15,11 @@ public static class VolatileFormFactory
         {'\"', CombineOperation.Unknown},
     };
 
+    public static CombineOperation GetCombineOperationBySeparator(char separator)
+    {
+        return Separators.TryGetValue(separator, out CombineOperation operation) ? operation : CombineOperation.None;
+    }
+
     public static VolatileForm FromCombinedNotation(string sourceNotation)
     {
         //"  "+word+"  "+"/,\"+"  "+word+"  "
@@ -38,7 +43,7 @@ public static class VolatileFormFactory
     }
 
 
-    private static bool ContainsSeparator(string sourceNotation, out char foundSeparator)
+    public static bool ContainsSeparator(string sourceNotation, out char foundSeparator)
     {
         foreach (var separator in Separators)
         {
