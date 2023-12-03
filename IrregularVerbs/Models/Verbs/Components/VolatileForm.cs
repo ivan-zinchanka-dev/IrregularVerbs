@@ -14,6 +14,11 @@ public class VolatileForm
             throw new ArgumentException("Variants cant be equal", nameof(variants));
         }
 
+        if (string.IsNullOrEmpty(variants.Item1))
+        {
+            throw new ArgumentException("First variant cant be null or empty", nameof(variants.Item1));
+        }
+
         _variants = variants;
         _combineOperation = combineOperation;
     }
@@ -23,6 +28,32 @@ public class VolatileForm
         return string.IsNullOrEmpty(_variants.Item2) ? 
             _variants.Item1 : 
             $"{_variants.Item1}/{_variants.Item2}";
+    }
+
+    public static bool Inspect(VolatileForm input, VolatileForm original)
+    {
+        switch (original._combineOperation)
+        {
+            case CombineOperation.None: 
+                return input._variants.Item1 == original._variants.Item1;
+            
+            case CombineOperation.And:
+                return (input._variants.Item1 == original._variants.Item1 ||
+                        input._variants.Item1 == original._variants.Item2) &&
+                       (input._variants.Item2 == original._variants.Item1 ||
+                        input._variants.Item2 == original._variants.Item2);
+            
+            case CombineOperation.Or:
+                return (input._variants.Item1 == original._variants.Item1 ||
+                        input._variants.Item1 == original._variants.Item2) && 
+                       (string.IsNullOrEmpty(input._variants.Item2) ||
+                        input._variants.Item2 == original._variants.Item1 ||
+                        input._variants.Item2 == original._variants.Item2);
+            
+            default: 
+                return false;
+        }
+
     }
 
     public override bool Equals(object other)
