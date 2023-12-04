@@ -6,6 +6,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
+using IrregularVerbs.Models;
 using IrregularVerbs.Services;
 
 namespace IrregularVerbs
@@ -18,6 +19,7 @@ namespace IrregularVerbs
         public static App Instance { get; private set; } = null!;
 
         public IrregularVerbsStorage IrregularVerbsStorage { get; private set; }
+        public ApplicationSettings ApplicationSettings { get; set; }
 
         public App()
         {
@@ -28,6 +30,13 @@ namespace IrregularVerbs
         {
             base.OnStartup(e);
 
+            ApplicationSettings = new ApplicationSettings()
+            {
+                NativeLanguage = "russian",
+                VerbsCount = 10,
+                DisorderVerbs = false,
+            };
+            
             IrregularVerbsStorage = new IrregularVerbsStorage();
 
         }

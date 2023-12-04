@@ -1,7 +1,13 @@
 ﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-                    xmlns:converters="clr-namespace:IrregularVerbs.Converters">
+                    xmlns:converters="clr-namespace:IrregularVerbs.Converters"
+                    xmlns:models="clr-namespace:IrregularVerbs.Models">
     
     <converters:AnswerResultToBrushConverter x:Key="AnswerResultToBrushConverter"/>
+    
+    <models:ApplicationSettings x:Key="ApplicationSettings" 
+                                NativeLanguage="russian"
+                                VerbsCount="10"
+                                DisorderVerbs="True"/>
     
 </ResourceDictionary>

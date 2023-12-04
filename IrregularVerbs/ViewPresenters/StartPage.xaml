@@ -9,7 +9,7 @@
       Title="StartPage" Height="450" Width="800">
     <Grid>
         <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center">
-            <GroupBox Header="Settings">
+            <GroupBox Header="Settings" DataContext="{StaticResource ApplicationSettings}">
                 <Grid Width="300">
                     <Grid.RowDefinitions>
                         <RowDefinition Height="*"/>
@@ -26,7 +26,10 @@
                                Text="Your native language: ">
                     </TextBlock>
                     <ComboBox Grid.Row="0" Grid.Column="1"
-                              Margin="0 5 5 0">
+                              x:FieldModifier="private" 
+                              x:Name="_nativeLanguageComboBox"
+                              Margin="0 5 5 0"
+                              SelectedIndex="1">
                         <system:String>english</system:String>
                         <system:String>russian</system:String>
                         <system:String>belarusian</system:String>
@@ -37,8 +40,15 @@
                                Text="Number of verbs: ">
                     </TextBlock>
                     <TextBox Grid.Row="1" Grid.Column="1"
+                             x:FieldModifier="private" 
+                             x:Name="_verbsCountTextBox"
                              Margin="0 5 5 0"
-                             Text="100">
+                             >
+                        <Binding Path="VerbsCount" >
+                            <Binding.ValidationRules>
+                                <ExceptionValidationRule/>
+                            </Binding.ValidationRules>
+                        </Binding>
                     </TextBox>
                     
                     <TextBlock Grid.Row="2" Grid.Column="0"
@@ -46,7 +56,10 @@
                                Text="Random order of verbs: ">
                     </TextBlock>
                     <CheckBox Grid.Row="2" Grid.Column="1"
-                              Margin="0 5 5 5">
+                              x:FieldModifier="private" 
+                              x:Name="_disorderVerbsCheckBox"
+                              Margin="0 5 5 5"
+                              IsChecked="{Binding Path=DisorderVerbs}">
                     </CheckBox>
                     
                 </Grid>
