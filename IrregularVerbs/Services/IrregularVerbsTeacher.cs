@@ -68,7 +68,7 @@ public class IrregularVerbsTeacher
             if (original is VolatileIrregularVerb && input is FixedIrregularVerb)
             {
                 input = new VolatileIrregularVerb(
-                    input.Term,
+                    input.NativeWord,
                     new VolatileForm(input.Infinitive),
                     new VolatileForm(input.PastSimple),
                     new VolatileForm(input.PastParticiple));

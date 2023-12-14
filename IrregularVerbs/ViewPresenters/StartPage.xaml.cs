@@ -29,7 +29,7 @@ public partial class StartPage : Page
 
     private void ResetSettings()
     {
-        App.Instance.ApplicationSettings = new ApplicationSettings
+        App.Instance.Settings = new ApplicationSettings
         {
             NativeLanguage = _nativeLanguageComboBox.Text,
             VerbsCount = int.Parse(_verbsCountTextBox.Text),

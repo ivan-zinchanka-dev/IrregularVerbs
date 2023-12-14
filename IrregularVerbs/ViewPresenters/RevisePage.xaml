@@ -17,7 +17,7 @@
                 <GridView AllowsColumnReorder="False">
                     <GridViewColumn Width="110"
                                     Header="Native Word" 
-                                    DisplayMemberBinding="{Binding Path=Term}">
+                                    DisplayMemberBinding="{Binding Path=NativeWord}">
                     </GridViewColumn>
                     <GridViewColumn Width="110"
                                     Header="Infinitive" 

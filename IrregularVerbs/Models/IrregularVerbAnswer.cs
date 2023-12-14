@@ -1,6 +1,7 @@
 ﻿using System.ComponentModel;
 using System.Runtime.CompilerServices;
 using IrregularVerbs.Models.Verbs;
+using IrregularVerbs.Services;
 
 namespace IrregularVerbs.Models;
 
@@ -10,7 +11,7 @@ public class IrregularVerbAnswer : INotifyPropertyChanged
     private AnswerResult _result;
     public event PropertyChangedEventHandler PropertyChanged;
     
-    public string Term { get; private set; }
+    public LocalizedText NativeWord { get; private set; }
     public string Infinitive { get; set; }
     public string PastSimple { get; set; }
     public string PastParticiple { get; set; }
@@ -36,7 +37,7 @@ public class IrregularVerbAnswer : INotifyPropertyChanged
     {
         Original = original;
         
-        Term = original.Term;
+        NativeWord = original.NativeWord;
         Infinitive = string.Empty;
         PastSimple = string.Empty;
         PastParticiple = string.Empty;

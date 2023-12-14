@@ -1,15 +1,16 @@
-﻿namespace IrregularVerbs.Models.Verbs;
+﻿using IrregularVerbs.Services;
+
+namespace IrregularVerbs.Models.Verbs;
 
 public class FixedIrregularVerb : BaseIrregularVerb
 {
-    public sealed override string Term { get; protected set; }
     public sealed override string Infinitive { get; }
     public sealed override string PastSimple { get;}
     public sealed override string PastParticiple { get;}
     
-    public FixedIrregularVerb(string term, string infinitive, string pastSimple, string pastParticiple)
+    public FixedIrregularVerb(LocalizedText nativeWord, string infinitive, string pastSimple, string pastParticiple)
     {
-        Term = term;
+        NativeWord = nativeWord;
         Infinitive = infinitive;
         PastSimple = pastSimple;
         PastParticiple = pastParticiple;

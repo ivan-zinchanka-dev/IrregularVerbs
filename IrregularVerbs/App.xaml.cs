@@ -19,7 +19,8 @@ namespace IrregularVerbs
         public static App Instance { get; private set; } = null!;
 
         public IrregularVerbsStorage IrregularVerbsStorage { get; private set; }
-        public ApplicationSettings ApplicationSettings { get; set; }
+        public LocalizationService LocalizationService { get; private set; }
+        public ApplicationSettings Settings { get; set; }
 
         public App()
         {
@@ -30,15 +31,17 @@ namespace IrregularVerbs
         {
             base.OnStartup(e);
 
-            ApplicationSettings = new ApplicationSettings()
+            Settings = new ApplicationSettings()
             {
                 NativeLanguage = "russian",
                 VerbsCount = 10,
                 DisorderVerbs = false,
             };
+
+            LocalizationService = new LocalizationService();
+            LocalizationService.CurrentLanguage = Language.Russian;
             
             IrregularVerbsStorage = new IrregularVerbsStorage();
-
         }
     }
 }

@@ -14,6 +14,10 @@
       <Content Include="Resources\irregular_verbs_source.xlsx">
         <CopyToOutputDirectory>Always</CopyToOutputDirectory>
       </Content>
+      <None Remove="Resources\localization.xlsx" />
+      <Content Include="Resources\localization.xlsx">
+        <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      </Content>
     </ItemGroup>
 
     <ItemGroup>

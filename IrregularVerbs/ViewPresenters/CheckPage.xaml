@@ -22,7 +22,7 @@
                 <DataGridTextColumn Width="100"
                                     Header="Native Word"
                                     IsReadOnly="True"
-                                    Binding="{Binding Path=Term}"/>
+                                    Binding="{Binding Path=NativeWord}"/>
                 
                 <DataGridTextColumn Width="100"
                                     Header="Infinitive" 

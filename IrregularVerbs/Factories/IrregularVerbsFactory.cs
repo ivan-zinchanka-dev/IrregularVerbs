@@ -3,6 +3,7 @@ using System.Diagnostics.CodeAnalysis;
 using IrregularVerbs.Models;
 using IrregularVerbs.Models.Verbs;
 using IrregularVerbs.Models.Verbs.Components;
+using IrregularVerbs.Services;
 
 namespace IrregularVerbs.Factories;
 
@@ -25,7 +26,7 @@ public static class IrregularVerbsFactory
     public static BaseIrregularVerb FromAnswer(IrregularVerbAnswer answer)
     {
         return CreateIrregularVerb(
-            answer.Term, 
+            answer.NativeWord.Term, 
             answer.Infinitive,
             answer.PastSimple, 
             answer.PastParticiple);
@@ -35,14 +36,14 @@ public static class IrregularVerbsFactory
     {
         if (IsVolatileForm(pastSimple) || IsVolatileForm(pastParticiple))
         {
-            return new VolatileIrregularVerb(term, 
+            return new VolatileIrregularVerb(new LocalizedText(term, App.Instance.LocalizationService), 
                 VolatileFormFactory.FromCombinedNotation(infinitive), 
                 VolatileFormFactory.FromCombinedNotation(pastSimple),
                 VolatileFormFactory.FromCombinedNotation(pastParticiple));
         }
         else
         {
-            return new FixedIrregularVerb(term, 
+            return new FixedIrregularVerb(new LocalizedText(term, App.Instance.LocalizationService), 
                 FixedFormFactory.FromNotation(infinitive), 
                 FixedFormFactory.FromNotation(pastSimple), 
                 FixedFormFactory.FromNotation(pastParticiple));
