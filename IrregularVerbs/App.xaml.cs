@@ -16,6 +16,9 @@ namespace IrregularVerbs
     /// </summary>
     public partial class App : Application
     {
+        private const string AppSettingsResourceKey = "ApplicationSettings";
+        private ResourceDictionary LogicalResources => Resources.MergedDictionaries[0];
+        
         public static App Instance { get; private set; } = null!;
 
         public IrregularVerbsStorage IrregularVerbsStorage { get; private set; }
@@ -25,21 +28,24 @@ namespace IrregularVerbs
         public App()
         {
             Instance = this;
+            
         }
 
         protected override void OnStartup(StartupEventArgs e)
         {
             base.OnStartup(e);
 
-            Settings = new ApplicationSettings()
+            Settings = (ApplicationSettings)LogicalResources[AppSettingsResourceKey];
+            
+            /*Settings = new ApplicationSettings()
             {
-                NativeLanguage = "russian",
+                NativeLanguage = Language.Russian,
                 VerbsCount = 10,
                 DisorderVerbs = false,
-            };
+            };*/
 
             LocalizationService = new LocalizationService();
-            LocalizationService.CurrentLanguage = Language.Russian;
+            LocalizationService.CurrentLanguage = Settings.NativeLanguage;
             
             IrregularVerbsStorage = new IrregularVerbsStorage();
         }

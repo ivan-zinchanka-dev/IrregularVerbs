@@ -27,7 +27,7 @@ public partial class StartPage : Page
         OnDemandCheck?.Invoke();
     }
 
-    private void ResetSettings()
+    /*private void ResetSettings()
     {
         App.Instance.Settings = new ApplicationSettings
         {
@@ -35,5 +35,5 @@ public partial class StartPage : Page
             VerbsCount = int.Parse(_verbsCountTextBox.Text),
             DisorderVerbs = _disorderVerbsCheckBox.IsChecked.Value,
         };
-    }
+    }*/
 }

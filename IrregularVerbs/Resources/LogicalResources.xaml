@@ -6,8 +6,8 @@
     <converters:AnswerResultToBrushConverter x:Key="AnswerResultToBrushConverter"/>
     
     <models:ApplicationSettings x:Key="ApplicationSettings" 
-                                NativeLanguage="russian"
+                                NativeLanguage="Russian"
                                 VerbsCount="10"
-                                DisorderVerbs="True"/>
+                                DisorderVerbs="False"/>
     
 </ResourceDictionary>
