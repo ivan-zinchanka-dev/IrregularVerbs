@@ -29,7 +29,8 @@
                               x:FieldModifier="private" 
                               x:Name="_nativeLanguageComboBox"
                               Margin="0 5 5 0"
-                              SelectedIndex="{Binding Path=NativeLanguage}">
+                              SelectedIndex="{Binding Path=NativeLanguage, 
+                              Converter={StaticResource EnumToNumberConverter}}">
                         <system:String>english</system:String>
                         <system:String>russian</system:String>
                         <system:String>belarusian</system:String>

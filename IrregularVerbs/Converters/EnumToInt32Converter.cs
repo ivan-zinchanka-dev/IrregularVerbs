@@ -4,22 +4,15 @@ using System.Windows.Data;
 
 namespace IrregularVerbs.Converters;
 
-public class EnumToNumberConverter : IValueConverter
+public class EnumToInt32Converter : IValueConverter
 {
     public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
     {
-        if (value is Enum)
-        {
-            Type type = value.GetType();
-            
-            throw new NotImplementedException();
-        }
-
-        return null;
+        return value != null ? (int)value : default;
     }
 
     public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
     {
-        throw new NotImplementedException();
+        return value != null ? Enum.ToObject(targetType, value) : Enum.ToObject(targetType, 0);
     }
 }

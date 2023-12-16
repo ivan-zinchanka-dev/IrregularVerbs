@@ -4,9 +4,10 @@
                     xmlns:models="clr-namespace:IrregularVerbs.Models">
     
     <converters:AnswerResultToBrushConverter x:Key="AnswerResultToBrushConverter"/>
+    <converters:EnumToInt32Converter x:Key="EnumToNumberConverter"/>
     
     <models:ApplicationSettings x:Key="ApplicationSettings" 
-                                NativeLanguage="Russian"
+                                NativeLanguage="Belarusian"
                                 VerbsCount="10"
                                 DisorderVerbs="False"/>
     
