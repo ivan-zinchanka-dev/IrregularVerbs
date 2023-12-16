@@ -4,6 +4,8 @@ using System.Windows.Controls;
 using IrregularVerbs.Models;
 using IrregularVerbs.Services;
 
+using Language = IrregularVerbs.Services.Language;
+
 namespace IrregularVerbs.ViewPresenters;
 
 public partial class StartPage : Page
@@ -15,8 +17,6 @@ public partial class StartPage : Page
     {
         InitializeComponent();
         DataContext = this;
-        
-        //  TODO _nativeLanguageComboBox  SELECTION Changed
     }
 
     private void OnReviseClick(object sender, RoutedEventArgs e)
@@ -28,5 +28,12 @@ public partial class StartPage : Page
     {
         OnDemandCheck?.Invoke();
     }
-    
+
+    private void OnSelectedLanguageChanged(object sender, SelectionChangedEventArgs e)
+    {
+        if (Enum.IsDefined(typeof(Language), _nativeLanguageComboBox.SelectedIndex))
+        {
+            App.Instance.SetNativeLanguage((Language)_nativeLanguageComboBox.SelectedIndex);
+        }
+    }
 }
