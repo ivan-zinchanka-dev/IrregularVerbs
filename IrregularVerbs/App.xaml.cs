@@ -43,7 +43,7 @@ namespace IrregularVerbs
                 VerbsCount = 10,
                 DisorderVerbs = false,
             };*/
-
+            
             LocalizationService = new LocalizationService();
             LocalizationService.CurrentLanguage = Settings.NativeLanguage;
             

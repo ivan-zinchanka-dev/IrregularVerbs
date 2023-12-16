@@ -15,6 +15,8 @@ public partial class StartPage : Page
     {
         InitializeComponent();
         DataContext = this;
+        
+        //  TODO _nativeLanguageComboBox  SELECTION Changed
     }
 
     private void OnReviseClick(object sender, RoutedEventArgs e)
@@ -26,14 +28,5 @@ public partial class StartPage : Page
     {
         OnDemandCheck?.Invoke();
     }
-
-    /*private void ResetSettings()
-    {
-        App.Instance.Settings = new ApplicationSettings
-        {
-            NativeLanguage = _nativeLanguageComboBox.Text,
-            VerbsCount = int.Parse(_verbsCountTextBox.Text),
-            DisorderVerbs = _disorderVerbsCheckBox.IsChecked.Value,
-        };
-    }*/
+    
 }

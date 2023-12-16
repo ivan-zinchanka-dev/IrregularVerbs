@@ -36,7 +36,6 @@ public class IrregularVerbAnswer : INotifyPropertyChanged
     public IrregularVerbAnswer(BaseIrregularVerb original)
     {
         Original = original;
-        
         NativeWord = original.NativeWord;
         Infinitive = string.Empty;
         PastSimple = string.Empty;

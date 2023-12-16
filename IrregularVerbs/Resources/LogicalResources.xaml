@@ -7,7 +7,7 @@
     <converters:EnumToInt32Converter x:Key="EnumToNumberConverter"/>
     
     <models:ApplicationSettings x:Key="ApplicationSettings" 
-                                NativeLanguage="Belarusian"
+                                NativeLanguage="Russian"
                                 VerbsCount="10"
                                 DisorderVerbs="False"/>
     
