@@ -1,10 +1,8 @@
 ﻿using System;
+using System.Globalization;
 using System.Windows;
 using System.Windows.Controls;
 using IrregularVerbs.Models;
-using IrregularVerbs.Services;
-
-using Language = IrregularVerbs.Services.Language;
 
 namespace IrregularVerbs.ViewPresenters;
 
@@ -21,24 +19,13 @@ public partial class StartPage : Page
         _settingsGroupBox.DataContext = App.Instance.PreferencesService.AppSettings;
     }
 
-    private void OnReviseClick(object sender, RoutedEventArgs e)
+    private bool ValidateAppSettings()
     {
-        OnDemandRevise?.Invoke();
+        ValidationResult result = new VerbsCountValidationRule()
+            .Validate(_verbsCountTextBox.Text, CultureInfo.CurrentCulture);
+        return result.IsValid;
     }
     
-    private void OnCheckClick(object sender, RoutedEventArgs e)
-    {
-        OnDemandCheck?.Invoke();
-    }
-
-    private void OnSelectedLanguageChanged(object sender, SelectionChangedEventArgs e)
-    {
-        /*if (Enum.IsDefined(typeof(Language), _nativeLanguageComboBox.SelectedIndex))
-        {
-            App.Instance.SetNativeLanguage((Language)_nativeLanguageComboBox.SelectedIndex);
-        }*/
-    }
-
     private void OnValidationError(object sender, ValidationErrorEventArgs e)
     {
         if (e.Action == ValidationErrorEventAction.Added)
@@ -46,4 +33,21 @@ public partial class StartPage : Page
             MessageBox.Show(e.Error.ErrorContent.ToString());
         }
     }
+
+    private void OnReviseClick(object sender, RoutedEventArgs e)
+    {
+        if (ValidateAppSettings())
+        {
+            OnDemandRevise?.Invoke();
+        }
+    }
+    
+    private void OnCheckClick(object sender, RoutedEventArgs e)
+    {
+        if (ValidateAppSettings())
+        {
+            OnDemandCheck?.Invoke();
+        }
+    }
+    
 }
