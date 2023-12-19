@@ -5,6 +5,16 @@
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
       mc:Ignorable="d"
       Title="CheckPage" Height="650" Width="650">
+    
+    <Page.Resources>
+        <Style TargetType="Button" x:Key="LocalActionButton">
+            <Setter Property="VerticalAlignment" Value="Center"/>
+            <Setter Property="HorizontalAlignment" Value="Right"/>
+            <Setter Property="Margin" Value="0 0 15 0"/>
+            <Setter Property="Width" Value="100"/>
+        </Style>
+    </Page.Resources>
+    
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="0.9*"/>
@@ -63,23 +73,26 @@
         <Grid Grid.Row="1">
             <Button x:FieldModifier="private"
                     x:Name="_checkButton"
-                    VerticalAlignment="Center" 
-                    HorizontalAlignment="Right" 
-                    Margin="0 0 15 0"
-                    Width="100"
+                    Style="{StaticResource LocalActionButton}"
                     Content="Check"
                     Click="OnCheckClick">
             </Button>
             <Button x:FieldModifier="private"
                     x:Name="_backButton"
-                    VerticalAlignment="Center" 
-                    HorizontalAlignment="Right" 
-                    Margin="0 0 15 0"
-                    Width="100"
+                    Style="{StaticResource LocalActionButton}"
                     Content="Back"
                     Click="OnBackClick"
                     Visibility="Collapsed">
             </Button>
+            
+            <TextBlock x:FieldModifier="private"
+                     x:Name="_resultTextBlock"
+                     VerticalAlignment="Center"
+                     HorizontalAlignment="Left"
+                     Margin="15 0 0 0"
+                     Width="150"
+                     FontSize="15">
+            </TextBlock>
             
         </Grid>
         

@@ -50,17 +50,27 @@ public class IrregularVerbsTeacher
     }
 
 
-    public void CheckTask()
+    public CheckingResult CheckTask()
     {
         if (_cachedTask == null)
         {
-            return;
+            throw new Exception("No tasks to check");
         }
 
+        CheckingResult checkingResult = new CheckingResult();
+        checkingResult.AllAnswersCount = _cachedTask.Count;
+        
         foreach (IrregularVerbAnswer answer in _cachedTask)
         {
             CheckAnswer(answer);
+
+            if (answer.Result == IrregularVerbAnswer.AnswerResult.Correct)
+            {
+                checkingResult.CorrectAnswersCount++;
+            }
         }
+
+        return checkingResult;
     }
 
     private void CheckAnswer(IrregularVerbAnswer answer)

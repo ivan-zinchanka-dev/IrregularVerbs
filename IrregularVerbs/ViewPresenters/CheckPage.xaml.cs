@@ -28,7 +28,8 @@ public partial class CheckPage : Page
     
     private void OnCheckClick(object sender, RoutedEventArgs args)
     {
-        _teacher.CheckTask();
+        CheckingResult checkingResult = _teacher.CheckTask();
+        _resultTextBlock.Text = $"Your result: {checkingResult.CorrectAnswersCount}/{checkingResult.AllAnswersCount}";
         
         _checkButton.Visibility = Visibility.Collapsed;
         _backButton.Visibility = Visibility.Visible;
