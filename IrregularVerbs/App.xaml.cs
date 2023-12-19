@@ -36,7 +36,6 @@ namespace IrregularVerbs
         public void SetNativeLanguage(Language language)
         {
             PreferencesService.AppSettings.NativeLanguage = language;
-            PreferencesService.SaveAppSettingsAsync();
             LocalizationService.CurrentLanguage = language;
         }
 

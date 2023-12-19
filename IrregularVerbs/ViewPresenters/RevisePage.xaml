@@ -4,7 +4,7 @@
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
       mc:Ignorable="d"
-      Title="RevisePage" Height="660" Width="700">
+      Title="RevisePage" Height="650" Width="650">
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="0.9*"/>
@@ -15,7 +15,7 @@
                   x:FieldModifier="private" x:Name="_tableView">
             <ListView.View>
                 <GridView AllowsColumnReorder="False">
-                    <GridViewColumn Width="110"
+                    <GridViewColumn Width="150"
                                     Header="Native Word" 
                                     DisplayMemberBinding="{Binding Path=NativeWord}">
                     </GridViewColumn>
@@ -39,7 +39,7 @@
         <Grid Grid.Row="1">
             <Button VerticalAlignment="Center" 
                     HorizontalAlignment="Right" 
-                    Margin="0 0 100 0"
+                    Margin="0 0 15 0"
                     Width="100"
                     Content="Back"
                     Click="OnBackClick">

@@ -7,8 +7,8 @@
         mc:Ignorable="d"
         WindowStartupLocation="CenterScreen"
         Title="Irregular verbs" 
-        Height="700" MaxHeight="1000" MinHeight="700" 
-        Width="700" MaxWidth="700" MinWidth="500">
+        Height="700"
+        Width="700">
     <Frame x:FieldModifier="private" 
            x:Name="_mainFrame"
            NavigationUIVisibility="Hidden">

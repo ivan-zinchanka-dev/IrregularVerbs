@@ -49,19 +49,37 @@ public class UserPreferencesService
         }
         else
         {
-            // TODO ASYNC
-            //string jsonNotation = await File.ReadAllTextAsync(fullFileName);
-            string jsonNotation = File.ReadAllText(fullFileName);
-            AppSettings = JsonSerializer.Deserialize<ApplicationSettings>(jsonNotation);
+            try
+            {
+                // TODO ASYNC
+                //string jsonNotation = await File.ReadAllTextAsync(fullFileName);
+                string jsonNotation = File.ReadAllText(fullFileName);
+                AppSettings = JsonSerializer.Deserialize<ApplicationSettings>(jsonNotation);
+            }
+            catch (Exception ex)
+            {
+                AppSettings = (ApplicationSettings)_appResourceDictionary[AppSettingsResourceKey];
+                File.Delete(fullFileName);
+            }
         }
+
+        AppSettings.OnDemandSave += SaveAppSettingsAsync;
     }
 
-    public async void SaveAppSettingsAsync()
+    private async void SaveAppSettingsAsync()
     {
         string jsonNotation = JsonSerializer.Serialize(AppSettings);
         string fullFileName = Path.Combine(_appDirectoryInfo.FullName, AppSettingsFileName);
         
         await File.WriteAllTextAsync(fullFileName, jsonNotation);
     }
-    
+
+    ~UserPreferencesService()
+    {
+        if (AppSettings != null)
+        {
+            AppSettings.OnDemandSave -= SaveAppSettingsAsync;
+        }
+    }
+
 }

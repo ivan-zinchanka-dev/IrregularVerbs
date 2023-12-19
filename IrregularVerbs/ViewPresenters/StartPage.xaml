@@ -58,13 +58,13 @@
                     
                     <TextBlock Grid.Row="2" Grid.Column="0"
                                Margin="5 5 0 5" 
-                               Text="Random order of verbs: ">
+                               Text="Alphabetical order: ">
                     </TextBlock>
                     <CheckBox Grid.Row="2" Grid.Column="1"
                               x:FieldModifier="private" 
                               x:Name="_disorderVerbsCheckBox"
                               Margin="0 5 5 5"
-                              IsChecked="{Binding Path=DisorderVerbs}">
+                              IsChecked="{Binding Path=AlphabeticalOrder}">
                     </CheckBox>
                     
                 </Grid>

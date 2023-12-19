@@ -4,7 +4,7 @@
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
       mc:Ignorable="d"
-      Title="CheckPage" Height="660" Width="700">
+      Title="CheckPage" Height="650" Width="650">
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="0.9*"/>
@@ -13,13 +13,15 @@
         
         <DataGrid Grid.Row="0"
                   x:FieldModifier="private" x:Name="_tableView"
+                  HeadersVisibility="Column"
+                  HorizontalScrollBarVisibility="Hidden"
                   AutoGenerateColumns="False"
                   CanUserSortColumns="False"
                   CanUserReorderColumns="False"
                   CanUserAddRows="False"
                   CanUserDeleteRows="False">
             <DataGrid.Columns>
-                <DataGridTextColumn Width="100"
+                <DataGridTextColumn Width="150"
                                     Header="Native Word"
                                     IsReadOnly="True"
                                     Binding="{Binding Path=NativeWord}"/>
@@ -63,7 +65,7 @@
                     x:Name="_checkButton"
                     VerticalAlignment="Center" 
                     HorizontalAlignment="Right" 
-                    Margin="0 0 100 0"
+                    Margin="0 0 15 0"
                     Width="100"
                     Content="Check"
                     Click="OnCheckClick">
@@ -72,7 +74,7 @@
                     x:Name="_backButton"
                     VerticalAlignment="Center" 
                     HorizontalAlignment="Right" 
-                    Margin="0 0 100 0"
+                    Margin="0 0 15 0"
                     Width="100"
                     Content="Back"
                     Click="OnBackClick"

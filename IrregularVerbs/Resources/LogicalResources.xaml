@@ -9,6 +9,6 @@
     <models:ApplicationSettings x:Key="ApplicationSettings" 
                                 NativeLanguage="Russian"
                                 VerbsCount="10"
-                                DisorderVerbs="False"/>
+                                AlphabeticalOrder="True"/>
     
 </ResourceDictionary>
