@@ -15,7 +15,8 @@ public partial class CheckPage : Page
     public CheckPage()
     {
         InitializeComponent();
-        _teacher = new IrregularVerbsTeacher(App.Instance.IrregularVerbsStorage, 12, false);
+        ApplicationSettings settings = App.Instance.PreferencesService.AppSettings;
+        _teacher = new IrregularVerbsTeacher(App.Instance.IrregularVerbsStorage, settings.VerbsCount, settings.DisorderVerbs);
         _answers = new ObservableCollection<IrregularVerbAnswer>(_teacher.GenerateTask());
         Loaded += OnPageLoaded;
     }
