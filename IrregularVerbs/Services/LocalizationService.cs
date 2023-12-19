@@ -75,8 +75,8 @@ public class LocalizationService
         if (_dictionary.TryGetValue(term, out List<string> results))
         {
             string match = results[(int)CurrentLanguage];
-            
-            if (match != null)
+
+            if (!string.IsNullOrEmpty(match))
             {
                 return match;
             }
