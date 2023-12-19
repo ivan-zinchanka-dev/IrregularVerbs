@@ -9,7 +9,8 @@
         Title="Irregular verbs" 
         Height="700" MaxHeight="1000" MinHeight="700" 
         Width="700" MaxWidth="700" MinWidth="500">
-    <Frame x:FieldModifier="private" x:Name="_mainFrame">
-        
+    <Frame x:FieldModifier="private" 
+           x:Name="_mainFrame"
+           NavigationUIVisibility="Hidden">
     </Frame>
 </Window>

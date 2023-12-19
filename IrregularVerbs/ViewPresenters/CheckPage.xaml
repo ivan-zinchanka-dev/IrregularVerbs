@@ -59,13 +59,26 @@
             </DataGrid.Columns>
         </DataGrid>
         <Grid Grid.Row="1">
-            <Button VerticalAlignment="Center" 
+            <Button x:FieldModifier="private"
+                    x:Name="_checkButton"
+                    VerticalAlignment="Center" 
                     HorizontalAlignment="Right" 
                     Margin="0 0 100 0"
                     Width="100"
                     Content="Check"
-                    Click="OnCheckButtonClick">
+                    Click="OnCheckClick">
             </Button>
+            <Button x:FieldModifier="private"
+                    x:Name="_backButton"
+                    VerticalAlignment="Center" 
+                    HorizontalAlignment="Right" 
+                    Margin="0 0 100 0"
+                    Width="100"
+                    Content="Back"
+                    Click="OnBackClick"
+                    Visibility="Collapsed">
+            </Button>
+            
         </Grid>
         
         

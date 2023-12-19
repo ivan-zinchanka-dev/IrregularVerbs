@@ -26,8 +26,20 @@ public partial class CheckPage : Page
         _tableView.ItemsSource = _answers;
     }
     
-    private void OnCheckButtonClick(object sender, RoutedEventArgs e)
+    private void OnCheckClick(object sender, RoutedEventArgs args)
     {
         _teacher.CheckTask();
+        
+        _checkButton.Visibility = Visibility.Collapsed;
+        _backButton.Visibility = Visibility.Visible;
+    }
+    
+    private void OnBackClick(object sender, RoutedEventArgs args)
+    {
+        if (NavigationService.CanGoBack)
+        {
+            NavigationService.GoBack();
+        }
     }
 }
+

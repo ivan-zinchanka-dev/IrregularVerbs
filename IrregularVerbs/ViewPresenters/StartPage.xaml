@@ -6,7 +6,7 @@
       xmlns:local="clr-namespace:IrregularVerbs"
       xmlns:system="clr-namespace:System;assembly=System.Runtime"
       mc:Ignorable="d"
-      Title="StartPage" Height="450" Width="800">
+      Title="StartPage" Width="400" Height="400">
     <Grid>
         <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center">
             <GroupBox x:FieldModifier="private" 

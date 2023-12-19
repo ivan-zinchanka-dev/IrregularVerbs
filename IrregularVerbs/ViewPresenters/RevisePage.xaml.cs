@@ -1,13 +1,10 @@
-﻿using System;
-using System.Windows;
+﻿using System.Windows;
 using System.Windows.Controls;
 
 namespace IrregularVerbs.ViewPresenters;
 
 public partial class RevisePage : Page
 {
-    public event Action OnDemandBack;
-    
     public RevisePage()
     {
         InitializeComponent();
@@ -19,8 +16,11 @@ public partial class RevisePage : Page
         _tableView.ItemsSource = App.Instance.IrregularVerbsStorage.IrregularVerbs;
     }
 
-    private void OnBackButtonClick(object sender, RoutedEventArgs e)
+    private void OnBackClick(object sender, RoutedEventArgs e)
     {
-        OnDemandBack?.Invoke();
+        if (NavigationService.CanGoBack)
+        {
+            NavigationService.GoBack();
+        }
     }
 }
