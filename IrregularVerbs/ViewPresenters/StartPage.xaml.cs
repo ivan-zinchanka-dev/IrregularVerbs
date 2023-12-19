@@ -33,9 +33,17 @@ public partial class StartPage : Page
 
     private void OnSelectedLanguageChanged(object sender, SelectionChangedEventArgs e)
     {
-        if (Enum.IsDefined(typeof(Language), _nativeLanguageComboBox.SelectedIndex))
+        /*if (Enum.IsDefined(typeof(Language), _nativeLanguageComboBox.SelectedIndex))
         {
             App.Instance.SetNativeLanguage((Language)_nativeLanguageComboBox.SelectedIndex);
+        }*/
+    }
+
+    private void OnValidationError(object sender, ValidationErrorEventArgs e)
+    {
+        if (e.Action == ValidationErrorEventAction.Added)
+        {
+            MessageBox.Show(e.Error.ErrorContent.ToString());
         }
     }
 }

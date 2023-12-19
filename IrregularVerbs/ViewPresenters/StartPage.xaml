@@ -5,13 +5,15 @@
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
       xmlns:local="clr-namespace:IrregularVerbs"
       xmlns:system="clr-namespace:System;assembly=System.Runtime"
+      xmlns:models="clr-namespace:IrregularVerbs.Models"
       mc:Ignorable="d"
       Title="StartPage" Width="400" Height="400">
     <Grid>
         <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center">
             <GroupBox x:FieldModifier="private" 
                       x:Name="_settingsGroupBox" 
-                      Header="Settings">
+                      Header="Settings"
+                      Validation.Error="OnValidationError">
                 <Grid Width="300">
                     <Grid.RowDefinitions>
                         <RowDefinition Height="*"/>
@@ -49,9 +51,9 @@
                              x:Name="_verbsCountTextBox"
                              Margin="0 5 5 0"
                              >
-                        <Binding Path="VerbsCount" >
+                        <Binding Path="VerbsCount" NotifyOnValidationError="True">
                             <Binding.ValidationRules>
-                                <ExceptionValidationRule/>
+                                <models:VerbsCountValidationRule/>
                             </Binding.ValidationRules>
                         </Binding>
                     </TextBox>

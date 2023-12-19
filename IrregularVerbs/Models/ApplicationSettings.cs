@@ -9,13 +9,15 @@ public class ApplicationSettings
     private int _verbsCount;
     private bool _alphabeticalOrder;
 
+    public event Action OnPropertyChanged;
+    
     public Language NativeLanguage
     {
         get => _nativeLanguage;
         set
         {
             _nativeLanguage = value;
-            OnDemandSave?.Invoke();
+            OnPropertyChanged?.Invoke();
         }
     }
     
@@ -25,7 +27,7 @@ public class ApplicationSettings
         set
         {
             _verbsCount = value;
-            OnDemandSave?.Invoke();
+            OnPropertyChanged?.Invoke();
         }
     }
     public bool AlphabeticalOrder
@@ -34,9 +36,8 @@ public class ApplicationSettings
         set
         {
             _alphabeticalOrder = value;
-            OnDemandSave?.Invoke();
+            OnPropertyChanged?.Invoke();
         }
     }
     
-    public event Action OnDemandSave;
 }

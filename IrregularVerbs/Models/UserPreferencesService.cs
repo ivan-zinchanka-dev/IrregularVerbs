@@ -63,7 +63,7 @@ public class UserPreferencesService
             }
         }
 
-        AppSettings.OnDemandSave += SaveAppSettingsAsync;
+        AppSettings.OnPropertyChanged += SaveAppSettingsAsync;
     }
 
     private async void SaveAppSettingsAsync()
@@ -78,7 +78,7 @@ public class UserPreferencesService
     {
         if (AppSettings != null)
         {
-            AppSettings.OnDemandSave -= SaveAppSettingsAsync;
+            AppSettings.OnPropertyChanged -= SaveAppSettingsAsync;
         }
     }
 

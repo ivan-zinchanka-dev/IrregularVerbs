@@ -39,18 +39,28 @@ namespace IrregularVerbs
             LocalizationService.CurrentLanguage = language;
         }
 
+        private void SetNativeLanguage()
+        {
+            LocalizationService.CurrentLanguage = PreferencesService.AppSettings.NativeLanguage;
+        }
+
         protected override void OnStartup(StartupEventArgs e)
         {
             base.OnStartup(e);
-
-            //Settings = (ApplicationSettings)LogicalResources[AppSettingsResourceKey];
-
+            
             PreferencesService = new UserPreferencesService(LogicalResources);
             
             LocalizationService = new LocalizationService();
-            LocalizationService.CurrentLanguage = PreferencesService.AppSettings.NativeLanguage;
+            SetNativeLanguage();
+            PreferencesService.AppSettings.OnPropertyChanged += SetNativeLanguage;
             
             IrregularVerbsStorage = new IrregularVerbsStorage();
+        }
+
+        protected override void OnExit(ExitEventArgs e)
+        {
+            PreferencesService.AppSettings.OnPropertyChanged -= SetNativeLanguage;
+            base.OnExit(e);
         }
     }
 }
