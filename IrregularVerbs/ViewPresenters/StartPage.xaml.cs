@@ -17,6 +17,8 @@ public partial class StartPage : Page
     {
         InitializeComponent();
         DataContext = this;
+
+        _settingsGroupBox.DataContext = App.Instance.PreferencesService.AppSettings;
     }
 
     private void OnReviseClick(object sender, RoutedEventArgs e)

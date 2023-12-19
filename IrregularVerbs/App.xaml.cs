@@ -23,7 +23,10 @@ namespace IrregularVerbs
 
         public IrregularVerbsStorage IrregularVerbsStorage { get; private set; }
         public LocalizationService LocalizationService { get; private set; }
-        public ApplicationSettings Settings { get; private set; }
+
+        public UserPreferencesService PreferencesService { get; private set; }
+
+        //public ApplicationSettings Settings { get; private set; }
 
         public App()
         {
@@ -32,18 +35,21 @@ namespace IrregularVerbs
 
         public void SetNativeLanguage(Language language)
         {
-            Settings.NativeLanguage = language;
-            LocalizationService.CurrentLanguage = Settings.NativeLanguage;
+            PreferencesService.AppSettings.NativeLanguage = language;
+            PreferencesService.SaveAppSettingsAsync();
+            LocalizationService.CurrentLanguage = language;
         }
 
         protected override void OnStartup(StartupEventArgs e)
         {
             base.OnStartup(e);
 
-            Settings = (ApplicationSettings)LogicalResources[AppSettingsResourceKey];
+            //Settings = (ApplicationSettings)LogicalResources[AppSettingsResourceKey];
+
+            PreferencesService = new UserPreferencesService(LogicalResources);
             
             LocalizationService = new LocalizationService();
-            LocalizationService.CurrentLanguage = Settings.NativeLanguage;
+            LocalizationService.CurrentLanguage = PreferencesService.AppSettings.NativeLanguage;
             
             IrregularVerbsStorage = new IrregularVerbsStorage();
         }

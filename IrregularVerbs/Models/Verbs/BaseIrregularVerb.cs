@@ -18,12 +18,12 @@ public abstract class BaseIrregularVerb : IOriginal<BaseIrregularVerb>
         }
     }
 
-    public virtual bool Inspect(BaseIrregularVerb input)
+    public virtual bool Inspect(BaseIrregularVerb other)
     {
-        AssertTermEquality(input);
+        AssertTermEquality(other);
 
-        return Infinitive == input.Infinitive && 
-               PastSimple == input.PastSimple && 
-               PastParticiple == input.PastParticiple;
+        return Infinitive == other.Infinitive && 
+               PastSimple == other.PastSimple && 
+               PastParticiple == other.PastParticiple;
     }
 }

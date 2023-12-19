@@ -9,7 +9,9 @@
       Title="StartPage" Height="450" Width="800">
     <Grid>
         <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center">
-            <GroupBox Header="Settings" DataContext="{StaticResource ApplicationSettings}">
+            <GroupBox x:FieldModifier="private" 
+                      x:Name="_settingsGroupBox" 
+                      Header="Settings">
                 <Grid Width="300">
                     <Grid.RowDefinitions>
                         <RowDefinition Height="*"/>

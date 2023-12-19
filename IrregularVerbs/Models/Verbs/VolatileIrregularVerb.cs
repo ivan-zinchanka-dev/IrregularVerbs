@@ -21,9 +21,9 @@ public class VolatileIrregularVerb : BaseIrregularVerb
         _pastParticiple = pastParticiple;
     }
 
-    public override bool Inspect(BaseIrregularVerb input)
+    public override bool Inspect(BaseIrregularVerb other)
     {
-        if (input is VolatileIrregularVerb castedInput)
+        if (other is VolatileIrregularVerb castedInput)
         {
             return Inspect(castedInput);
         }

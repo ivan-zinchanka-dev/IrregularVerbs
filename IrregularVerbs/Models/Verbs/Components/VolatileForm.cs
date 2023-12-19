@@ -25,25 +25,25 @@ public class VolatileForm : IOriginal<VolatileForm>
         _combineOperation = combineOperation;
     }
     
-    public bool Inspect(VolatileForm input)
+    public bool Inspect(VolatileForm other)
     {
         switch (_combineOperation)
         {
             case CombineOperation.None: 
-                return input._variants.Item1 == _variants.Item1;
+                return other._variants.Item1 == _variants.Item1;
             
             case CombineOperation.And:
-                return (input._variants.Item1 == _variants.Item1 ||
-                        input._variants.Item1 == _variants.Item2) &&
-                       (input._variants.Item2 == _variants.Item1 ||
-                        input._variants.Item2 == _variants.Item2);
+                return (other._variants.Item1 == _variants.Item1 ||
+                        other._variants.Item1 == _variants.Item2) &&
+                       (other._variants.Item2 == _variants.Item1 ||
+                        other._variants.Item2 == _variants.Item2);
             
             case CombineOperation.Or:
-                return (input._variants.Item1 == _variants.Item1 ||
-                        input._variants.Item1 == _variants.Item2) && 
-                       (string.IsNullOrEmpty(input._variants.Item2) ||
-                        input._variants.Item2 == _variants.Item1 ||
-                        input._variants.Item2 == _variants.Item2);
+                return (other._variants.Item1 == _variants.Item1 ||
+                        other._variants.Item1 == _variants.Item2) && 
+                       (string.IsNullOrEmpty(other._variants.Item2) ||
+                        other._variants.Item2 == _variants.Item1 ||
+                        other._variants.Item2 == _variants.Item2);
             
             default: 
                 return false;
