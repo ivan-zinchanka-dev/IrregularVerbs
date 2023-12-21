@@ -1,6 +1,7 @@
 ﻿using System;
 using System.IO;
 using System.Text.Json;
+using System.Threading.Tasks;
 using System.Windows;
 using IrregularVerbs.Models.Configs;
 
@@ -23,11 +24,14 @@ public class UserPreferencesService
     public UserPreferencesService(ResourceDictionary appResourceDictionary)
     {
         _appResourceDictionary = appResourceDictionary;
-        
         CheckApplicationFolder();
-        LoadAppSettingsAsync();
     }
-    
+
+    public async Task InitializeAsync()
+    {
+        await LoadAppSettingsAsync();
+    }
+
     private void CheckApplicationFolder()
     {
         string path = Path.Combine(AppDataPath, AppFolderName);
@@ -39,7 +43,7 @@ public class UserPreferencesService
         }
     }
     
-    private void LoadAppSettingsAsync()
+    private async Task LoadAppSettingsAsync()
     {
         string fullFileName = Path.Combine(_appDirectoryInfo.FullName, AppSettingsFileName);
 
@@ -51,9 +55,7 @@ public class UserPreferencesService
         {
             try
             {
-                // TODO ASYNC
-                //string jsonNotation = await File.ReadAllTextAsync(fullFileName);
-                string jsonNotation = File.ReadAllText(fullFileName);
+                string jsonNotation = await File.ReadAllTextAsync(fullFileName);
                 AppSettings = JsonSerializer.Deserialize<ApplicationSettings>(jsonNotation);
             }
             catch (Exception ex)

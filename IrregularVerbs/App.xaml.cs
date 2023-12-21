@@ -43,6 +43,8 @@ namespace IrregularVerbs
         private void SetNativeLanguage()
         {
             LocalizationService.CurrentLanguage = PreferencesService.AppSettings.NativeLanguage;
+            
+            Console.WriteLine(PreferencesService.AppSettings.NativeLanguage);
         }
 
         protected override void OnStartup(StartupEventArgs e)
@@ -50,12 +52,16 @@ namespace IrregularVerbs
             base.OnStartup(e);
             
             PreferencesService = new UserPreferencesService(LogicalResources);
+
+            PreferencesService.InitializeAsync().ContinueWith(task =>
+            {
+                LocalizationService = new LocalizationService();
+                SetNativeLanguage();
+                PreferencesService.AppSettings.OnPropertyChanged += SetNativeLanguage;
             
-            LocalizationService = new LocalizationService();
-            SetNativeLanguage();
-            PreferencesService.AppSettings.OnPropertyChanged += SetNativeLanguage;
-            
-            IrregularVerbsStorage = new IrregularVerbsStorage();
+                IrregularVerbsStorage = new IrregularVerbsStorage();
+                
+            }, TaskScheduler.FromCurrentSynchronizationContext());
         }
 
         protected override void OnExit(ExitEventArgs e)
