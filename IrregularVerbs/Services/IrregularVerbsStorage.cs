@@ -1,14 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Collections.ObjectModel;
+﻿using System.Collections.Generic;
 using System.Data;
 using System.IO;
-using System.Linq;
 using System.Text;
-using System.Windows.Documents;
 using ExcelDataReader;
 using IrregularVerbs.Factories;
-using IrregularVerbs.Models;
 using IrregularVerbs.Models.Verbs;
 
 namespace IrregularVerbs.Services;

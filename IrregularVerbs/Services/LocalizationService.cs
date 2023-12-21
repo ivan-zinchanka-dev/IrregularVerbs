@@ -4,8 +4,7 @@ using System.Data;
 using System.IO;
 using System.Text;
 using ExcelDataReader;
-using IrregularVerbs.Factories;
-using IrregularVerbs.Models.Verbs;
+using IrregularVerbs.Models.Configs;
 
 namespace IrregularVerbs.Services;
 

@@ -2,7 +2,7 @@
 using System.Globalization;
 using System.Windows.Data;
 using System.Windows.Media;
-using IrregularVerbs.Models;
+using IrregularVerbs.Models.Answers;
 
 namespace IrregularVerbs.Converters;
 
@@ -10,17 +10,17 @@ public class AnswerResultToBrushConverter : IValueConverter
 {
     public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
     {
-        if (value is IrregularVerbAnswer.AnswerResult result)
+        if (value is AnswerResult result)
         {
             switch (result)
             {
-                case IrregularVerbAnswer.AnswerResult.Correct:
+                case AnswerResult.Correct:
                     return Brushes.LightGreen;
                 
-                case IrregularVerbAnswer.AnswerResult.Incorrect:
+                case AnswerResult.Incorrect:
                     return Brushes.LightCoral;
                 
-                case IrregularVerbAnswer.AnswerResult.None: 
+                case AnswerResult.None: 
                 default:
                     return Brushes.WhiteSmoke;
             }
@@ -37,15 +37,15 @@ public class AnswerResultToBrushConverter : IValueConverter
         {
             if (brush.Equals(Brushes.LightGreen))
             {
-                return IrregularVerbAnswer.AnswerResult.Correct;
+                return AnswerResult.Correct;
             }
             else if (brush.Equals(Brushes.LightCoral))
             {
-                return IrregularVerbAnswer.AnswerResult.Incorrect;
+                return AnswerResult.Incorrect;
             }
             else
             {
-                return IrregularVerbAnswer.AnswerResult.None;
+                return AnswerResult.None;
             }
         }
         else

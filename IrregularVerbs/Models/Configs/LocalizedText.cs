@@ -1,4 +1,6 @@
-﻿namespace IrregularVerbs.Services;
+﻿using IrregularVerbs.Services;
+
+namespace IrregularVerbs.Models.Configs;
 
 public class LocalizedText
 {

@@ -1,7 +1,6 @@
 ﻿using System;
-using IrregularVerbs.Services;
 
-namespace IrregularVerbs.Models;
+namespace IrregularVerbs.Models.Configs;
 
 public class ApplicationSettings
 {

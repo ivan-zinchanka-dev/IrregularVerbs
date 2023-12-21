@@ -3,6 +3,8 @@ using System.Collections.ObjectModel;
 using System.Windows;
 using System.Windows.Controls;
 using IrregularVerbs.Models;
+using IrregularVerbs.Models.Answers;
+using IrregularVerbs.Models.Configs;
 using IrregularVerbs.Services;
 
 namespace IrregularVerbs.ViewPresenters;

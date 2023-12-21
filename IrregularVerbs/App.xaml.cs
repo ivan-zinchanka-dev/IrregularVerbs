@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
 using IrregularVerbs.Models;
+using IrregularVerbs.Models.Configs;
 using IrregularVerbs.Services;
 
 namespace IrregularVerbs

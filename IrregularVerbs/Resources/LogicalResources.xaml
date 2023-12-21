@@ -1,12 +1,12 @@
 ﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
                     xmlns:converters="clr-namespace:IrregularVerbs.Converters"
-                    xmlns:models="clr-namespace:IrregularVerbs.Models">
+                    xmlns:configs="clr-namespace:IrregularVerbs.Models.Configs">
     
     <converters:AnswerResultToBrushConverter x:Key="AnswerResultToBrushConverter"/>
     <converters:EnumToInt32Converter x:Key="EnumToNumberConverter"/>
     
-    <models:ApplicationSettings x:Key="ApplicationSettings" 
+    <configs:ApplicationSettings x:Key="ApplicationSettings" 
                                 NativeLanguage="Russian"
                                 VerbsCount="10"
                                 AlphabeticalOrder="True"/>

@@ -1,4 +1,5 @@
 ﻿using System;
+using IrregularVerbs.Models.Configs;
 using IrregularVerbs.Services;
 using NUnit.Framework;
 

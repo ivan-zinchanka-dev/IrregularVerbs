@@ -1,8 +1,9 @@
 ﻿using System.Data;
 using System.Diagnostics.CodeAnalysis;
 using IrregularVerbs.Models;
+using IrregularVerbs.Models.Answers;
+using IrregularVerbs.Models.Configs;
 using IrregularVerbs.Models.Verbs;
-using IrregularVerbs.Models.Verbs.Components;
 using IrregularVerbs.Services;
 
 namespace IrregularVerbs.Factories;

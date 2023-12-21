@@ -1,6 +1,7 @@
 ﻿using System;
+using IrregularVerbs.CodeBase;
 
-namespace IrregularVerbs.Models.Verbs.Components;
+namespace IrregularVerbs.Models.Components;
 
 public class VolatileForm : IOriginal<VolatileForm>
 {

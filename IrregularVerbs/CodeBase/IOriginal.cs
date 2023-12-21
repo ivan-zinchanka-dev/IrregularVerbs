@@ -1,4 +1,4 @@
-﻿namespace IrregularVerbs.Models;
+﻿namespace IrregularVerbs.CodeBase;
 
 public interface IOriginal<in T>
 {

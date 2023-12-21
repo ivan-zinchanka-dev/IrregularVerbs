@@ -1,4 +1,4 @@
-﻿namespace IrregularVerbs.Services;
+﻿namespace IrregularVerbs.Models.Answers;
 
 public struct CheckingResult
 {

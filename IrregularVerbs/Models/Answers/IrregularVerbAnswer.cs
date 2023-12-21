@@ -1,9 +1,10 @@
 ﻿using System.ComponentModel;
 using System.Runtime.CompilerServices;
+using IrregularVerbs.Models.Configs;
 using IrregularVerbs.Models.Verbs;
 using IrregularVerbs.Services;
 
-namespace IrregularVerbs.Models;
+namespace IrregularVerbs.Models.Answers;
 
 public class IrregularVerbAnswer : INotifyPropertyChanged
 {
@@ -24,13 +25,6 @@ public class IrregularVerbAnswer : INotifyPropertyChanged
             _result = value;
             OnPropertyChanged();
         }
-    }
-    
-    public enum AnswerResult : byte
-    {
-        None = 0,
-        Correct = 1,
-        Incorrect = 2,
     }
     
     public IrregularVerbAnswer(BaseIrregularVerb original)

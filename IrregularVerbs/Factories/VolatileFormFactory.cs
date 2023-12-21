@@ -1,6 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
-using IrregularVerbs.Models.Verbs.Components;
+using IrregularVerbs.Models.Components;
 
 namespace IrregularVerbs.Factories;
 

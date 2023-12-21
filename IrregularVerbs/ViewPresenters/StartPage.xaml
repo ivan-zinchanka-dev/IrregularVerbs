@@ -3,9 +3,8 @@
       xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-      xmlns:local="clr-namespace:IrregularVerbs"
       xmlns:system="clr-namespace:System;assembly=System.Runtime"
-      xmlns:models="clr-namespace:IrregularVerbs.Models"
+      xmlns:components="clr-namespace:IrregularVerbs.Models.Components"
       mc:Ignorable="d"
       Title="StartPage" Width="400" Height="400">
     <Grid>
@@ -51,7 +50,7 @@
                              >
                         <Binding Path="VerbsCount" NotifyOnValidationError="True">
                             <Binding.ValidationRules>
-                                <models:VerbsCountValidationRule/>
+                                <components:VerbsCountValidationRule/>
                             </Binding.ValidationRules>
                         </Binding>
                     </TextBox>

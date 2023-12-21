@@ -1,10 +1,10 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.IO;
 using System.Text.Json;
 using System.Windows;
+using IrregularVerbs.Models.Configs;
 
-namespace IrregularVerbs.Models;
+namespace IrregularVerbs.Services;
 
 public class UserPreferencesService
 {

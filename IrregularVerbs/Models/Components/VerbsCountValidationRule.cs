@@ -1,7 +1,7 @@
 ﻿using System.Globalization;
 using System.Windows.Controls;
 
-namespace IrregularVerbs.Models;
+namespace IrregularVerbs.Models.Components;
 
 public class VerbsCountValidationRule : ValidationRule
 {

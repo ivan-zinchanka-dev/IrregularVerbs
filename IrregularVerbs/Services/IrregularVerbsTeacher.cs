@@ -3,9 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 using IrregularVerbs.Extensions;
 using IrregularVerbs.Factories;
-using IrregularVerbs.Models;
+using IrregularVerbs.Models.Answers;
+using IrregularVerbs.Models.Components;
 using IrregularVerbs.Models.Verbs;
-using IrregularVerbs.Models.Verbs.Components;
 
 namespace IrregularVerbs.Services;
 
@@ -64,7 +64,7 @@ public class IrregularVerbsTeacher
         {
             CheckAnswer(answer);
 
-            if (answer.Result == IrregularVerbAnswer.AnswerResult.Correct)
+            if (answer.Result == AnswerResult.Correct)
             {
                 checkingResult.CorrectAnswersCount++;
             }
@@ -95,13 +95,13 @@ public class IrregularVerbsTeacher
         }
         catch (Exception ex)
         {
-            answer.Result = IrregularVerbAnswer.AnswerResult.Incorrect;
+            answer.Result = AnswerResult.Incorrect;
         }
     }
 
-    private static IrregularVerbAnswer.AnswerResult ToAnswerResult(bool result)
+    private static AnswerResult ToAnswerResult(bool result)
     {
-        return result ? IrregularVerbAnswer.AnswerResult.Correct : IrregularVerbAnswer.AnswerResult.Incorrect;
+        return result ? AnswerResult.Correct : AnswerResult.Incorrect;
     }
 
 }
