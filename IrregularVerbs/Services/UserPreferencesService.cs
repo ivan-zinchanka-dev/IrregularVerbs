@@ -14,9 +14,10 @@ public class UserPreferencesService
     private const string AppSettingsResourceKey = "ApplicationSettings";
     private const string AppSettingsFileName = "app_settings.json";
     
+    
     private static string AppDataPath => Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData);
     
-    private ResourceDictionary _appResourceDictionary;
+    private readonly ResourceDictionary _appResourceDictionary;
     private DirectoryInfo _appDirectoryInfo;
     
     public ApplicationSettings AppSettings { get; private set; }
