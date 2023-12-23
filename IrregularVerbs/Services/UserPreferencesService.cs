@@ -7,46 +7,46 @@ using IrregularVerbs.Models.Configs;
 
 namespace IrregularVerbs.Services;
 
-public class UserPreferencesService
+public class UserPreferencesService : AppDataService
 {
-    private const string AppFolderName = "IrregularVerbs";
-    
+    private const string PreferencesFolderName = "Preferences";
     private const string AppSettingsResourceKey = "ApplicationSettings";
     private const string AppSettingsFileName = "app_settings.json";
     
-    
-    private static string AppDataPath => Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData);
-    
     private readonly ResourceDictionary _appResourceDictionary;
-    private DirectoryInfo _appDirectoryInfo;
+    private DirectoryInfo _preferencesDirectoryInfo;
     
     public ApplicationSettings AppSettings { get; private set; }
 
     public UserPreferencesService(ResourceDictionary appResourceDictionary)
     {
         _appResourceDictionary = appResourceDictionary;
-        CheckApplicationFolder();
+        CheckPreferencesFolder();
     }
-
-    public async Task InitializeAsync()
+    
+    public override void InitializeAsync(Action onComplete = null)
     {
-        await LoadAppSettingsAsync();
-    }
-
-    private void CheckApplicationFolder()
-    {
-        string path = Path.Combine(AppDataPath, AppFolderName);
-        _appDirectoryInfo = new DirectoryInfo(path);
-        
-        if (!_appDirectoryInfo.Exists)
+        LoadAppSettingsAsync().ContinueWith((task) =>
         {
-            _appDirectoryInfo.Create();
+            onComplete?.Invoke();
+            
+        }, TaskScheduler.FromCurrentSynchronizationContext());
+    }
+
+    private void CheckPreferencesFolder()
+    {
+        string path = Path.Combine(AppDirectoryInfo.FullName, PreferencesFolderName);
+        _preferencesDirectoryInfo = new DirectoryInfo(path);
+        
+        if (!_preferencesDirectoryInfo.Exists)
+        {
+            _preferencesDirectoryInfo.Create();
         }
     }
     
     private async Task LoadAppSettingsAsync()
     {
-        string fullFileName = Path.Combine(_appDirectoryInfo.FullName, AppSettingsFileName);
+        string fullFileName = Path.Combine(_preferencesDirectoryInfo.FullName, AppSettingsFileName);
 
         if (!File.Exists(fullFileName))
         {
@@ -72,7 +72,7 @@ public class UserPreferencesService
     private async void SaveAppSettingsAsync()
     {
         string jsonNotation = JsonSerializer.Serialize(AppSettings);
-        string fullFileName = Path.Combine(_appDirectoryInfo.FullName, AppSettingsFileName);
+        string fullFileName = Path.Combine(_preferencesDirectoryInfo.FullName, AppSettingsFileName);
         
         await File.WriteAllTextAsync(fullFileName, jsonNotation);
     }

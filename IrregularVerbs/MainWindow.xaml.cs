@@ -30,18 +30,14 @@ namespace IrregularVerbs
         private void ShowRevisePage()
         {
             RevisePage revisePage = new RevisePage();
-            //revisePage.OnDemandBack += ShowMainPage;
             _mainFrame.Navigate(revisePage);
         }
 
         private void ShowCheckPage()
         {
             CheckPage checkPage = new CheckPage();
-            //revisePage.OnDemandBack += ShowMainPage;
             _mainFrame.Navigate(checkPage);
         }
-
-
-
+        
     }
 }

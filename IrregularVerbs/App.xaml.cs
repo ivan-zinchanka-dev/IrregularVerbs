@@ -1,13 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Configuration;
-using System.Data;
-using System.Linq;
-using System.Threading.Tasks;
-using System.Windows;
-using System.Windows.Controls;
-using IrregularVerbs.Models;
-using IrregularVerbs.Models.Configs;
+﻿using System.Windows;
 using IrregularVerbs.Services;
 
 namespace IrregularVerbs
@@ -17,36 +8,22 @@ namespace IrregularVerbs
     /// </summary>
     public partial class App : Application
     {
-        private const string AppSettingsResourceKey = "ApplicationSettings";
-        private ResourceDictionary LogicalResources => Resources.MergedDictionaries[0];
-        
         public static App Instance { get; private set; } = null!;
-
+        
+        private ResourceDictionary LogicalResources => Resources.MergedDictionaries[0];
         public IrregularVerbsStorage IrregularVerbsStorage { get; private set; }
         public LocalizationService LocalizationService { get; private set; }
-
         public UserPreferencesService PreferencesService { get; private set; }
-
         public CacheService CacheService { get; private set; }
-
-        //public ApplicationSettings Settings { get; private set; }
-
+        
         public App()
         {
             Instance = this;
         }
-
-        public void SetNativeLanguage(Language language)
-        {
-            PreferencesService.AppSettings.NativeLanguage = language;
-            LocalizationService.CurrentLanguage = language;
-        }
-
+        
         private void SetNativeLanguage()
         {
             LocalizationService.CurrentLanguage = PreferencesService.AppSettings.NativeLanguage;
-            
-            Console.WriteLine(PreferencesService.AppSettings.NativeLanguage);
         }
 
         protected override void OnStartup(StartupEventArgs e)
@@ -54,8 +31,7 @@ namespace IrregularVerbs
             base.OnStartup(e);
             
             PreferencesService = new UserPreferencesService(LogicalResources);
-
-            PreferencesService.InitializeAsync().ContinueWith(task =>
+            PreferencesService.InitializeAsync(() =>
             {
                 LocalizationService = new LocalizationService();
                 SetNativeLanguage();
@@ -63,12 +39,10 @@ namespace IrregularVerbs
             
                 IrregularVerbsStorage = new IrregularVerbsStorage();
                 
-                CacheService = new CacheService();
-                CacheService.InitializeAsync();
-                
-            }, TaskScheduler.FromCurrentSynchronizationContext());
-
+            });
             
+            CacheService = new CacheService();
+            CacheService.InitializeAsync();
         }
 
         protected override void OnExit(ExitEventArgs e)

@@ -2,7 +2,6 @@
 using System.Globalization;
 using System.Windows;
 using System.Windows.Controls;
-using IrregularVerbs.Models;
 using IrregularVerbs.Models.Components;
 
 namespace IrregularVerbs.ViewPresenters;

@@ -1,17 +1,15 @@
 ﻿using System;
 using System.IO;
-using System.Threading.Tasks;
 
 namespace IrregularVerbs.Services;
 
 public abstract class AppDataService
 {
     private const string AppFolderName = "IrregularVerbs";
-    protected static string AppDataPath => Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData);
-
+    private static string AppDataPath => Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData);
     protected DirectoryInfo AppDirectoryInfo { get; private set; }
 
-    public AppDataService()
+    protected AppDataService()
     {
         CheckApplicationFolder();
     }

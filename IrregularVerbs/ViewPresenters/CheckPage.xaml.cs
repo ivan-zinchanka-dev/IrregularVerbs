@@ -1,8 +1,6 @@
-﻿using System;
-using System.Collections.ObjectModel;
+﻿using System.Collections.ObjectModel;
 using System.Windows;
 using System.Windows.Controls;
-using IrregularVerbs.Models;
 using IrregularVerbs.Models.Answers;
 using IrregularVerbs.Models.Configs;
 using IrregularVerbs.Services;
@@ -11,8 +9,8 @@ namespace IrregularVerbs.ViewPresenters;
 
 public partial class CheckPage : Page
 {
-    private ObservableCollection<IrregularVerbAnswer> _answers;
-    private IrregularVerbsTeacher _teacher;
+    private readonly ObservableCollection<IrregularVerbAnswer> _answers;
+    private readonly IrregularVerbsTeacher _teacher;
     
     public CheckPage()
     {
