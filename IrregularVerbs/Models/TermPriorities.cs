@@ -14,6 +14,16 @@ public class TermPriorities
         _priorities = new Dictionary<string, int>();
     }
 
+    public int GetPriority(string term)
+    {
+        if (_priorities.TryGetValue(term, out int priority))
+        {
+            return priority;
+        }
+
+        return 0;
+    }
+    
     public TermPriorities SetPriority(string term, int priority)
     {
         _priorities[term] = priority;

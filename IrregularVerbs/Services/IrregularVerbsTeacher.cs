@@ -40,7 +40,10 @@ public class IrregularVerbsTeacher
         }
 
         List<BaseIrregularVerb> verbs = _storage.IrregularVerbs.Disorder();
+        
+        OrderByPriority(ref verbs);
         UpdateNotShownTermPriorities(verbs.Skip(_questionsCount));
+        
         verbs = verbs.Take(_questionsCount).ToList();
 
         if (_alphabeticalOrder)
@@ -113,7 +116,17 @@ public class IrregularVerbsTeacher
     {
         return result ? AnswerResult.Correct : AnswerResult.Incorrect;
     }
-    
+
+    private void OrderByPriority(ref List<BaseIrregularVerb> verbs)
+    {
+        if (_priorities == null)
+        {
+            return;
+        }
+
+        verbs = verbs.OrderByDescending(verb => _priorities.GetPriority(verb.NativeWord.Term)).ToList();
+    }
+
     private void UpdateNotShownTermPriorities(IEnumerable<BaseIrregularVerb> verbs)
     {
         if (_priorities == null)
