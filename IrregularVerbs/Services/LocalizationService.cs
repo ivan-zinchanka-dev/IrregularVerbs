@@ -11,7 +11,6 @@ namespace IrregularVerbs.Services;
 public class LocalizationService
 {
     private const string LocalizationSourcePath = "Resources/localization.xlsx";
-    
     private readonly Dictionary<string, List<string>> _dictionary = new Dictionary<string, List<string>>();
 
     private Language _currentLanguage;
@@ -41,8 +40,6 @@ public class LocalizationService
                 {
                     DataTable dataTable = reader.AsDataSet().Tables[0];
                     
-                    Console.WriteLine("Count: " + dataTable.Columns.Count);
-                    
                     for (int i = 1; i < dataTable.Rows.Count; i++)
                     {
                         DataRow dataRow = dataTable.Rows[i];
@@ -57,9 +54,7 @@ public class LocalizationService
                                 dataRow[3].ToString(),
                             });
                         }
-                        
                     }
-                    
                 }
             }
         }
