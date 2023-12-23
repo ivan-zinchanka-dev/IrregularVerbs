@@ -3,23 +3,24 @@ using System.Collections.Generic;
 
 namespace IrregularVerbs.Models;
 
+[Serializable]
 public class TermPriorities
 {
     private readonly Dictionary<string, int> _priorities;
-
-    public event Action OnChanged;
+    [field:NonSerialized] public event Action OnChanged;
     
     public TermPriorities()
     {
         _priorities = new Dictionary<string, int>();
     }
 
-    public void SetPriority(string term, int priority)
+    public TermPriorities SetPriority(string term, int priority)
     {
         _priorities[term] = priority;
+        return this;
     }
     
-    public void AppendPriority(string term, int priority)
+    public TermPriorities AppendPriority(string term, int priority)
     {
         if (_priorities.ContainsKey(term))
         {
@@ -29,6 +30,13 @@ public class TermPriorities
         {
             _priorities.Add(term, priority);
         }
+        
+        return this;
+    }
+
+    public void Save()
+    {
+        OnChanged?.Invoke();
     }
 
 }

@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.IO;
 using System.Runtime.Serialization.Formatters.Binary;
 using System.Threading.Tasks;
@@ -12,37 +11,82 @@ public class CacheService : AppDataService
     private const string CacheFolderName = "Cache";
     private const string TermPrioritiesFileName = "term_priorities.bin";
 
-    private TermPriorities _termPriorities;
+    private DirectoryInfo _cacheDirectoryInfo;
+    public TermPriorities TermPriorities;
+
+    public CacheService()
+    {
+        CheckCacheFolder();
+    }
+    
+    public override void InitializeAsync(Action onComplete = null)
+    {
+        LoadPriorityCacheAsync().ContinueWith((task) =>
+        {
+            onComplete?.Invoke();
+            
+        }, TaskScheduler.FromCurrentSynchronizationContext());
+    }
+    
+    private void CheckCacheFolder()
+    {
+        string path = Path.Combine(AppDirectoryInfo.FullName, CacheFolderName);
+        _cacheDirectoryInfo = new DirectoryInfo(path);
+        
+        if (!_cacheDirectoryInfo.Exists)
+        {
+            _cacheDirectoryInfo.Create();
+        }
+    }
     
     private async Task LoadPriorityCacheAsync()
     {
-        string fullFileName = Path.Combine(AppDirectoryInfo.FullName, CacheFolderName, TermPrioritiesFileName);
+        string fullFileName = Path.Combine(_cacheDirectoryInfo.FullName, TermPrioritiesFileName);
 
         if (!File.Exists(fullFileName))
         {
-            _termPriorities = new TermPriorities();
+            TermPriorities = new TermPriorities();
         }
         else
         {
             try
             {
                 byte[] bytes = await File.ReadAllBytesAsync(fullFileName);
-                _termPriorities = Deserialize<TermPriorities>(bytes);
+                TermPriorities = (TermPriorities)Deserialize(bytes);
             }
             catch (Exception ex)
             {
-                _termPriorities = new TermPriorities();
+                TermPriorities = new TermPriorities();
                 File.Delete(fullFileName);
             }
         }
-    }
-    
-    private T Deserialize<T>(byte[] param)
-    {
-        using (MemoryStream ms = new MemoryStream(param))
-        {
-            return (T)new BinaryFormatter().Deserialize(ms);
-        }
+
+        TermPriorities.OnChanged += SavePriorityCacheAsync;
     }
 
+    private async void SavePriorityCacheAsync()
+    {
+        string fullFileName = Path.Combine(_cacheDirectoryInfo.FullName, TermPrioritiesFileName);
+        
+        byte[] bytes = Serialize(TermPriorities);
+        await File.WriteAllBytesAsync(fullFileName, bytes);
+    }
+
+    private byte[] Serialize(object source)
+    {
+        using (MemoryStream stream = new MemoryStream())
+        {
+            new BinaryFormatter().Serialize(stream, source);
+            return stream.ToArray();
+        }
+    }
+    
+    private object Deserialize(byte[] source)
+    {
+        using (MemoryStream stream = new MemoryStream(source))
+        {
+            return new BinaryFormatter().Deserialize(stream);
+        }
+    }
+    
 }

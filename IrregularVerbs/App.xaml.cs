@@ -27,6 +27,8 @@ namespace IrregularVerbs
 
         public UserPreferencesService PreferencesService { get; private set; }
 
+        public CacheService CacheService { get; private set; }
+
         //public ApplicationSettings Settings { get; private set; }
 
         public App()
@@ -61,7 +63,12 @@ namespace IrregularVerbs
             
                 IrregularVerbsStorage = new IrregularVerbsStorage();
                 
+                CacheService = new CacheService();
+                CacheService.InitializeAsync();
+                
             }, TaskScheduler.FromCurrentSynchronizationContext());
+
+            
         }
 
         protected override void OnExit(ExitEventArgs e)
