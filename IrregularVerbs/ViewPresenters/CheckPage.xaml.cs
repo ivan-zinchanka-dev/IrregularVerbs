@@ -1,8 +1,12 @@
-﻿using System.Collections.ObjectModel;
+﻿using System;
+using System.Collections.ObjectModel;
+using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Documents;
 using IrregularVerbs.Models.Answers;
 using IrregularVerbs.Models.Configs;
+using IrregularVerbs.Models.Verbs;
 using IrregularVerbs.Services;
 
 namespace IrregularVerbs.ViewPresenters;
@@ -37,7 +41,30 @@ public partial class CheckPage : Page
         _checkButton.Visibility = Visibility.Collapsed;
         _backButton.Visibility = Visibility.Visible;
     }
-    
+
+    private void OnMoreInfoClick(object sender, RoutedEventArgs args)
+    {
+        int answerInstanceId = (int)((FrameworkContentElement)sender).Tag;
+        
+        Console.WriteLine("OnMoreInfoClick with tag: " + answerInstanceId);
+
+        IrregularVerbAnswer foundAnswer = _answers.First(answer => answer.InstanceId == answerInstanceId);
+        BaseIrregularVerb foundOriginal = foundAnswer.Original;
+
+        string correctData = $"Native Word: {foundOriginal.NativeWord}\n" +
+                             $"Infinitive: {foundOriginal.Infinitive}\n" +
+                             $"Past Simple: {foundOriginal.PastSimple}\n" +
+                             $"Past Participle: {foundOriginal.PastParticiple}";
+        
+        MessageBox.Show(correctData, 
+            "Correct data", 
+            MessageBoxButton.OK, 
+            MessageBoxImage.None);
+
+        
+        
+    }
+
     private void OnBackClick(object sender, RoutedEventArgs args)
     {
         if (NavigationService.CanGoBack)

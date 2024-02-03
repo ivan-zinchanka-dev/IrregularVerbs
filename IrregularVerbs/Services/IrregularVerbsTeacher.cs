@@ -68,9 +68,11 @@ public class IrregularVerbsTeacher
             throw new Exception("No tasks to check");
         }
 
-        CheckingResult checkingResult = new CheckingResult();
-        checkingResult.AllAnswersCount = _cachedTask.Count;
-        
+        CheckingResult checkingResult = new CheckingResult
+        {
+            AllAnswersCount = _cachedTask.Count
+        };
+
         foreach (IrregularVerbAnswer answer in _cachedTask)
         {
             CheckAnswer(answer);

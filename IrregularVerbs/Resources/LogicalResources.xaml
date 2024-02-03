@@ -4,6 +4,8 @@
                     xmlns:configs="clr-namespace:IrregularVerbs.Models.Configs">
     
     <converters:AnswerResultToBrushConverter x:Key="AnswerResultToBrushConverter"/>
+    <converters:AnswerResultToInfoConverter x:Key="AnswerResultToInfoConverter"/>
+    
     <converters:EnumToInt32Converter x:Key="EnumToNumberConverter"/>
     
     <configs:ApplicationSettings x:Key="ApplicationSettings" 

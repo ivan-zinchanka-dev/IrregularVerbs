@@ -1,15 +1,16 @@
 ﻿using System;
 using System.Globalization;
 using System.Windows.Data;
-using System.Windows.Media;
 using IrregularVerbs.Models.Answers;
 
 namespace IrregularVerbs.Converters;
 
-public class AnswerResultToBrushConverter : IValueConverter
+public class AnswerResultToInfoConverter : IValueConverter
 {
     private const string InputClassNameMismatch = "Value must be an IrregularVerbs.Models.Answers.AnswerResult";
-    private const string OutputClassNameMismatch = "Value must be a System.Windows.Media.SolidColorBrush";
+    private const string OutputClassNameMismatch = "Value must be a System.String";
+
+    private const string MoreInfo = "More info";
     
     public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
     {
@@ -18,14 +19,12 @@ public class AnswerResultToBrushConverter : IValueConverter
             switch (result)
             {
                 case AnswerResult.Correct:
-                    return Brushes.LightGreen;
-                
-                case AnswerResult.Incorrect:
-                    return Brushes.LightCoral;
-                
                 case AnswerResult.None: 
                 default:
-                    return Brushes.WhiteSmoke;
+                    return string.Empty;
+                
+                case AnswerResult.Incorrect:
+                    return MoreInfo;
             }
         }
         else
@@ -36,19 +35,18 @@ public class AnswerResultToBrushConverter : IValueConverter
 
     public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
     {
-        if (value is SolidColorBrush brush)
+        if (value is string text)
         {
-            if (brush.Equals(Brushes.LightGreen))
+            switch (text)
             {
-                return AnswerResult.Correct;
-            }
-            else if (brush.Equals(Brushes.LightCoral))
-            {
-                return AnswerResult.Incorrect;
-            }
-            else
-            {
-                return AnswerResult.None;
+                case "":
+                     return AnswerResult.Correct;
+                
+                case MoreInfo:
+                    return AnswerResult.Incorrect;
+                
+                 default:
+                     return AnswerResult.None;
             }
         }
         else

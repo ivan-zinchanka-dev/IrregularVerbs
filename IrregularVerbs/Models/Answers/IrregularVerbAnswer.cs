@@ -9,13 +9,14 @@ namespace IrregularVerbs.Models.Answers;
 public class IrregularVerbAnswer : INotifyPropertyChanged
 {
     public BaseIrregularVerb Original { get; private set; }
-    private AnswerResult _result;
-    public event PropertyChangedEventHandler PropertyChanged;
-    
     public LocalizedText NativeWord { get; private set; }
     public string Infinitive { get; set; }
     public string PastSimple { get; set; }
     public string PastParticiple { get; set; }
+    public int InstanceId { get; }
+    public event PropertyChangedEventHandler PropertyChanged;
+    
+    private AnswerResult _result;
     
     public AnswerResult Result
     {
@@ -27,6 +28,8 @@ public class IrregularVerbAnswer : INotifyPropertyChanged
         }
     }
     
+    private static int _instancesCount = 0;
+    
     public IrregularVerbAnswer(BaseIrregularVerb original)
     {
         Original = original;
@@ -34,6 +37,7 @@ public class IrregularVerbAnswer : INotifyPropertyChanged
         Infinitive = string.Empty;
         PastSimple = string.Empty;
         PastParticiple = string.Empty;
+        InstanceId = _instancesCount++;
         _result = AnswerResult.None;
     }
     
