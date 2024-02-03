@@ -67,7 +67,6 @@
                     </CheckBox>
                     
                 </Grid>
-                
             </GroupBox>
             
             <GroupBox Header="Actions" Margin="0 10 0 0">
@@ -90,14 +89,6 @@
                 </Grid>
                 
             </GroupBox>
-            
-            
-            
-            
         </StackPanel>
-        
-        
-        
-        
     </Grid>
 </Page>

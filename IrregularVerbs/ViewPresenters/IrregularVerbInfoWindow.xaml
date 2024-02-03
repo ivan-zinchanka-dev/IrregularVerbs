@@ -3,11 +3,11 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-        xmlns:local="clr-namespace:IrregularVerbs.ViewPresenters"
         mc:Ignorable="d"
         Title="Correct data" Height="165" Width="265"
         WindowStartupLocation="CenterScreen"
         ResizeMode="NoResize">
+    
     <StackPanel Orientation="Vertical">
         <TextBlock x:FieldModifier="private" x:Name="_infoText"
                    Margin="0 5 0 15"

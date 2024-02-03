@@ -34,7 +34,6 @@
                 </GridView>
             </ListView.View>
             
-            
         </ListView>
         <Grid Grid.Row="1">
             <Button VerticalAlignment="Center" 
@@ -45,7 +44,6 @@
                     Click="OnBackClick">
             </Button>
         </Grid>
-        
         
     </Grid>
 </Page>

@@ -38,10 +38,7 @@
                 
                 <DataGridTextColumn Width="100"
                                     Header="Infinitive" 
-                                    Binding="{Binding Path=Infinitive,
-                                    NotifyOnSourceUpdated=True, 
-                                    Mode=TwoWay, 
-                                    UpdateSourceTrigger=PropertyChanged}"/>
+                                    Binding="{Binding Path=Infinitive}"/>
                 
                 <DataGridTextColumn Width="100"
                                     Header="Past Simple" 
@@ -54,33 +51,26 @@
                 <DataGridTemplateColumn Width="200"
                                         Header="Result"
                                         IsReadOnly="True">
-                    
-                        <DataGridTemplateColumn.CellTemplate> 
-                            <DataTemplate> 
-                                <Border Background="{Binding Result, 
-                                        Converter={StaticResource AnswerResultToBrushConverter}, 
-                                        Mode=TwoWay}" 
-                                        BorderBrush="Black" BorderThickness="1">
-                                    <StackPanel Orientation="Horizontal">
-                                        <TextBlock Text="{Binding 
-                                            Path=Result,
-                                            StringFormat='{}{0}. ',
-                                            Mode=TwoWay, 
-                                            NotifyOnSourceUpdated=True,
-                                            UpdateSourceTrigger=PropertyChanged}" />
-                                        <TextBlock>
-                                            <Hyperlink Foreground="Navy" 
-                                                       Tag="{Binding Path=InstanceId}" 
-                                                       Click="OnMoreInfoClick">
-                                                <Run Text="{Binding Path=Result, 
-                                                     Converter={StaticResource AnswerResultToInfoConverter}, 
-                                                     Mode=TwoWay}"/>
-                                            </Hyperlink>
-                                        </TextBlock>
-                                    </StackPanel>
-                                </Border>
-                            </DataTemplate> 
-                        </DataGridTemplateColumn.CellTemplate> 
+                    <DataGridTemplateColumn.CellTemplate> 
+                        <DataTemplate> 
+                            <Border Background="{Binding Path=Result, 
+                                    Converter={StaticResource AnswerResultToBrushConverter}}" 
+                                    BorderBrush="Black" BorderThickness="1">
+                                <StackPanel Orientation="Horizontal">
+                                    <TextBlock Text="{Binding Path=Result,
+                                               StringFormat='{}{0}. '}" />
+                                    <TextBlock>
+                                        <Hyperlink Foreground="Navy" 
+                                                   Tag="{Binding Path=InstanceId}" 
+                                                   Click="OnMoreInfoClick">
+                                            <Run Text="{Binding Path=Result, 
+                                                 Converter={StaticResource AnswerResultToInfoConverter}}"/>
+                                        </Hyperlink>
+                                    </TextBlock>
+                                </StackPanel>
+                            </Border>
+                        </DataTemplate> 
+                    </DataGridTemplateColumn.CellTemplate> 
                 </DataGridTemplateColumn>
                 
             </DataGrid.Columns>
@@ -110,7 +100,5 @@
             </TextBlock>
             
         </Grid>
-        
-        
     </Grid>
 </Page>
