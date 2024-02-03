@@ -63,7 +63,8 @@
                                         BorderBrush="Black" BorderThickness="1">
                                     <StackPanel Orientation="Horizontal">
                                         <TextBlock Text="{Binding 
-                                            Path=Result, 
+                                            Path=Result,
+                                            StringFormat='{}{0}. ',
                                             Mode=TwoWay, 
                                             NotifyOnSourceUpdated=True,
                                             UpdateSourceTrigger=PropertyChanged}" />
@@ -80,23 +81,6 @@
                                 </Border>
                             </DataTemplate> 
                         </DataGridTemplateColumn.CellTemplate> 
-                    
-                    
-                    <!--<DataGridTextColumn.ElementStyle>
-                        <Style TargetType="{x:Type TextBlock}">
-                            <Setter Property="Background" 
-                                    Value="{Binding Result, Converter={StaticResource AnswerResultToBrushConverter}, Mode=TwoWay}"/>
-                            <Setter Property="Foreground"
-                                    Value="{Binding 
-                                    Path=Result, 
-                                    Mode=TwoWay, 
-                                    NotifyOnSourceUpdated=True,
-                                    UpdateSourceTrigger=PropertyChanged}">
-                            </Setter>
-                            
-                        </Style>
-                    </DataGridTextColumn.ElementStyle>-->
-                    
                 </DataGridTemplateColumn>
                 
             </DataGrid.Columns>

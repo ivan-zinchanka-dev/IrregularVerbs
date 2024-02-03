@@ -3,7 +3,6 @@ using System.Collections.ObjectModel;
 using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Documents;
 using IrregularVerbs.Models.Answers;
 using IrregularVerbs.Models.Configs;
 using IrregularVerbs.Models.Verbs;
@@ -50,19 +49,8 @@ public partial class CheckPage : Page
 
         IrregularVerbAnswer foundAnswer = _answers.First(answer => answer.InstanceId == answerInstanceId);
         BaseIrregularVerb foundOriginal = foundAnswer.Original;
-
-        string correctData = $"Native Word: {foundOriginal.NativeWord}\n" +
-                             $"Infinitive: {foundOriginal.Infinitive}\n" +
-                             $"Past Simple: {foundOriginal.PastSimple}\n" +
-                             $"Past Participle: {foundOriginal.PastParticiple}";
         
-        MessageBox.Show(correctData, 
-            "Correct data", 
-            MessageBoxButton.OK, 
-            MessageBoxImage.None);
-
-        
-        
+        new IrregularVerbInfoWindow(foundOriginal).ShowDialog();
     }
 
     private void OnBackClick(object sender, RoutedEventArgs args)
