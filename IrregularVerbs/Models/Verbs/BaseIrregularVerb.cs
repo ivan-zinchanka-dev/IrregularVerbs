@@ -1,7 +1,6 @@
 ﻿using System;
 using IrregularVerbs.CodeBase;
 using IrregularVerbs.Models.Configs;
-using IrregularVerbs.Services;
 
 namespace IrregularVerbs.Models.Verbs;
 

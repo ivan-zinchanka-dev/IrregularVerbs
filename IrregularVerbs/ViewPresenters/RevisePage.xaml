@@ -37,7 +37,8 @@
             
         </ListView>
         <Grid Grid.Row="1">
-            <Button VerticalAlignment="Center" 
+            <Button Style="{StaticResource MaterialDesignRaisedButton}"
+                    VerticalAlignment="Center" 
                     HorizontalAlignment="Right" 
                     Margin="0 0 15 0"
                     Width="100"
