@@ -11,7 +11,9 @@
         <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center">
             <GroupBox x:FieldModifier="private" 
                       x:Name="_settingsGroupBox" 
+                      Style="{StaticResource MaterialDesignCardGroupBox}"
                       Header="Settings"
+                      FontFamily="{StaticResource MaterialDesignFont}"
                       Validation.Error="OnValidationError">
                 <Grid Width="300">
                     <Grid.RowDefinitions>
@@ -69,7 +71,7 @@
                 </Grid>
             </GroupBox>
             
-            <GroupBox Header="Actions" Margin="0 10 0 0">
+            <UserControl Margin="0 10 0 0">
                 <Grid>
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="*"/>
@@ -78,17 +80,19 @@
                     <Button Grid.Column="0"
                             Margin="5 5 5 5"
                             Content="Revise"
-                            Click="OnReviseClick">
+                            Click="OnReviseClick"
+                            Style="{StaticResource MaterialDesignRaisedButton}">
                     </Button>
             
                     <Button Grid.Column="1"
                             Margin="5 5 5 5"
                             Content="Check"
-                            Click="OnCheckClick">
+                            Click="OnCheckClick"
+                            Style="{StaticResource MaterialDesignRaisedDarkButton}">
                     </Button>
                 </Grid>
                 
-            </GroupBox>
+            </UserControl>
         </StackPanel>
     </Grid>
 </Page>

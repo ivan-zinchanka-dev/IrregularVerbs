@@ -7,7 +7,8 @@
         WindowStartupLocation="CenterScreen"
         Title="Irregular verbs" 
         Height="700"
-        Width="700">
+        Width="700"
+        Style="{StaticResource MaterialDesignWindow}">
     <Frame x:FieldModifier="private" 
            x:Name="_mainFrame"
            NavigationUIVisibility="Hidden">

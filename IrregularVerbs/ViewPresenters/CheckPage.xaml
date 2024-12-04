@@ -6,8 +6,9 @@
       mc:Ignorable="d"
       Title="CheckPage" Height="650" Width="650">
     
-    <Page.Resources>
-        <Style TargetType="Button" x:Key="LocalActionButton">
+    <Page.Resources> 
+        <Style TargetType="Button" x:Key="LocalActionButton"
+               BasedOn="{StaticResource MaterialDesignPaperButton}">
             <Setter Property="VerticalAlignment" Value="Center"/>
             <Setter Property="HorizontalAlignment" Value="Right"/>
             <Setter Property="Margin" Value="0 0 15 0"/>

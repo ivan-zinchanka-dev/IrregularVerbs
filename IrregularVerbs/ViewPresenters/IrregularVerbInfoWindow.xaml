@@ -6,18 +6,23 @@
         mc:Ignorable="d"
         Title="Correct data" Height="165" Width="265"
         WindowStartupLocation="CenterScreen"
-        ResizeMode="NoResize">
+        ResizeMode="NoResize"
+        Style="{StaticResource MaterialDesignWindow}">
     
     <StackPanel Orientation="Vertical">
         <TextBlock x:FieldModifier="private" x:Name="_infoText"
+                   Style="{StaticResource MaterialDesignHelperTextBlock}"
                    Margin="0 5 0 15"
                    Width="200"
                    Height="Auto"
                    HorizontalAlignment="Center"
                    VerticalAlignment="Center"
                    FontSize="13"
-                   Text="1. dream&#x0a;2. dream&#x0a;3. dreamt/dreamed&#x0a;4. dreamt/dreamed&#x0a;"/>
-        <Button Margin="0 0 0 10"
+                   Text="1. dream&#x0a;2. dream&#x0a;3. dreamt/dreamed&#x0a;4. dreamt/dreamed&#x0a;"
+                   FontFamily="{StaticResource MaterialDesignFont}"/>
+        
+        <Button Style="{StaticResource MaterialDesignRaisedSecondaryButton}"
+                Margin="0 0 0 10"
                 Width="90"
                 Content="Got it"
                 Click="OnGotItClick"/>
