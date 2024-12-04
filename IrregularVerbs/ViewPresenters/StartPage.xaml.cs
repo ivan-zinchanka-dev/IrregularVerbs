@@ -3,19 +3,23 @@ using System.Globalization;
 using System.Windows;
 using System.Windows.Controls;
 using IrregularVerbs.Models.Components;
+using IrregularVerbs.Models.Configs;
 
 namespace IrregularVerbs.ViewPresenters;
 
 public partial class StartPage : Page
 {
+    private readonly ApplicationSettings _applicationSettings;
+    
     public event Action OnDemandRevise;
     public event Action OnDemandCheck;
     
-    public StartPage()
+    public StartPage(ApplicationSettings applicationSettings)       // TODO Create StartViewModel with AppSettingsModel and Revise & Check commands
     {
+        _applicationSettings = applicationSettings;
         InitializeComponent();
         
-        _settingsGroupBox.DataContext = App.Instance.PreferencesService.AppSettings;
+        _settingsGroupBox.DataContext = _applicationSettings;
     }
 
     private bool ValidateAppSettings()

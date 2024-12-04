@@ -16,6 +16,8 @@ namespace IrregularVerbs
         public LocalizationService LocalizationService { get; private set; }
         public UserPreferencesService PreferencesService { get; private set; }
         public CacheService CacheService { get; private set; }
+
+        private MainWindow _mainWindow;
         
         public App()
         {
@@ -46,6 +48,9 @@ namespace IrregularVerbs
             IrregularVerbsStorage = new IrregularVerbsStorage();
             
             await cacheServiceLaunchTask;
+
+            _mainWindow = new MainWindow(PreferencesService.AppSettings);       // TODO Use DI instead, add windows as transient
+            _mainWindow.Show();
         }
 
         protected override void OnExit(ExitEventArgs e)

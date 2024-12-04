@@ -1,4 +1,5 @@
 ﻿using System.Windows;
+using IrregularVerbs.Models.Configs;
 using IrregularVerbs.ViewPresenters;
 
 namespace IrregularVerbs
@@ -8,8 +9,11 @@ namespace IrregularVerbs
     /// </summary>
     public partial class MainWindow : Window
     {
-        public MainWindow()
+        private readonly ApplicationSettings _applicationSettings;
+        
+        public MainWindow(ApplicationSettings applicationSettings)
         {
+            _applicationSettings = applicationSettings;
             InitializeComponent();
             Loaded += OnWindowLoaded;
         }
@@ -21,7 +25,7 @@ namespace IrregularVerbs
 
         private void ShowMainPage()
         {
-            StartPage startPage = new StartPage();
+            StartPage startPage = new StartPage(_applicationSettings);
             startPage.OnDemandRevise += ShowRevisePage;
             startPage.OnDemandCheck += ShowCheckPage;
             _mainFrame.Navigate(startPage);

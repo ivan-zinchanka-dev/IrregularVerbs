@@ -31,8 +31,6 @@
                                Text="Your native language: ">
                     </TextBlock>
                     <ComboBox Grid.Row="0" Grid.Column="1"
-                              x:FieldModifier="private" 
-                              x:Name="_nativeLanguageComboBox"
                               Margin="0 5 5 0"
                               SelectedIndex="{Binding Path=NativeLanguage, 
                               Converter={StaticResource EnumToNumberConverter}}">
@@ -62,8 +60,6 @@
                                Text="Alphabetical order: ">
                     </TextBlock>
                     <CheckBox Grid.Row="2" Grid.Column="1"
-                              x:FieldModifier="private" 
-                              x:Name="_disorderVerbsCheckBox"
                               Margin="0 5 5 5"
                               IsChecked="{Binding Path=AlphabeticalOrder}">
                     </CheckBox>
