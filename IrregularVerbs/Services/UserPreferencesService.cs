@@ -24,13 +24,9 @@ public class UserPreferencesService : AppDataService
         CheckPreferencesFolder();
     }
     
-    public override void InitializeAsync(Action onComplete = null)
+    public override async Task InitializeAsync()
     {
-        LoadAppSettingsAsync().ContinueWith((task) =>
-        {
-            onComplete?.Invoke();
-            
-        }, TaskScheduler.FromCurrentSynchronizationContext());
+        await LoadAppSettingsAsync();
     }
 
     private void CheckPreferencesFolder()

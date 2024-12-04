@@ -1,4 +1,5 @@
-﻿using System.Windows;
+﻿using System.Threading.Tasks;
+using System.Windows;
 using IrregularVerbs.Services;
 
 namespace IrregularVerbs
@@ -26,23 +27,25 @@ namespace IrregularVerbs
             LocalizationService.CurrentLanguage = PreferencesService.AppSettings.NativeLanguage;
         }
 
-        protected override void OnStartup(StartupEventArgs e)
+        protected override async void OnStartup(StartupEventArgs e)
         {
             base.OnStartup(e);
             
             PreferencesService = new UserPreferencesService(LogicalResources);
-            PreferencesService.InitializeAsync(() =>
-            {
-                LocalizationService = new LocalizationService();
-                SetNativeLanguage();
-                PreferencesService.AppSettings.OnPropertyChanged += SetNativeLanguage;
-            
-                IrregularVerbsStorage = new IrregularVerbsStorage();
-                
-            });
-            
             CacheService = new CacheService();
-            CacheService.InitializeAsync();
+
+            Task prefsServiceLaunchTask = PreferencesService.InitializeAsync();
+            Task cacheServiceLaunchTask = CacheService.InitializeAsync();
+            
+            await prefsServiceLaunchTask;
+            
+            LocalizationService = new LocalizationService();
+            SetNativeLanguage();
+            PreferencesService.AppSettings.OnPropertyChanged += SetNativeLanguage;
+            
+            IrregularVerbsStorage = new IrregularVerbsStorage();
+            
+            await cacheServiceLaunchTask;
         }
 
         protected override void OnExit(ExitEventArgs e)

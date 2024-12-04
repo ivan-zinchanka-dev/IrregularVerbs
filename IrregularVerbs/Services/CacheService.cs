@@ -12,20 +12,16 @@ public class CacheService : AppDataService
     private const string TermPrioritiesFileName = "term_priorities.bin";
 
     private DirectoryInfo _cacheDirectoryInfo;
-    public TermPriorities TermPriorities;
+    public TermPriorities TermPriorities { get; private set; }
 
     public CacheService()
     {
         CheckCacheFolder();
     }
     
-    public override void InitializeAsync(Action onComplete = null)
+    public override async Task InitializeAsync()
     {
-        LoadPriorityCacheAsync().ContinueWith((task) =>
-        {
-            onComplete?.Invoke();
-            
-        }, TaskScheduler.FromCurrentSynchronizationContext());
+        await LoadPriorityCacheAsync();
     }
     
     private void CheckCacheFolder()

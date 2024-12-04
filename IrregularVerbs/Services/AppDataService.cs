@@ -1,5 +1,6 @@
 ﻿using System;
 using System.IO;
+using System.Threading.Tasks;
 
 namespace IrregularVerbs.Services;
 
@@ -14,7 +15,7 @@ public abstract class AppDataService
         CheckApplicationFolder();
     }
 
-    public abstract void InitializeAsync(Action onComplete = null);
+    public abstract Task InitializeAsync();
 
     private void CheckApplicationFolder()
     {
