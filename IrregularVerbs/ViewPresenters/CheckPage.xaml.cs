@@ -12,16 +12,29 @@ namespace IrregularVerbs.ViewPresenters;
 
 public partial class CheckPage : Page
 {
+    private readonly ApplicationSettings _applicationSettings;
+    private readonly IrregularVerbsStorage _irregularVerbsStorage;
+    private readonly CacheService _cacheService;
+    
     private readonly ObservableCollection<IrregularVerbAnswer> _answers;
     private readonly IrregularVerbsTeacher _teacher;
     
-    public CheckPage()
+    public CheckPage(
+        ApplicationSettings applicationSettings, 
+        IrregularVerbsStorage irregularVerbsStorage, 
+        CacheService cacheService)
     {
+        _applicationSettings = applicationSettings;
+        _irregularVerbsStorage = irregularVerbsStorage;
+        _cacheService = cacheService;
+        
         InitializeComponent();
         
-        ApplicationSettings settings = App.Instance.PreferencesService.AppSettings;
-        _teacher = new IrregularVerbsTeacher(App.Instance.IrregularVerbsStorage, settings.VerbsCount, 
-            settings.AlphabeticalOrder).UsePriorities(App.Instance.CacheService.TermPriorities);
+        _teacher = new IrregularVerbsTeacher(
+                _irregularVerbsStorage, 
+                _applicationSettings.VerbsCount, 
+                _applicationSettings.AlphabeticalOrder)
+            .UsePriorities(_cacheService.TermPriorities);
         
         _answers = new ObservableCollection<IrregularVerbAnswer>(_teacher.GenerateTask());
         Loaded += OnPageLoaded;

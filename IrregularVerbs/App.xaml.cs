@@ -25,8 +25,9 @@ namespace IrregularVerbs
         public CacheService CacheService { get; private set; }
 
         private IHost _host;
-        
         private MainWindow _mainWindow;
+        
+        // TODO Check multiple startups and message box if need
         
         public App()
         {
@@ -67,8 +68,12 @@ namespace IrregularVerbs
                 {
                     services
                         .AddSingleton<ApplicationSettings>(PreferencesService.AppSettings)
+                        .AddSingleton<IrregularVerbsStorage>(IrregularVerbsStorage)
+                        .AddSingleton<CacheService>(CacheService)
                         .AddSingleton<MainWindow>()
-                        .AddAbstractFactory<StartPage>();
+                        .AddAbstractFactory<StartPage>()
+                        .AddAbstractFactory<RevisePage>()
+                        .AddAbstractFactory<CheckPage>();
                 })
                 .Build();
 

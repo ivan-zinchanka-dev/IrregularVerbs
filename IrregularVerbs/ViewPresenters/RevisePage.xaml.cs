@@ -1,19 +1,24 @@
 ﻿using System.Windows;
 using System.Windows.Controls;
+using IrregularVerbs.Services;
 
 namespace IrregularVerbs.ViewPresenters;
 
 public partial class RevisePage : Page
 {
-    public RevisePage()
+    private readonly IrregularVerbsStorage _irregularVerbsStorage;
+    
+    public RevisePage(IrregularVerbsStorage irregularVerbsStorage)
     {
+        _irregularVerbsStorage = irregularVerbsStorage;
+        
         InitializeComponent();
         Loaded += OnPageLoaded;
     }
     
     private void OnPageLoaded(object sender, RoutedEventArgs args)
     {
-        _tableView.ItemsSource = App.Instance.IrregularVerbsStorage.IrregularVerbs;
+        _tableView.ItemsSource = _irregularVerbsStorage.IrregularVerbs;
     }
 
     private void OnBackClick(object sender, RoutedEventArgs e)

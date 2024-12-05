@@ -1,4 +1,5 @@
 ﻿using System.Windows;
+using System.Windows.Controls;
 using IrregularVerbs.CodeBase;
 using IrregularVerbs.CodeBase.AbstractFactory;
 using IrregularVerbs.Models.Configs;
@@ -11,24 +12,21 @@ namespace IrregularVerbs
     /// </summary>
     public partial class MainWindow : Window
     {
-        private IAbstractFactory<StartPage> _startPageFactory;
+        private readonly IAbstractFactory<StartPage> _startPageFactory;
+        private readonly IAbstractFactory<RevisePage> _revisePageFactory;
+        private readonly IAbstractFactory<CheckPage> _checkPageFactory;
         
-        public MainWindow(IAbstractFactory<StartPage> startPageFactory)
+        public MainWindow(
+            IAbstractFactory<StartPage> startPageFactory, 
+            IAbstractFactory<RevisePage> revisePageFactory, 
+            IAbstractFactory<CheckPage> checkPageFactory) 
         {
             _startPageFactory = startPageFactory;
+            _revisePageFactory = revisePageFactory;
+            _checkPageFactory = checkPageFactory;
+
             InitializeComponent();
             Loaded += OnWindowLoaded;
-
-            /*Closed += (a, b) =>
-            {
-                Application.Current.Shutdown();
-
-            };*/
-        }
-
-        private void OnUnloaded(object sender, RoutedEventArgs e)
-        {
-            
         }
 
         private void OnWindowLoaded(object sender, RoutedEventArgs args)
@@ -46,14 +44,12 @@ namespace IrregularVerbs
         
         private void ShowRevisePage()
         {
-            RevisePage revisePage = new RevisePage();
-            _mainFrame.Navigate(revisePage);
+            _mainFrame.Navigate(_revisePageFactory.Create());
         }
 
         private void ShowCheckPage()
         {
-            CheckPage checkPage = new CheckPage();
-            _mainFrame.Navigate(checkPage);
+            _mainFrame.Navigate(_checkPageFactory.Create());
         }
         
     }

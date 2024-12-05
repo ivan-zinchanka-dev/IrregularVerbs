@@ -17,8 +17,8 @@ public partial class StartPage : Page
     public StartPage(ApplicationSettings applicationSettings)
     {
         _applicationSettings = applicationSettings;
-        InitializeComponent();
         
+        InitializeComponent();
         _settingsGroupBox.DataContext = _applicationSettings;
     }
 
