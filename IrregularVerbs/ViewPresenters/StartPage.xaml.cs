@@ -14,7 +14,7 @@ public partial class StartPage : Page
     public event Action OnDemandRevise;
     public event Action OnDemandCheck;
     
-    public StartPage(ApplicationSettings applicationSettings)       // TODO Create StartViewModel with AppSettingsModel and Revise & Check commands
+    public StartPage(ApplicationSettings applicationSettings)
     {
         _applicationSettings = applicationSettings;
         InitializeComponent();

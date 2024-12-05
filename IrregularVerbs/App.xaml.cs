@@ -1,6 +1,13 @@
 ﻿using System.Threading.Tasks;
 using System.Windows;
+using IrregularVerbs.CodeBase;
+using IrregularVerbs.CodeBase.AbstractFactory;
+using IrregularVerbs.Models.Configs;
 using IrregularVerbs.Services;
+using IrregularVerbs.ViewPresenters;
+using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Hosting;
+using Microsoft.Extensions.Logging;
 
 namespace IrregularVerbs
 {
@@ -17,6 +24,8 @@ namespace IrregularVerbs
         public UserPreferencesService PreferencesService { get; private set; }
         public CacheService CacheService { get; private set; }
 
+        private IHost _host;
+        
         private MainWindow _mainWindow;
         
         public App()
@@ -49,12 +58,32 @@ namespace IrregularVerbs
             
             await cacheServiceLaunchTask;
 
-            _mainWindow = new MainWindow(PreferencesService.AppSettings);       // TODO Use DI instead, add windows as transient
+            _host = Host.CreateDefaultBuilder()
+                .ConfigureLogging(logging =>
+                {
+                    logging.ClearProviders();
+                })
+                .ConfigureServices(services =>
+                {
+                    services
+                        .AddSingleton<ApplicationSettings>(PreferencesService.AppSettings)
+                        .AddSingleton<MainWindow>()
+                        .AddAbstractFactory<StartPage>();
+                })
+                .Build();
+
+            await _host.StartAsync();
+
+            _mainWindow = _host.Services.GetRequiredService<MainWindow>();
             _mainWindow.Show();
+            
         }
 
-        protected override void OnExit(ExitEventArgs e)
+        protected override async void OnExit(ExitEventArgs e)
         {
+            await _host.StopAsync();
+            _host.Dispose();
+            
             PreferencesService.AppSettings.OnPropertyChanged -= SetNativeLanguage;
             base.OnExit(e);
         }

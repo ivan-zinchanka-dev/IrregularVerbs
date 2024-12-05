@@ -1,4 +1,6 @@
 ﻿using System.Windows;
+using IrregularVerbs.CodeBase;
+using IrregularVerbs.CodeBase.AbstractFactory;
 using IrregularVerbs.Models.Configs;
 using IrregularVerbs.ViewPresenters;
 
@@ -9,13 +11,24 @@ namespace IrregularVerbs
     /// </summary>
     public partial class MainWindow : Window
     {
-        private readonly ApplicationSettings _applicationSettings;
+        private IAbstractFactory<StartPage> _startPageFactory;
         
-        public MainWindow(ApplicationSettings applicationSettings)
+        public MainWindow(IAbstractFactory<StartPage> startPageFactory)
         {
-            _applicationSettings = applicationSettings;
+            _startPageFactory = startPageFactory;
             InitializeComponent();
             Loaded += OnWindowLoaded;
+
+            /*Closed += (a, b) =>
+            {
+                Application.Current.Shutdown();
+
+            };*/
+        }
+
+        private void OnUnloaded(object sender, RoutedEventArgs e)
+        {
+            
         }
 
         private void OnWindowLoaded(object sender, RoutedEventArgs args)
@@ -25,7 +38,7 @@ namespace IrregularVerbs
 
         private void ShowMainPage()
         {
-            StartPage startPage = new StartPage(_applicationSettings);
+            StartPage startPage = _startPageFactory.Create();
             startPage.OnDemandRevise += ShowRevisePage;
             startPage.OnDemandCheck += ShowCheckPage;
             _mainFrame.Navigate(startPage);
