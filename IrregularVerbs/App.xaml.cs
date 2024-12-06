@@ -1,6 +1,5 @@
 ﻿using System.Threading.Tasks;
 using System.Windows;
-using IrregularVerbs.CodeBase;
 using IrregularVerbs.CodeBase.AbstractFactory;
 using IrregularVerbs.Factories;
 using IrregularVerbs.Models.Configs;
@@ -13,19 +12,13 @@ using Microsoft.Extensions.Logging;
 
 namespace IrregularVerbs
 {
-    /// <summary>
-    /// Interaction logic for App.xaml
-    /// </summary>
     public partial class App : Application
     {
-        public static App Instance { get; private set; } = null!;
-        
         private ResourceDictionary LogicalResources => Resources.MergedDictionaries[0];
-        //public IrregularVerbsStorage IrregularVerbsStorage { get; private set; }
-        //public IrregularVerbsFactory IrregularVerbsFactory { get; private set; }
-        public LocalizationService LocalizationService { get; private set; }
-        public UserPreferencesService PreferencesService { get; private set; }
-        public CacheService CacheService { get; private set; }
+
+        private LocalizationService _localizationService;
+        private UserPreferencesService _preferencesService;
+        private CacheService _cacheService;
 
         private IHost _host;
         private PageManager _pageManager;
@@ -33,33 +26,26 @@ namespace IrregularVerbs
         
         // TODO Check multiple startups and message box if need
         
-        public App()
-        {
-            Instance = this;
-        }
-        
         private void SetNativeLanguage()
         {
-            LocalizationService.CurrentLanguage = PreferencesService.AppSettings.NativeLanguage;
+            _localizationService.CurrentLanguage = _preferencesService.AppSettings.NativeLanguage;
         }
 
         protected override async void OnStartup(StartupEventArgs e)
         {
             base.OnStartup(e);
             
-            PreferencesService = new UserPreferencesService(LogicalResources);
-            CacheService = new CacheService();
+            _preferencesService = new UserPreferencesService(LogicalResources);
+            _cacheService = new CacheService();
 
-            Task prefsServiceLaunchTask = PreferencesService.InitializeAsync();
-            Task cacheServiceLaunchTask = CacheService.InitializeAsync();
+            Task prefsServiceLaunchTask = _preferencesService.InitializeAsync();
+            Task cacheServiceLaunchTask = _cacheService.InitializeAsync();
             
             await prefsServiceLaunchTask;
             
-            LocalizationService = new LocalizationService();
+            _localizationService = new LocalizationService();
             SetNativeLanguage();
-            PreferencesService.AppSettings.OnPropertyChanged += SetNativeLanguage;
-            
-           
+            _preferencesService.AppSettings.OnPropertyChanged += SetNativeLanguage;
             
             await cacheServiceLaunchTask;
 
@@ -71,17 +57,18 @@ namespace IrregularVerbs
                 .ConfigureServices(services =>
                 {
                     services
-                        .AddSingleton<ApplicationSettings>(PreferencesService.AppSettings)
-                        .AddSingleton<LocalizationService>(LocalizationService)
+                        .AddSingleton<ApplicationSettings>(_preferencesService.AppSettings)
+                        .AddSingleton<LocalizationService>(_localizationService)
                         .AddSingleton<IParametrizedFactory<LocalizedText, string>, LocalizedTextFactory>()
                         .AddSingleton<FixedFormFactory>()
                         .AddSingleton<VolatileFormFactory>()
                         .AddSingleton<IrregularVerbsFactory>()
                         .AddSingleton<IrregularVerbsStorage>()
-                        .AddSingleton<CacheService>(CacheService)
+                        .AddSingleton<CacheService>(_cacheService)
                         .AddSingleton<PageManager>()
                         .AddSingleton<MainWindow>()
                         .AddSingleton<StartPageViewModel>()
+                        .AddSingleton<RevisePageViewModel>()
                         .AddAbstractFactory<StartPage>()
                         .AddAbstractFactory<RevisePage>()
                         .AddAbstractFactory<CheckPage>();
@@ -113,7 +100,7 @@ namespace IrregularVerbs
             await _host.StopAsync();
             _host.Dispose();
             
-            PreferencesService.AppSettings.OnPropertyChanged -= SetNativeLanguage;
+            _preferencesService.AppSettings.OnPropertyChanged -= SetNativeLanguage;
             base.OnExit(e);
         }
     }

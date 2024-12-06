@@ -11,10 +11,12 @@ namespace IrregularVerbs.Services;
 public class IrregularVerbsStorage
 {
     private const string IrregularVerbsSourcePath = "Resources/irregular_verbs_source.xlsx";
+    
     private readonly IrregularVerbsFactory _verbsFactory;
-    
-    public List<BaseIrregularVerb> IrregularVerbs { get; private set; }
-    
+    private readonly List<BaseIrregularVerb> _irregularVerbs;
+
+    public IReadOnlyCollection<BaseIrregularVerb> IrregularVerbs => _irregularVerbs;
+
     public IrregularVerbsStorage(IrregularVerbsFactory verbsFactory)
     {
         _verbsFactory = verbsFactory;
@@ -29,7 +31,7 @@ public class IrregularVerbsStorage
                 {
                     DataTable dataTable = reader.AsDataSet().Tables[0];
 
-                    IrregularVerbs = new List<BaseIrregularVerb>(dataTable.Rows.Count);
+                    _irregularVerbs = new List<BaseIrregularVerb>(dataTable.Rows.Count);
                     
                     for (int i = 1; i < dataTable.Rows.Count; i++)
                     {
@@ -37,7 +39,7 @@ public class IrregularVerbsStorage
 
                         if (irregularVerb != null)
                         {
-                            IrregularVerbs.Add(irregularVerb);
+                            _irregularVerbs.Add(irregularVerb);
                         }
                     }
                 }

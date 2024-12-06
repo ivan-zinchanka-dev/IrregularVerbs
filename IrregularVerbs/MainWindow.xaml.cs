@@ -3,9 +3,6 @@ using System.Windows.Controls;
 
 namespace IrregularVerbs
 {
-    /// <summary>
-    /// Interaction logic for MainWindow.xaml
-    /// </summary>
     public partial class MainWindow : Window
     {
         public MainWindow() 
@@ -17,5 +14,10 @@ namespace IrregularVerbs
         {
             _mainFrame.Navigate(page);
         }
+        
+        /*private void OnNavigate(object sender, NavigatingCancelEventArgs e)
+        {
+            e.Cancel = true;        // TODO Do something with back and forward user events
+        }*/
     }
 }

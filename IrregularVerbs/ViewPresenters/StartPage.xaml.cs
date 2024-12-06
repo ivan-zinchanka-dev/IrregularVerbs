@@ -6,35 +6,42 @@ namespace IrregularVerbs.ViewPresenters;
 
 public partial class StartPage : Page
 {
-    private readonly StartPageViewModel _startPageViewModel;
+    private readonly StartPageViewModel _viewModel;
     
-    public StartPage(StartPageViewModel startPageViewModel)
+    public StartPage(StartPageViewModel viewModel)
     {
-        _startPageViewModel = startPageViewModel;
-        DataContext = _startPageViewModel;
+        _viewModel = viewModel;
+        DataContext = _viewModel;
         
         InitializeComponent();
     }
     
     private void OnValidationError(object sender, ValidationErrorEventArgs eventArgs)
     {
-        if (eventArgs.Action == ValidationErrorEventAction.Added)
+        switch (eventArgs.Action)
         {
-            if (eventArgs.Error.BindingInError is BindingExpression bindingExpression)
+            case ValidationErrorEventAction.Added:
             {
-                string propertyName = bindingExpression.ResolvedSourcePropertyName;
-                string errorMessage = eventArgs.Error.ErrorContent?.ToString();
+                if (eventArgs.Error.BindingInError is BindingExpression bindingExpression)
+                {
+                    string propertyName = bindingExpression.ResolvedSourcePropertyName;
+                    string errorMessage = eventArgs.Error.ErrorContent?.ToString();
                 
-                _startPageViewModel.TryAddValidationError(propertyName, errorMessage);
+                    _viewModel.TryAddValidationError(propertyName, errorMessage);
+                }
+
+                break;
             }
-        }
-        else if (eventArgs.Action == ValidationErrorEventAction.Removed)
-        {
-            if (eventArgs.Error.BindingInError is BindingExpression bindingExpression)
+            case ValidationErrorEventAction.Removed:
             {
-                string propertyName = bindingExpression.ResolvedSourcePropertyName;
+                if (eventArgs.Error.BindingInError is BindingExpression bindingExpression)
+                {
+                    string propertyName = bindingExpression.ResolvedSourcePropertyName;
                 
-                _startPageViewModel.TryRemoveValidationError(propertyName);
+                    _viewModel.TryRemoveValidationError(propertyName);
+                }
+
+                break;
             }
         }
     }

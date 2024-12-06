@@ -46,7 +46,7 @@ public class IrregularVerbsTeacher
             return new List<IrregularVerbAnswer>();
         }
 
-        List<BaseIrregularVerb> verbs = _storage.IrregularVerbs.Disorder();
+        IEnumerable<BaseIrregularVerb> verbs = _storage.IrregularVerbs.Disorder();
         
         OrderByPriority(ref verbs);
         UpdateNotShownTermPriorities(verbs.Skip(_questionsCount));
@@ -58,7 +58,7 @@ public class IrregularVerbsTeacher
             verbs = verbs.OrderBy(verb=>verb.Infinitive).ToList();
         }
         
-        _cachedTask = new List<IrregularVerbAnswer>(verbs.Count);
+        _cachedTask = new List<IrregularVerbAnswer>(verbs.Count());
 
         foreach (BaseIrregularVerb verb in verbs)
         {
@@ -126,7 +126,7 @@ public class IrregularVerbsTeacher
         return result ? AnswerResult.Correct : AnswerResult.Incorrect;
     }
 
-    private void OrderByPriority(ref List<BaseIrregularVerb> verbs)
+    private void OrderByPriority(ref IEnumerable<BaseIrregularVerb> verbs)
     {
         if (_priorities == null)
         {

@@ -7,7 +7,7 @@ namespace IrregularVerbs.Extensions;
 public static class CollectionExtensions
 {
     [Pure]
-    public static List<T> Disorder<T>(this List<T> source)
+    public static IEnumerable<T> Disorder<T>(this IEnumerable<T> source)
     {
         Random random = new Random();
 
