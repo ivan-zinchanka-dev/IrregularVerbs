@@ -11,9 +11,7 @@
       Title="StartPage" Width="400" Height="400">
     <Grid>
         <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center">
-            <GroupBox x:FieldModifier="private" 
-                      x:Name="_settingsGroupBox" 
-                      DataContext="{Binding AppSettings}"
+            <GroupBox DataContext="{Binding AppSettings}"
                       Style="{StaticResource MaterialDesignCardGroupBox}"
                       Header="Settings"
                       FontFamily="{StaticResource MaterialDesignFont}"
@@ -47,10 +45,7 @@
                                Text="Number of verbs: ">
                     </TextBlock>
                     <TextBox Grid.Row="1" Grid.Column="1"
-                             x:FieldModifier="private" 
-                             x:Name="_verbsCountTextBox"
-                             Margin="0 5 5 0"
-                             >
+                             Margin="0 5 5 0">
                         <Binding Path="VerbsCount" NotifyOnValidationError="True">
                             <Binding.ValidationRules>
                                 <components:VerbsCountValidationRule/>
