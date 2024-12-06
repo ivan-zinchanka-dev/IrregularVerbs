@@ -1,9 +1,5 @@
-﻿using System;
-using System.Globalization;
-using System.Windows;
-using System.Windows.Controls;
-using IrregularVerbs.Models.Components;
-using IrregularVerbs.Models.Configs;
+﻿using System.Windows.Controls;
+using System.Windows.Data;
 using IrregularVerbs.ViewModels;
 
 namespace IrregularVerbs.ViewPresenters;
@@ -19,19 +15,27 @@ public partial class StartPage : Page
         
         InitializeComponent();
     }
-
-    private bool ValidateAppSettings()
-    {
-        ValidationResult result = new VerbsCountValidationRule()
-            .Validate(_verbsCountTextBox.Text, CultureInfo.CurrentCulture);
-        return result.IsValid;
-    }
     
-    private void OnValidationError(object sender, ValidationErrorEventArgs e)
+    private void OnValidationError(object sender, ValidationErrorEventArgs eventArgs)
     {
-        if (e.Action == ValidationErrorEventAction.Added)
+        if (eventArgs.Action == ValidationErrorEventAction.Added)
         {
-            MessageBox.Show(e.Error.ErrorContent.ToString());
+            if (eventArgs.Error.BindingInError is BindingExpression bindingExpression)
+            {
+                string propertyName = bindingExpression.ResolvedSourcePropertyName;
+                string errorMessage = eventArgs.Error.ErrorContent?.ToString();
+                
+                _startPageViewModel.TryAddValidationError(propertyName, errorMessage);
+            }
+        }
+        else if (eventArgs.Action == ValidationErrorEventAction.Removed)
+        {
+            if (eventArgs.Error.BindingInError is BindingExpression bindingExpression)
+            {
+                string propertyName = bindingExpression.ResolvedSourcePropertyName;
+                
+                _startPageViewModel.TryRemoveValidationError(propertyName);
+            }
         }
     }
 }
