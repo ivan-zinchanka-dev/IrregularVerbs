@@ -3,6 +3,7 @@ using System.Collections.ObjectModel;
 using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
+using IrregularVerbs.Factories;
 using IrregularVerbs.Models.Answers;
 using IrregularVerbs.Models.Configs;
 using IrregularVerbs.Models.Verbs;
@@ -15,6 +16,7 @@ public partial class CheckPage : Page
     private readonly ApplicationSettings _applicationSettings;
     private readonly IrregularVerbsStorage _irregularVerbsStorage;
     private readonly CacheService _cacheService;
+    private readonly IrregularVerbsFactory _verbsFactory;
     
     private readonly ObservableCollection<IrregularVerbAnswer> _answers;
     private readonly IrregularVerbsTeacher _teacher;
@@ -22,16 +24,19 @@ public partial class CheckPage : Page
     public CheckPage(
         ApplicationSettings applicationSettings, 
         IrregularVerbsStorage irregularVerbsStorage, 
-        CacheService cacheService)
+        CacheService cacheService,
+        IrregularVerbsFactory verbsFactory)
     {
         _applicationSettings = applicationSettings;
         _irregularVerbsStorage = irregularVerbsStorage;
         _cacheService = cacheService;
+        _verbsFactory = verbsFactory;
         
         InitializeComponent();
         
         _teacher = new IrregularVerbsTeacher(
-                _irregularVerbsStorage, 
+                _irregularVerbsStorage,
+                _verbsFactory,
                 _applicationSettings.VerbsCount, 
                 _applicationSettings.AlphabeticalOrder)
             .UsePriorities(_cacheService.TermPriorities);

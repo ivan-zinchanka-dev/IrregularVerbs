@@ -2,6 +2,7 @@
 using System.Windows;
 using IrregularVerbs.CodeBase;
 using IrregularVerbs.CodeBase.AbstractFactory;
+using IrregularVerbs.Factories;
 using IrregularVerbs.Models.Configs;
 using IrregularVerbs.Services;
 using IrregularVerbs.ViewPresenters;
@@ -19,7 +20,8 @@ namespace IrregularVerbs
         public static App Instance { get; private set; } = null!;
         
         private ResourceDictionary LogicalResources => Resources.MergedDictionaries[0];
-        public IrregularVerbsStorage IrregularVerbsStorage { get; private set; }
+        //public IrregularVerbsStorage IrregularVerbsStorage { get; private set; }
+        //public IrregularVerbsFactory IrregularVerbsFactory { get; private set; }
         public LocalizationService LocalizationService { get; private set; }
         public UserPreferencesService PreferencesService { get; private set; }
         public CacheService CacheService { get; private set; }
@@ -55,7 +57,7 @@ namespace IrregularVerbs
             SetNativeLanguage();
             PreferencesService.AppSettings.OnPropertyChanged += SetNativeLanguage;
             
-            IrregularVerbsStorage = new IrregularVerbsStorage();
+           
             
             await cacheServiceLaunchTask;
 
@@ -68,7 +70,10 @@ namespace IrregularVerbs
                 {
                     services
                         .AddSingleton<ApplicationSettings>(PreferencesService.AppSettings)
-                        .AddSingleton<IrregularVerbsStorage>(IrregularVerbsStorage)
+                        .AddSingleton<LocalizationService>(LocalizationService)
+                        .AddSingleton<IParametrizedFactory<LocalizedText, string>, LocalizedTextFactory>()
+                        .AddSingleton<IrregularVerbsFactory>()
+                        .AddSingleton<IrregularVerbsStorage>()
                         .AddSingleton<CacheService>(CacheService)
                         .AddSingleton<MainWindow>()
                         .AddAbstractFactory<StartPage>()
@@ -79,6 +84,8 @@ namespace IrregularVerbs
 
             await _host.StartAsync();
 
+            _host.Services.GetRequiredService<IrregularVerbsStorage>();
+            
             _mainWindow = _host.Services.GetRequiredService<MainWindow>();
             _mainWindow.Show();
             

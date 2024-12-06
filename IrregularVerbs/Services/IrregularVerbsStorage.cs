@@ -11,10 +11,14 @@ namespace IrregularVerbs.Services;
 public class IrregularVerbsStorage
 {
     private const string IrregularVerbsSourcePath = "Resources/irregular_verbs_source.xlsx";
+    private readonly IrregularVerbsFactory _verbsFactory;
+    
     public List<BaseIrregularVerb> IrregularVerbs { get; private set; }
     
-    public IrregularVerbsStorage()
+    public IrregularVerbsStorage(IrregularVerbsFactory verbsFactory)
     {
+        _verbsFactory = verbsFactory;
+        
         Encoding.RegisterProvider(CodePagesEncodingProvider.Instance);
         
         if (File.Exists(IrregularVerbsSourcePath))
@@ -29,15 +33,13 @@ public class IrregularVerbsStorage
                     
                     for (int i = 1; i < dataTable.Rows.Count; i++)
                     {
-                        BaseIrregularVerb irregularVerb = IrregularVerbsFactory.FromDataRow(dataTable.Rows[i]);
+                        BaseIrregularVerb irregularVerb = _verbsFactory.FromDataRow(dataTable.Rows[i]);
 
                         if (irregularVerb != null)
                         {
                             IrregularVerbs.Add(irregularVerb);
                         }
-                        
                     }
-                    
                 }
             }
         }

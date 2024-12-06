@@ -13,15 +13,22 @@ namespace IrregularVerbs.Services;
 public class IrregularVerbsTeacher
 {
     private readonly IrregularVerbsStorage _storage;
+    private readonly IrregularVerbsFactory _verbsFactory;
+    
     private readonly int _questionsCount;
     private readonly bool _alphabeticalOrder;
     private TermPriorities _priorities;
     
     private List<IrregularVerbAnswer> _cachedTask;
     
-    public IrregularVerbsTeacher(IrregularVerbsStorage storage, int questionsCount, bool alphabeticalOrder = true)
+    public IrregularVerbsTeacher(
+        IrregularVerbsStorage storage, 
+        IrregularVerbsFactory verbsFactory, 
+        int questionsCount, 
+        bool alphabeticalOrder = true)
     {
         _storage = storage;
+        _verbsFactory = verbsFactory;
         _questionsCount = questionsCount;
         _alphabeticalOrder = alphabeticalOrder;
     }
@@ -93,7 +100,7 @@ public class IrregularVerbsTeacher
         try
         {
             BaseIrregularVerb original = answer.Original;
-            BaseIrregularVerb input = IrregularVerbsFactory.FromAnswer(answer);
+            BaseIrregularVerb input = _verbsFactory.FromAnswer(answer);
 
             if (original is VolatileIrregularVerb && input is FixedIrregularVerb)
             {
