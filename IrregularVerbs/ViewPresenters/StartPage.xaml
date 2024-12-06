@@ -5,12 +5,15 @@
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
       xmlns:system="clr-namespace:System;assembly=System.Runtime"
       xmlns:components="clr-namespace:IrregularVerbs.Models.Components"
+      xmlns:viewModels="clr-namespace:IrregularVerbs.ViewModels"
       mc:Ignorable="d"
+      d:DataContext="{d:DesignInstance viewModels:StartPageViewModel}"
       Title="StartPage" Width="400" Height="400">
     <Grid>
         <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center">
             <GroupBox x:FieldModifier="private" 
                       x:Name="_settingsGroupBox" 
+                      DataContext="{Binding AppSettings}"
                       Style="{StaticResource MaterialDesignCardGroupBox}"
                       Header="Settings"
                       FontFamily="{StaticResource MaterialDesignFont}"
@@ -76,14 +79,14 @@
                     <Button Grid.Column="0"
                             Margin="5 5 5 5"
                             Content="Revise"
-                            Click="OnReviseClick"
+                            Command="{Binding ReviseCommand}"
                             Style="{StaticResource MaterialDesignRaisedButton}">
                     </Button>
             
                     <Button Grid.Column="1"
                             Margin="5 5 5 5"
                             Content="Check"
-                            Click="OnCheckClick"
+                            Command="{Binding CheckCommand}"
                             Style="{StaticResource MaterialDesignRaisedDarkButton}">
                     </Button>
                 </Grid>

@@ -4,22 +4,20 @@ using System.Windows;
 using System.Windows.Controls;
 using IrregularVerbs.Models.Components;
 using IrregularVerbs.Models.Configs;
+using IrregularVerbs.ViewModels;
 
 namespace IrregularVerbs.ViewPresenters;
 
 public partial class StartPage : Page
 {
-    private readonly ApplicationSettings _applicationSettings;
+    private readonly StartPageViewModel _startPageViewModel;
     
-    public event Action OnDemandRevise;
-    public event Action OnDemandCheck;
-    
-    public StartPage(ApplicationSettings applicationSettings)
+    public StartPage(StartPageViewModel startPageViewModel)
     {
-        _applicationSettings = applicationSettings;
+        _startPageViewModel = startPageViewModel;
+        DataContext = _startPageViewModel;
         
         InitializeComponent();
-        _settingsGroupBox.DataContext = _applicationSettings;
     }
 
     private bool ValidateAppSettings()
@@ -36,21 +34,4 @@ public partial class StartPage : Page
             MessageBox.Show(e.Error.ErrorContent.ToString());
         }
     }
-
-    private void OnReviseClick(object sender, RoutedEventArgs e)
-    {
-        if (ValidateAppSettings())
-        {
-            OnDemandRevise?.Invoke();
-        }
-    }
-    
-    private void OnCheckClick(object sender, RoutedEventArgs e)
-    {
-        if (ValidateAppSettings())
-        {
-            OnDemandCheck?.Invoke();
-        }
-    }
-    
 }

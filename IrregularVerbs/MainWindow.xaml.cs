@@ -29,6 +29,11 @@ namespace IrregularVerbs
             Loaded += OnWindowLoaded;
         }
 
+        public void NavigateTo(Page page)
+        {
+            _mainFrame.Navigate(page);
+        }
+
         private void OnWindowLoaded(object sender, RoutedEventArgs args)
         {
             ShowMainPage();
@@ -37,8 +42,8 @@ namespace IrregularVerbs
         private void ShowMainPage()
         {
             StartPage startPage = _startPageFactory.Create();
-            startPage.OnDemandRevise += ShowRevisePage;
-            startPage.OnDemandCheck += ShowCheckPage;
+            /*startPage.OnDemandRevise += ShowRevisePage;
+            startPage.OnDemandCheck += ShowCheckPage;*/
             _mainFrame.Navigate(startPage);
         }
         

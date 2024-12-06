@@ -5,6 +5,7 @@ using IrregularVerbs.CodeBase.AbstractFactory;
 using IrregularVerbs.Factories;
 using IrregularVerbs.Models.Configs;
 using IrregularVerbs.Services;
+using IrregularVerbs.ViewModels;
 using IrregularVerbs.ViewPresenters;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
@@ -27,6 +28,7 @@ namespace IrregularVerbs
         public CacheService CacheService { get; private set; }
 
         private IHost _host;
+        private PageManager _pageManager;
         private MainWindow _mainWindow;
         
         // TODO Check multiple startups and message box if need
@@ -77,7 +79,9 @@ namespace IrregularVerbs
                         .AddSingleton<IrregularVerbsFactory>()
                         .AddSingleton<IrregularVerbsStorage>()
                         .AddSingleton<CacheService>(CacheService)
+                        .AddSingleton<PageManager>()
                         .AddSingleton<MainWindow>()
+                        .AddSingleton<StartPageViewModel>()
                         .AddAbstractFactory<StartPage>()
                         .AddAbstractFactory<RevisePage>()
                         .AddAbstractFactory<CheckPage>();
@@ -87,14 +91,26 @@ namespace IrregularVerbs
             await _host.StartAsync();
 
             _host.Services.GetRequiredService<IrregularVerbsStorage>();
+            _pageManager = _host.Services.GetRequiredService<PageManager>();
             
             _mainWindow = _host.Services.GetRequiredService<MainWindow>();
             _mainWindow.Show();
-            
+
+            _mainWindow.Loaded += OnMainWindowLoaded;
+            _pageManager.OnPageCreated += _mainWindow.NavigateTo;
+
+        }
+
+        private void OnMainWindowLoaded(object sender, RoutedEventArgs args)
+        {
+            _pageManager.SwitchTo<StartPage>();
         }
 
         protected override async void OnExit(ExitEventArgs e)
         {
+            _pageManager.OnPageCreated -= _mainWindow.NavigateTo;
+            _mainWindow.Loaded -= OnMainWindowLoaded;
+            
             await _host.StopAsync();
             _host.Dispose();
             
