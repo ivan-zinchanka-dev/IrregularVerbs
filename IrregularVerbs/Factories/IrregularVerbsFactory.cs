@@ -9,10 +9,17 @@ namespace IrregularVerbs.Factories;
 public class IrregularVerbsFactory
 {
     private readonly IParametrizedFactory<LocalizedText, string> _localizedTextFactory;
+    private readonly FixedFormFactory _fixedFormFactory;
+    private readonly VolatileFormFactory _volatileFormFactory;
     
-    public IrregularVerbsFactory(IParametrizedFactory<LocalizedText, string> localizedTextFactory)
+    public IrregularVerbsFactory(
+        IParametrizedFactory<LocalizedText, string> localizedTextFactory, 
+        FixedFormFactory fixedFormFactory, 
+        VolatileFormFactory volatileFormFactory)
     {
         _localizedTextFactory = localizedTextFactory;
+        _fixedFormFactory = fixedFormFactory;
+        _volatileFormFactory = volatileFormFactory;
     }
     
     public BaseIrregularVerb FromDataRow(DataRow dataRow)
@@ -33,9 +40,9 @@ public class IrregularVerbsFactory
             answer.PastParticiple);
     }
 
-    private static bool IsVolatileForm(string source)
+    private bool IsVolatileForm(string source)
     {
-        return !string.IsNullOrEmpty(source) && VolatileFormFactory.ContainsSeparator(source);
+        return !string.IsNullOrEmpty(source) && _volatileFormFactory.ContainsSeparator(source);
     }
     
     private BaseIrregularVerb CreateIrregularVerb(string term, 
@@ -44,16 +51,16 @@ public class IrregularVerbsFactory
         if (IsVolatileForm(pastSimple) || IsVolatileForm(pastParticiple))
         {
             return new VolatileIrregularVerb(_localizedTextFactory.Create(term), 
-                VolatileFormFactory.FromCombinedNotation(infinitive), 
-                VolatileFormFactory.FromCombinedNotation(pastSimple),
-                VolatileFormFactory.FromCombinedNotation(pastParticiple));
+                _volatileFormFactory.FromCombinedNotation(infinitive), 
+                _volatileFormFactory.FromCombinedNotation(pastSimple),
+                _volatileFormFactory.FromCombinedNotation(pastParticiple));
         }
         else
         {
             return new FixedIrregularVerb(_localizedTextFactory.Create(term), 
-                FixedFormFactory.FromNotation(infinitive), 
-                FixedFormFactory.FromNotation(pastSimple), 
-                FixedFormFactory.FromNotation(pastParticiple));
+                _fixedFormFactory.FromNotation(infinitive), 
+                _fixedFormFactory.FromNotation(pastSimple), 
+                _fixedFormFactory.FromNotation(pastParticiple));
         }
     }
     

@@ -1,8 +1,12 @@
-﻿namespace IrregularVerbs.Factories;
+﻿using IrregularVerbs.CodeBase.AbstractFactory;
 
-public static class FixedFormFactory
+namespace IrregularVerbs.Factories;
+
+public class FixedFormFactory : IParametrizedFactory<string, string>
 {
-    public static string FromNotation(string sourceNotation)
+    public string Create(string sourceNotation) => FromNotation(sourceNotation);
+    
+    public string FromNotation(string sourceNotation)
     {
         sourceNotation = sourceNotation.Trim();
         
@@ -13,5 +17,4 @@ public static class FixedFormFactory
 
         return sourceNotation;
     }
-    
 }

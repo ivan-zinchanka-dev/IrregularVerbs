@@ -1,10 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
+using IrregularVerbs.CodeBase.AbstractFactory;
 using IrregularVerbs.Models.Components;
 
 namespace IrregularVerbs.Factories;
 
-public static class VolatileFormFactory
+public class VolatileFormFactory : IParametrizedFactory<VolatileForm, string>
 {
     private static readonly Dictionary<char, CombineOperation> Separators = new Dictionary<char, CombineOperation>()
     {
@@ -15,12 +16,16 @@ public static class VolatileFormFactory
         {'\"', CombineOperation.Unknown},
     };
 
-    public static CombineOperation GetCombineOperationBySeparator(char separator)
+    private readonly FixedFormFactory _fixedFormFactory;
+    
+    public VolatileFormFactory(FixedFormFactory fixedFormFactory)
     {
-        return Separators.TryGetValue(separator, out CombineOperation operation) ? operation : CombineOperation.None;
+        _fixedFormFactory = fixedFormFactory;
     }
+    
+    public VolatileForm Create(string sourceNotation) => FromCombinedNotation(sourceNotation);
 
-    public static VolatileForm FromCombinedNotation(string sourceNotation)
+    public VolatileForm FromCombinedNotation(string sourceNotation)
     {
         Tuple<string, string> variants;
         CombineOperation combineOperation;
@@ -39,12 +44,12 @@ public static class VolatileFormFactory
         return new VolatileForm(variants, combineOperation);
     }
 
-    public static bool ContainsSeparator(string sourceNotation)
+    public bool ContainsSeparator(string sourceNotation)
     {
         return ContainsSeparator(sourceNotation, out char foundSeparator);
     }
 
-    public static bool ContainsSeparator(string sourceNotation, out char foundSeparator)
+    public bool ContainsSeparator(string sourceNotation, out char foundSeparator)
     {
         foreach (var separator in Separators)
         {
@@ -59,23 +64,23 @@ public static class VolatileFormFactory
         return false;
     }
     
-    private static Tuple<string, string> ToVariantsTuple(string sourceNotation)
+    private Tuple<string, string> ToVariantsTuple(string sourceNotation)
     {
-        return new Tuple<string, string>(FixedFormFactory.FromNotation(sourceNotation), string.Empty);
+        return new Tuple<string, string>(_fixedFormFactory.FromNotation(sourceNotation), string.Empty);
     }
     
-    private static Tuple<string, string> ToVariantsTuple(string sourceNotation, char separator)
+    private Tuple<string, string> ToVariantsTuple(string sourceNotation, char separator)
     {
         string[] variantsArray = sourceNotation.Split(separator);
         
         switch (variantsArray.Length)
         {
             case 2: return new Tuple<string, string>(
-                FixedFormFactory.FromNotation(variantsArray[0]), 
-                FixedFormFactory.FromNotation(variantsArray[1]));
+                _fixedFormFactory.FromNotation(variantsArray[0]), 
+                _fixedFormFactory.FromNotation(variantsArray[1]));
             
             case 1: return new Tuple<string, string>(
-                FixedFormFactory.FromNotation(variantsArray[0]), 
+                _fixedFormFactory.FromNotation(variantsArray[0]), 
                 string.Empty);
             
             default: return new Tuple<string, string>(

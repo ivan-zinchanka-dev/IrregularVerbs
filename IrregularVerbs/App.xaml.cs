@@ -72,6 +72,8 @@ namespace IrregularVerbs
                         .AddSingleton<ApplicationSettings>(PreferencesService.AppSettings)
                         .AddSingleton<LocalizationService>(LocalizationService)
                         .AddSingleton<IParametrizedFactory<LocalizedText, string>, LocalizedTextFactory>()
+                        .AddSingleton<FixedFormFactory>()
+                        .AddSingleton<VolatileFormFactory>()
                         .AddSingleton<IrregularVerbsFactory>()
                         .AddSingleton<IrregularVerbsStorage>()
                         .AddSingleton<CacheService>(CacheService)
