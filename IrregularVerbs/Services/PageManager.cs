@@ -25,8 +25,6 @@ public class PageManager
         _startPageFactory = startPageFactory;
         _revisePageFactory = revisePageFactory;
         _checkPageFactory = checkPageFactory;
-
-        //_currentPage = _startPageFactory
         
         _pageFactories = new Dictionary<Type, Func<object>>()
         {
@@ -38,14 +36,25 @@ public class PageManager
 
     public bool SwitchTo<TPage>()
     {
-        var pageType = typeof(TPage);
-        
+        Type pageType = typeof(TPage);
+
+        if (pageType == _currentPage?.GetType())
+        {
+            return false;
+        }
+
         if (_pageFactories.TryGetValue(pageType, out Func<object> creationMethod))
         {
-            Page page = creationMethod() as Page;
-            OnPageCreated?.Invoke(page);
-
-            return true;
+            if (creationMethod() is Page page)
+            {
+                _currentPage = page;
+                OnPageCreated?.Invoke(_currentPage);
+                return true;
+            }
+            else
+            {
+                return false;
+            }
         }
 
         return false;

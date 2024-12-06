@@ -92,13 +92,12 @@ namespace IrregularVerbs
 
             _host.Services.GetRequiredService<IrregularVerbsStorage>();
             _pageManager = _host.Services.GetRequiredService<PageManager>();
-            
             _mainWindow = _host.Services.GetRequiredService<MainWindow>();
-            _mainWindow.Show();
-
+            
             _mainWindow.Loaded += OnMainWindowLoaded;
             _pageManager.OnPageCreated += _mainWindow.NavigateTo;
-
+            
+            _mainWindow.Show();
         }
 
         private void OnMainWindowLoaded(object sender, RoutedEventArgs args)
