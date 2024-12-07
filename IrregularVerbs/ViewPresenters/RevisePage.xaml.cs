@@ -1,10 +1,8 @@
-﻿using System.Windows.Controls;
-using System.Windows.Input;
-using IrregularVerbs.ViewModels;
+﻿using IrregularVerbs.ViewModels;
 
 namespace IrregularVerbs.ViewPresenters;
 
-public partial class RevisePage : Page
+public partial class RevisePage : EndPage
 {
     private readonly RevisePageViewModel _viewModel;
     
@@ -14,10 +12,6 @@ public partial class RevisePage : Page
         DataContext = _viewModel;
         
         InitializeComponent();
-        
-        CommandBindings.Add(new CommandBinding(
-            NavigationCommands.BrowseBack,
-            (sender, args) => _viewModel.BackCommand.Execute(args.Parameter),
-            (sender, args) => args.CanExecute = _viewModel.BackCommand.CanExecute(args.Parameter)));
+        RegisterBackCommand(_viewModel.BackCommand);
     }
 }

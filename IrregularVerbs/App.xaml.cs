@@ -1,6 +1,9 @@
 ﻿using System.Threading.Tasks;
 using System.Windows;
+using System.Windows.Controls;
+using System.Windows.Input;
 using System.Windows.Navigation;
+using System.Windows.Threading;
 using IrregularVerbs.CodeBase.AbstractFactory;
 using IrregularVerbs.Factories;
 using IrregularVerbs.Models.Configs;
@@ -99,7 +102,7 @@ namespace IrregularVerbs
                 args.Cancel = true;
             }
         }
-
+        
         private void OnMainWindowLoaded(object sender, RoutedEventArgs args)
         {
             _pageManager.SwitchTo<StartPage>();
@@ -116,5 +119,7 @@ namespace IrregularVerbs
             _preferencesService.AppSettings.OnPropertyChanged -= SetNativeLanguage;
             base.OnExit(e);
         }
+        
+        // TODO add UnhandledException
     }
 }

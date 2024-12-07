@@ -1,11 +1,10 @@
 ﻿using System.Windows;
-using System.Windows.Controls;
 using System.Windows.Input;
 using IrregularVerbs.ViewModels;
 
 namespace IrregularVerbs.ViewPresenters;
 
-public partial class CheckPage : Page
+public partial class CheckPage : EndPage
 {
     private readonly CheckPageViewModel _viewModel;
     
@@ -16,13 +15,9 @@ public partial class CheckPage : Page
         
         InitializeComponent();
 
+        RegisterBackCommand(_viewModel.BackCommand);
         _viewModel.OnTaskChecked += OnTaskChecked;
         Unloaded += OnUnloaded;
-        
-        CommandBindings.Add(new CommandBinding(
-            NavigationCommands.BrowseBack,
-            (sender, args) => _viewModel.BackCommand.Execute(args.Parameter),
-            (sender, args) => args.CanExecute = _viewModel.BackCommand.CanExecute(args.Parameter)));
     }
     
     private void OnTaskChecked()

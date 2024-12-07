@@ -1,9 +1,10 @@
-﻿<Page x:Class="IrregularVerbs.ViewPresenters.RevisePage"
+﻿<viewPresenters:EndPage x:Class="IrregularVerbs.ViewPresenters.RevisePage"
       xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
       xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
       xmlns:viewModels="clr-namespace:IrregularVerbs.ViewModels"
+      xmlns:viewPresenters="clr-namespace:IrregularVerbs.ViewPresenters"
       mc:Ignorable="d"
       d:DataContext="{d:DesignInstance viewModels:RevisePageViewModel}"
       Title="RevisePage" Height="650" Width="650">
@@ -51,4 +52,4 @@
         </Grid>
         
     </Grid>
-</Page>
+</viewPresenters:EndPage>
