@@ -5,16 +5,18 @@ namespace IrregularVerbs.ViewPresenters;
 
 public partial class IrregularVerbInfoWindow : Window
 {
+    private const string CorrectVerbsPattern = 
+        "Native Word: {0}\nInfinitive: {1}\nPast Simple: {2}\nPast Participle: {3}";
+    
     public IrregularVerbInfoWindow(BaseIrregularVerb irregularVerb)
     {
         InitializeComponent();
         
-        string correctData = $"Native Word: {irregularVerb.NativeWord}\n" +
-                             $"Infinitive: {irregularVerb.Infinitive}\n" +
-                             $"Past Simple: {irregularVerb.PastSimple}\n" +
-                             $"Past Participle: {irregularVerb.PastParticiple}";
-        
-        _infoText.Text = correctData;
+        _infoText.Text = string.Format(CorrectVerbsPattern, 
+            irregularVerb.NativeWord, 
+            irregularVerb.Infinitive, 
+            irregularVerb.PastSimple, 
+            irregularVerb.PastParticiple);
     }
     
     private void OnGotItClick(object sender, RoutedEventArgs e)
