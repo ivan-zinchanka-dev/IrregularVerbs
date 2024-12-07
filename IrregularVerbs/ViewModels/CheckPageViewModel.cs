@@ -18,6 +18,7 @@ public class CheckPageViewModel : BaseViewModel
     
     private readonly IrregularVerbsTeacher _teacher;
     private readonly PageManager _pageManager;
+    private bool _taskIsChecked;
     
     public event Action OnTaskChecked;
     
@@ -66,7 +67,8 @@ public class CheckPageViewModel : BaseViewModel
             return _backCommand ??= new RelayCommand(obj =>
             {
                 _pageManager.SwitchTo<StartPage>();
-            });
+            },
+                obj => _taskIsChecked);
         }
     }
     
@@ -82,6 +84,7 @@ public class CheckPageViewModel : BaseViewModel
     private void CheckTask(object obj)
     {
         CheckingResult checkingResult = _teacher.CheckTask();
+        _taskIsChecked = true;
         ResultMessage = $"Your result: {checkingResult.CorrectAnswersCount}/{checkingResult.AllAnswersCount}";
         
         OnTaskChecked?.Invoke();
@@ -91,7 +94,7 @@ public class CheckPageViewModel : BaseViewModel
     {
         if (answer is IrregularVerbAnswer castAnswer)
         {
-            new IrregularVerbInfoWindow(castAnswer.Original).ShowDialog();
+            new IrregularVerbInfoDialog(castAnswer.Original).ShowDialog();
         }
     }
 

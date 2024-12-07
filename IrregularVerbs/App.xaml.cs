@@ -1,5 +1,6 @@
 ﻿using System.Threading.Tasks;
 using System.Windows;
+using System.Windows.Navigation;
 using IrregularVerbs.CodeBase.AbstractFactory;
 using IrregularVerbs.Factories;
 using IrregularVerbs.Models.Configs;
@@ -84,9 +85,19 @@ namespace IrregularVerbs
             _mainWindow = _host.Services.GetRequiredService<MainWindow>();
             
             _mainWindow.Loaded += OnMainWindowLoaded;
+            _mainWindow.Navigating += OnMainWindowNavigating;
             _pageManager.OnPageCreated += _mainWindow.NavigateTo;
             
             _mainWindow.Show();
+        }
+
+        private void OnMainWindowNavigating(object sender, NavigatingCancelEventArgs args)
+        {
+            if (args.NavigationMode == NavigationMode.Forward || 
+                args.NavigationMode == NavigationMode.Back)
+            {
+                args.Cancel = true;
+            }
         }
 
         private void OnMainWindowLoaded(object sender, RoutedEventArgs args)

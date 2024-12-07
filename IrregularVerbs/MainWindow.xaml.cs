@@ -1,9 +1,10 @@
 ﻿using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Navigation;
 
 namespace IrregularVerbs
 {
-    public partial class MainWindow : Window
+    public partial class MainWindow : NavigationWindow
     {
         public MainWindow() 
         {
@@ -12,12 +13,7 @@ namespace IrregularVerbs
 
         public void NavigateTo(Page page)
         {
-            _mainFrame.Navigate(page);
+            Navigate(page);
         }
-        
-        /*private void OnNavigate(object sender, NavigatingCancelEventArgs e)
-        {
-            e.Cancel = true;        // TODO Do something with back and forward user events
-        }*/
     }
 }

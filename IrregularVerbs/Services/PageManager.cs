@@ -8,6 +8,7 @@ namespace IrregularVerbs.Services;
 
 public class PageManager
 {
+    // TODO refactor this
     private readonly IAbstractFactory<StartPage> _startPageFactory;
     private readonly IAbstractFactory<RevisePage> _revisePageFactory;
     private readonly IAbstractFactory<CheckPage> _checkPageFactory;
@@ -58,5 +59,10 @@ public class PageManager
         }
 
         return false;
+    }
+
+    public void SwitchForward()
+    {
+        
     }
 }

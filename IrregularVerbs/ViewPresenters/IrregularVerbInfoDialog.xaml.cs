@@ -3,12 +3,12 @@ using IrregularVerbs.Models.Verbs;
 
 namespace IrregularVerbs.ViewPresenters;
 
-public partial class IrregularVerbInfoWindow : Window
+public partial class IrregularVerbInfoDialog : Window
 {
     private const string CorrectVerbsPattern = 
         "Native Word: {0}\nInfinitive: {1}\nPast Simple: {2}\nPast Participle: {3}";
     
-    public IrregularVerbInfoWindow(BaseIrregularVerb irregularVerb)
+    public IrregularVerbInfoDialog(BaseIrregularVerb irregularVerb)
     {
         InitializeComponent();
         
