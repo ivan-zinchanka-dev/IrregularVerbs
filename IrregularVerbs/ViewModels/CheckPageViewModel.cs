@@ -1,10 +1,8 @@
 ﻿using System;
 using System.Collections.ObjectModel;
-using System.Linq;
 using System.Windows.Input;
 using IrregularVerbs.CodeBase;
 using IrregularVerbs.Models.Answers;
-using IrregularVerbs.Models.Verbs;
 using IrregularVerbs.Services;
 using IrregularVerbs.ViewPresenters;
 
@@ -89,14 +87,12 @@ public class CheckPageViewModel : BaseViewModel
         OnTaskChecked?.Invoke();
     }
 
-    private void ShowAnswerInfo(object answerId)
+    private static void ShowAnswerInfo(object answer)
     {
-        int answerIndex = (int)answerId;
-        
-        IrregularVerbAnswer foundAnswer = _answers[answerIndex];
-        BaseIrregularVerb foundOriginal = foundAnswer.Original;
-        
-        new IrregularVerbInfoWindow(foundOriginal).ShowDialog();
+        if (answer is IrregularVerbAnswer castAnswer)
+        {
+            new IrregularVerbInfoWindow(castAnswer.Original).ShowDialog();
+        }
     }
 
 }

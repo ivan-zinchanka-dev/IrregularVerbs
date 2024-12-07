@@ -2,7 +2,6 @@
 using System.Runtime.CompilerServices;
 using IrregularVerbs.Models.Configs;
 using IrregularVerbs.Models.Verbs;
-using IrregularVerbs.Services;
 
 namespace IrregularVerbs.Models.Answers;
 
@@ -13,7 +12,6 @@ public class IrregularVerbAnswer : INotifyPropertyChanged
     public string Infinitive { get; set; }
     public string PastSimple { get; set; }
     public string PastParticiple { get; set; }
-    public int InstanceId { get; }
     public event PropertyChangedEventHandler PropertyChanged;
     
     private AnswerResult _result;
@@ -28,8 +26,6 @@ public class IrregularVerbAnswer : INotifyPropertyChanged
         }
     }
     
-    private static int _instancesCount = 0;
-    
     public IrregularVerbAnswer(BaseIrregularVerb original)
     {
         Original = original;
@@ -37,13 +33,7 @@ public class IrregularVerbAnswer : INotifyPropertyChanged
         Infinitive = string.Empty;
         PastSimple = string.Empty;
         PastParticiple = string.Empty;
-        InstanceId = _instancesCount++;
         _result = AnswerResult.None;
-    }
-    
-    public bool HasEmptyFields()
-    {
-        return Infinitive == string.Empty || PastSimple == string.Empty || PastParticiple == string.Empty;
     }
 
     public override string ToString()

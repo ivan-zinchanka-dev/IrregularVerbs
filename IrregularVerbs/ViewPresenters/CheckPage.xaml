@@ -67,7 +67,7 @@
                                                    Tag="{Binding Path=InstanceId}" 
                                                    Command="{Binding DataContext.InfoCommand, 
                                                             RelativeSource={RelativeSource AncestorType=Page}}"
-                                                   CommandParameter="{Binding Path=InstanceId}"
+                                                   CommandParameter="{Binding}"
                                                    >
                                             <Run Text="{Binding Path=Result, 
                                                  Converter={StaticResource AnswerResultToInfoConverter}}"/>
