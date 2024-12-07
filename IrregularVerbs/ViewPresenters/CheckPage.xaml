@@ -65,7 +65,10 @@
                                     <TextBlock>
                                         <Hyperlink Foreground="Navy" 
                                                    Tag="{Binding Path=InstanceId}" 
-                                                   Click="OnMoreInfoClick">
+                                                   Command="{Binding DataContext.InfoCommand, 
+                                                            RelativeSource={RelativeSource AncestorType=Page}}"
+                                                   CommandParameter="{Binding Path=InstanceId}"
+                                                   >
                                             <Run Text="{Binding Path=Result, 
                                                  Converter={StaticResource AnswerResultToInfoConverter}}"/>
                                         </Hyperlink>

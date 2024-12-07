@@ -18,29 +18,17 @@ public partial class CheckPage : Page
         _viewModel.OnTaskChecked += OnTaskChecked;
         Unloaded += OnUnloaded;
     }
-
-    private void OnUnloaded(object sender, RoutedEventArgs eventArgs)
-    {
-        _viewModel.OnTaskChecked -= OnTaskChecked;
-        Unloaded -= OnUnloaded;
-    }
     
     private void OnTaskChecked()
     {
         _checkButton.Visibility = Visibility.Collapsed;
         _backButton.Visibility = Visibility.Visible;
     }
-
-    private void OnMoreInfoClick(object sender, RoutedEventArgs args)
+    
+    private void OnUnloaded(object sender, RoutedEventArgs eventArgs)
     {
-        /*int answerInstanceId = (int)((FrameworkContentElement)sender).Tag;
-        
-        Console.WriteLine("OnMoreInfoClick with tag: " + answerInstanceId);
-
-        IrregularVerbAnswer foundAnswer = _answers.First(answer => answer.InstanceId == answerInstanceId);
-        BaseIrregularVerb foundOriginal = foundAnswer.Original;
-        
-        new IrregularVerbInfoWindow(foundOriginal).ShowDialog();*/
+        _viewModel.OnTaskChecked -= OnTaskChecked;
+        Unloaded -= OnUnloaded;
     }
 }
 

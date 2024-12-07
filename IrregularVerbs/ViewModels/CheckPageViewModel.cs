@@ -1,8 +1,10 @@
 ﻿using System;
 using System.Collections.ObjectModel;
+using System.Linq;
 using System.Windows.Input;
 using IrregularVerbs.CodeBase;
 using IrregularVerbs.Models.Answers;
+using IrregularVerbs.Models.Verbs;
 using IrregularVerbs.Services;
 using IrregularVerbs.ViewPresenters;
 
@@ -13,6 +15,7 @@ public class CheckPageViewModel : BaseViewModel
     private ObservableCollection<IrregularVerbAnswer> _answers;
     private string _resultMessage;
     private RelayCommand _checkCommand;
+    private RelayCommand _infoCommand;
     private RelayCommand _backCommand;
     
     private readonly IrregularVerbsTeacher _teacher;
@@ -49,7 +52,15 @@ public class CheckPageViewModel : BaseViewModel
             return _checkCommand ??= new RelayCommand(CheckTask);
         }
     }
-    
+
+    public ICommand InfoCommand
+    {
+        get
+        {
+            return _infoCommand ??= new RelayCommand(ShowAnswerInfo);
+        }
+    }
+
     public ICommand BackCommand
     {
         get
@@ -77,4 +88,15 @@ public class CheckPageViewModel : BaseViewModel
         
         OnTaskChecked?.Invoke();
     }
+
+    private void ShowAnswerInfo(object answerId)
+    {
+        int answerIndex = (int)answerId;
+        
+        IrregularVerbAnswer foundAnswer = _answers[answerIndex];
+        BaseIrregularVerb foundOriginal = foundAnswer.Original;
+        
+        new IrregularVerbInfoWindow(foundOriginal).ShowDialog();
+    }
+
 }
