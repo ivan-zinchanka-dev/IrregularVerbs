@@ -1,6 +1,7 @@
 ﻿using IrregularVerbs.ViewModels;
+using IrregularVerbs.Views.Base;
 
-namespace IrregularVerbs.ViewPresenters;
+namespace IrregularVerbs.Views;
 
 public partial class RevisePage : EndPage
 {

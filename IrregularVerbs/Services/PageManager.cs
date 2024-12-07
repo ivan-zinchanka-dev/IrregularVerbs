@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Windows.Controls;
 using IrregularVerbs.CodeBase.AbstractFactory;
-using IrregularVerbs.ViewPresenters;
+using IrregularVerbs.Views;
 
 namespace IrregularVerbs.Services;
 

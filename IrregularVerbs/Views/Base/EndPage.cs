@@ -1,7 +1,7 @@
 ﻿using System.Windows.Controls;
 using System.Windows.Input;
 
-namespace IrregularVerbs.ViewPresenters;
+namespace IrregularVerbs.Views.Base;
 
 public abstract class EndPage : Page
 {

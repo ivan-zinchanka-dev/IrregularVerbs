@@ -1,8 +1,8 @@
 ﻿using System.Windows;
-using System.Windows.Input;
 using IrregularVerbs.ViewModels;
+using IrregularVerbs.Views.Base;
 
-namespace IrregularVerbs.ViewPresenters;
+namespace IrregularVerbs.Views;
 
 public partial class CheckPage : EndPage
 {

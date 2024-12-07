@@ -3,7 +3,7 @@ using System.Windows.Input;
 using IrregularVerbs.CodeBase;
 using IrregularVerbs.Models.Verbs;
 using IrregularVerbs.Services;
-using IrregularVerbs.ViewPresenters;
+using IrregularVerbs.Views;
 
 namespace IrregularVerbs.ViewModels;
 

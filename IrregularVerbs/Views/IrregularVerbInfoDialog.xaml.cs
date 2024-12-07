@@ -1,7 +1,7 @@
 ﻿using System.Windows;
 using IrregularVerbs.Models.Verbs;
 
-namespace IrregularVerbs.ViewPresenters;
+namespace IrregularVerbs.Views;
 
 public partial class IrregularVerbInfoDialog : Window
 {

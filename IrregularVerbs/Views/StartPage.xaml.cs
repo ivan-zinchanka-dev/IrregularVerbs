@@ -2,7 +2,7 @@
 using System.Windows.Data;
 using IrregularVerbs.ViewModels;
 
-namespace IrregularVerbs.ViewPresenters;
+namespace IrregularVerbs.Views;
 
 public partial class StartPage : Page
 {

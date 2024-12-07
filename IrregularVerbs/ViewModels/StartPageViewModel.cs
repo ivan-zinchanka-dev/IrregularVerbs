@@ -4,7 +4,7 @@ using IrregularVerbs.CodeBase;
 using IrregularVerbs.CodeBase.Validation;
 using IrregularVerbs.Models.Configs;
 using IrregularVerbs.Services;
-using IrregularVerbs.ViewPresenters;
+using IrregularVerbs.Views;
 
 namespace IrregularVerbs.ViewModels;
 

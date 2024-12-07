@@ -4,7 +4,7 @@ using System.Windows.Input;
 using IrregularVerbs.CodeBase;
 using IrregularVerbs.Models.Answers;
 using IrregularVerbs.Services;
-using IrregularVerbs.ViewPresenters;
+using IrregularVerbs.Views;
 
 namespace IrregularVerbs.ViewModels;
 

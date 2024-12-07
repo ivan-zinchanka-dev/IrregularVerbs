@@ -9,7 +9,7 @@ using IrregularVerbs.Factories;
 using IrregularVerbs.Models.Configs;
 using IrregularVerbs.Services;
 using IrregularVerbs.ViewModels;
-using IrregularVerbs.ViewPresenters;
+using IrregularVerbs.Views;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
