@@ -3,7 +3,9 @@
       xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+      xmlns:viewModels="clr-namespace:IrregularVerbs.ViewModels"
       mc:Ignorable="d"
+      d:DataContext="{d:DesignInstance viewModels:CheckPageViewModel}"
       Title="CheckPage" Height="650" Width="650">
     
     <Page.Resources> 
@@ -23,7 +25,7 @@
         </Grid.RowDefinitions>
         
         <DataGrid Grid.Row="0"
-                  x:FieldModifier="private" x:Name="_tableView"
+                  ItemsSource="{Binding Answers}"
                   HeadersVisibility="Column"
                   HorizontalScrollBarVisibility="Hidden"
                   AutoGenerateColumns="False"
@@ -81,23 +83,23 @@
                     x:Name="_checkButton"
                     Style="{StaticResource LocalActionButton}"
                     Content="Check"
-                    Click="OnCheckClick">
+                    Command="{Binding CheckCommand}">
             </Button>
             <Button x:FieldModifier="private"
                     x:Name="_backButton"
                     Style="{StaticResource LocalActionButton}"
                     Content="Back"
-                    Click="OnBackClick"
+                    Command="{Binding BackCommand}"
                     Visibility="Collapsed">
             </Button>
             
-            <TextBlock x:FieldModifier="private"
-                     x:Name="_resultTextBlock"
+            <TextBlock
                      VerticalAlignment="Center"
                      HorizontalAlignment="Left"
                      Margin="15 0 0 0"
                      Width="150"
-                     FontSize="15">
+                     FontSize="15"
+                     Text="{Binding ResultMessage}">
             </TextBlock>
             
         </Grid>

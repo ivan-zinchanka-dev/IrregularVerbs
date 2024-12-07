@@ -6,36 +6,36 @@ using IrregularVerbs.Factories;
 using IrregularVerbs.Models;
 using IrregularVerbs.Models.Answers;
 using IrregularVerbs.Models.Components;
+using IrregularVerbs.Models.Configs;
 using IrregularVerbs.Models.Verbs;
 
 namespace IrregularVerbs.Services;
 
 public class IrregularVerbsTeacher
 {
+    private readonly ApplicationSettings _applicationSettings;
     private readonly IrregularVerbsStorage _storage;
     private readonly IrregularVerbsFactory _verbsFactory;
-    
-    private readonly int _questionsCount;
-    private readonly bool _alphabeticalOrder;
-    private TermPriorities _priorities;
-    
+    private readonly CacheService _cacheService;
+
+    private bool _usePriorities;
     private List<IrregularVerbAnswer> _cachedTask;
     
     public IrregularVerbsTeacher(
+        ApplicationSettings appSettings, 
         IrregularVerbsStorage storage, 
-        IrregularVerbsFactory verbsFactory, 
-        int questionsCount, 
-        bool alphabeticalOrder = true)
+        IrregularVerbsFactory verbsFactory,
+        CacheService cacheService)
     {
+        _applicationSettings = appSettings;
         _storage = storage;
         _verbsFactory = verbsFactory;
-        _questionsCount = questionsCount;
-        _alphabeticalOrder = alphabeticalOrder;
+        _cacheService = cacheService;
     }
 
-    public IrregularVerbsTeacher UsePriorities(TermPriorities priorities)
+    public IrregularVerbsTeacher UsePriorities()
     {
-        _priorities = priorities;
+        _usePriorities = true;
         return this;
     }
 
@@ -47,13 +47,14 @@ public class IrregularVerbsTeacher
         }
 
         IEnumerable<BaseIrregularVerb> verbs = _storage.IrregularVerbs.Disorder();
+        int questionsCount = _applicationSettings.VerbsCount; 
         
         OrderByPriority(ref verbs);
-        UpdateNotShownTermPriorities(verbs.Skip(_questionsCount));
+        UpdateNotShownTermPriorities(verbs.Skip(questionsCount));
         
-        verbs = verbs.Take(_questionsCount).ToList();
+        verbs = verbs.Take(questionsCount).ToList();
 
-        if (_alphabeticalOrder)
+        if (_applicationSettings.AlphabeticalOrder)
         {
             verbs = verbs.OrderBy(verb=>verb.Infinitive).ToList();
         }
@@ -128,53 +129,57 @@ public class IrregularVerbsTeacher
 
     private void OrderByPriority(ref IEnumerable<BaseIrregularVerb> verbs)
     {
-        if (_priorities == null)
+        if (!_usePriorities)
         {
             return;
         }
 
-        verbs = verbs.OrderByDescending(verb => _priorities.GetPriority(verb.NativeWord.Term)).ToList();
+        verbs = verbs.OrderByDescending(
+            verb => _cacheService.TermPriorities.GetPriority(verb.NativeWord.Term))
+            .ToList();
     }
 
     private void UpdateNotShownTermPriorities(IEnumerable<BaseIrregularVerb> verbs)
     {
-        if (_priorities == null)
+        if (!_usePriorities)
         {
             return;
         }
+
+        TermPriorities termPriorities = _cacheService.TermPriorities;
         
         foreach (BaseIrregularVerb verb in verbs)
         {
-            _priorities.AppendPriority(verb.NativeWord.Term, 1);
+            termPriorities.AppendPriority(verb.NativeWord.Term, 1);
         }
         
-        _priorities.Save();
+        termPriorities.Save();
     }
 
     private void UpdateShownTermPriorities(IEnumerable<IrregularVerbAnswer> answers)
     {
-        if (_priorities == null)
+        if (!_usePriorities)
         {
             return;
         }
 
+        TermPriorities termPriorities = _cacheService.TermPriorities;
+        
         foreach (IrregularVerbAnswer answer in answers)
         {
             switch (answer.Result)
             {
                 case AnswerResult.Correct:
-                    _priorities.SetPriority(answer.NativeWord.Term, 0);
+                    termPriorities.SetPriority(answer.NativeWord.Term, 0);
                     break;
             
                 case AnswerResult.Incorrect:
-                    _priorities.AppendPriority(answer.NativeWord.Term, 2);
+                    termPriorities.AppendPriority(answer.NativeWord.Term, 2);
                     break;
-            
             }
         }
         
-        _priorities.Save();
-        
+        termPriorities.Save();
     }
 
 }
