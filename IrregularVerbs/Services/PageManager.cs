@@ -1,38 +1,20 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Windows.Controls;
 using IrregularVerbs.CodeBase.AbstractFactory;
-using IrregularVerbs.Views;
+using Microsoft.Extensions.DependencyInjection;
 
 namespace IrregularVerbs.Services;
 
 public class PageManager
 {
-    // TODO refactor this
-    private readonly IAbstractFactory<StartPage> _startPageFactory;
-    private readonly IAbstractFactory<RevisePage> _revisePageFactory;
-    private readonly IAbstractFactory<CheckPage> _checkPageFactory;
-    
-    public event Action<Page> OnPageCreated;
-
-    private readonly Dictionary<Type, Func<object>> _pageFactories;
+    private readonly IServiceProvider _serviceProvider;
     private Page _currentPage;
     
-    public PageManager(
-        IAbstractFactory<StartPage> startPageFactory, 
-        IAbstractFactory<RevisePage> revisePageFactory, 
-        IAbstractFactory<CheckPage> checkPageFactory)
+    public event Action<Page> OnPageCreated;
+    
+    public PageManager(IServiceProvider serviceProvider)
     {
-        _startPageFactory = startPageFactory;
-        _revisePageFactory = revisePageFactory;
-        _checkPageFactory = checkPageFactory;
-        
-        _pageFactories = new Dictionary<Type, Func<object>>()
-        {
-            { typeof(StartPage), _startPageFactory.Create },
-            { typeof(RevisePage), _revisePageFactory.Create },
-            { typeof(CheckPage), _checkPageFactory.Create }
-        };
+        _serviceProvider = serviceProvider;
     }
 
     public bool SwitchTo<TPage>()
@@ -44,9 +26,11 @@ public class PageManager
             return false;
         }
 
-        if (_pageFactories.TryGetValue(pageType, out Func<object> creationMethod))
+        IAbstractFactory<TPage> factory = _serviceProvider.GetService<IAbstractFactory<TPage>>();
+        
+        if (factory != null)
         {
-            if (creationMethod() is Page page)
+            if (factory.Create() is Page page)
             {
                 _currentPage = page;
                 OnPageCreated?.Invoke(_currentPage);
@@ -59,10 +43,5 @@ public class PageManager
         }
 
         return false;
-    }
-
-    public void SwitchForward()
-    {
-        
     }
 }
