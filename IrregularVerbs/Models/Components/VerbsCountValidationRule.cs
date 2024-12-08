@@ -6,33 +6,34 @@ namespace IrregularVerbs.Models.Components;
 
 public class VerbsCountValidationRule : ValidationRule
 {
-    private readonly ApplicationSettings _applicationSettings = App.Instance.AppSettings;
+    private readonly ApplicationSettingsValidator _appSettingsValidator = App.Instance.AppSettings.Validator;
     
     public override ValidationResult Validate(object value, CultureInfo cultureInfo)
     {
-        ApplicationSettingsValidator validator = _applicationSettings.Validator;
-        
         try
         {
             if (value == null)
             {
-                return new ValidationResult(false, validator.VerbsCountErrorMessage);
+                return Fail();
             }
 
             int verbsCount = int.Parse((string)value);
 
-            if (validator.ValidateVerbsCount(verbsCount))
-            {
-                return new ValidationResult(true, null);
-            }
-            else
-            {
-                return new ValidationResult(false, validator.VerbsCountErrorMessage);
-            }
+            return _appSettingsValidator.ValidateVerbsCount(verbsCount) ? Success() : Fail();
         }
         catch
         {
-            return new ValidationResult(false, validator.VerbsCountErrorMessage);
+            return Fail();
         }
+    }
+
+    private ValidationResult Success()
+    {
+        return new ValidationResult(true, null);
+    }
+    
+    private ValidationResult Fail()
+    {
+        return new ValidationResult(false, _appSettingsValidator.VerbsCountErrorMessage);
     }
 }
