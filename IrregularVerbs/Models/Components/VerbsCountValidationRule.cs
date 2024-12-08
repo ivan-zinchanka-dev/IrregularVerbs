@@ -1,33 +1,38 @@
 ﻿using System.Globalization;
 using System.Windows.Controls;
+using IrregularVerbs.Models.Configs;
 
 namespace IrregularVerbs.Models.Components;
 
 public class VerbsCountValidationRule : ValidationRule
 {
-    private const string CommonErrorMessage = "The number of verbs must be an integer greater than 0 and less than 1000";
+    private readonly ApplicationSettings _applicationSettings = App.Instance.AppSettings;
     
     public override ValidationResult Validate(object value, CultureInfo cultureInfo)
     {
+        ApplicationSettingsValidator validator = _applicationSettings.Validator;
+        
         try
         {
             if (value == null)
             {
-                return new ValidationResult(false, CommonErrorMessage);
+                return new ValidationResult(false, validator.VerbsCountErrorMessage);
             }
 
             int verbsCount = int.Parse((string)value);
 
-            if (verbsCount <= 0 || verbsCount >= 1000)
+            if (validator.ValidateVerbsCount(verbsCount))
             {
-                return new ValidationResult(false, CommonErrorMessage);
+                return new ValidationResult(true, null);
+            }
+            else
+            {
+                return new ValidationResult(false, validator.VerbsCountErrorMessage);
             }
         }
         catch
         {
-            return new ValidationResult(false, CommonErrorMessage);
+            return new ValidationResult(false, validator.VerbsCountErrorMessage);
         }
-
-        return new ValidationResult(true, null);
     }
 }

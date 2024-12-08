@@ -7,6 +7,7 @@ public class ApplicationSettings
     private Language _nativeLanguage;
     private int _verbsCount;
     private bool _alphabeticalOrder;
+    public ApplicationSettingsValidator Validator { get; private set; } = new ApplicationSettingsValidator();
 
     public event Action OnPropertyChanged;
     
@@ -29,6 +30,7 @@ public class ApplicationSettings
             OnPropertyChanged?.Invoke();
         }
     }
+    
     public bool AlphabeticalOrder
     {
         get => _alphabeticalOrder;
@@ -38,5 +40,4 @@ public class ApplicationSettings
             OnPropertyChanged?.Invoke();
         }
     }
-    
 }

@@ -26,7 +26,7 @@ public class PageManager
             return false;
         }
 
-        IAbstractFactory<TPage> factory = _serviceProvider.GetService<IAbstractFactory<TPage>>();
+        IAbstractFactory<TPage> factory = _serviceProvider.GetService<IAbstractFactory<TPage>>();       // ref factory
         
         if (factory != null)
         {

@@ -18,6 +18,10 @@ namespace IrregularVerbs
 {
     public partial class App : Application
     {
+        public static App Instance => (App)Current;
+
+        public ApplicationSettings AppSettings => _preferencesService.AppSettings;
+
         private ResourceDictionary LogicalResources => Resources.MergedDictionaries[0];
 
         private LocalizationService _localizationService;
@@ -41,7 +45,7 @@ namespace IrregularVerbs
             
             _preferencesService = new UserPreferencesService(LogicalResources);
             _cacheService = new CacheService();
-
+            
             Task prefsServiceLaunchTask = _preferencesService.InitializeAsync();
             Task cacheServiceLaunchTask = _cacheService.InitializeAsync();
             
@@ -83,7 +87,9 @@ namespace IrregularVerbs
 
             await _host.StartAsync();
 
-            _host.Services.GetRequiredService<IrregularVerbsStorage>();
+            IrregularVerbsStorage verbsStorage = _host.Services.GetRequiredService<IrregularVerbsStorage>();
+            AppSettings.Validator.MaxVerbsCount = verbsStorage.IrregularVerbs.Count;
+            
             _pageManager = _host.Services.GetRequiredService<PageManager>();
             _mainWindow = _host.Services.GetRequiredService<MainWindow>();
             
@@ -111,6 +117,7 @@ namespace IrregularVerbs
         protected override async void OnExit(ExitEventArgs e)
         {
             _pageManager.OnPageCreated -= _mainWindow.NavigateTo;
+            _mainWindow.Navigating -= OnMainWindowNavigating;
             _mainWindow.Loaded -= OnMainWindowLoaded;
             
             await _host.StopAsync();
