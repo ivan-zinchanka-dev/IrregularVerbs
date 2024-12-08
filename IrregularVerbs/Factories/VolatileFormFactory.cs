@@ -1,11 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
-using IrregularVerbs.CodeBase.AbstractFactory;
 using IrregularVerbs.Models.Components;
 
 namespace IrregularVerbs.Factories;
 
-public class VolatileFormFactory : IParametrizedFactory<VolatileForm, string>
+public class VolatileFormFactory
 {
     private static readonly Dictionary<char, CombineOperation> Separators = new Dictionary<char, CombineOperation>()
     {
@@ -22,8 +21,6 @@ public class VolatileFormFactory : IParametrizedFactory<VolatileForm, string>
     {
         _fixedFormFactory = fixedFormFactory;
     }
-    
-    public VolatileForm Create(string sourceNotation) => FromCombinedNotation(sourceNotation);
 
     public VolatileForm FromCombinedNotation(string sourceNotation)
     {

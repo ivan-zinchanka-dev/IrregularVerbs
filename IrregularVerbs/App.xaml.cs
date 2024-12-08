@@ -1,10 +1,6 @@
 ﻿using System.Threading.Tasks;
 using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Input;
 using System.Windows.Navigation;
-using System.Windows.Threading;
-using IrregularVerbs.CodeBase.AbstractFactory;
 using IrregularVerbs.Factories;
 using IrregularVerbs.Models.Configs;
 using IrregularVerbs.Services;
@@ -67,7 +63,7 @@ namespace IrregularVerbs
                     services
                         .AddSingleton<ApplicationSettings>(_preferencesService.AppSettings)
                         .AddSingleton<LocalizationService>(_localizationService)
-                        .AddSingleton<IParametrizedFactory<LocalizedText, string>, LocalizedTextFactory>()
+                        .AddSingleton<LocalizedTextFactory>()
                         .AddSingleton<FixedFormFactory>()
                         .AddSingleton<VolatileFormFactory>()
                         .AddSingleton<IrregularVerbsFactory>()
@@ -79,9 +75,9 @@ namespace IrregularVerbs
                         .AddTransient<StartPageViewModel>()
                         .AddTransient<RevisePageViewModel>()
                         .AddTransient<CheckPageViewModel>()
-                        .AddAbstractFactory<StartPage>()
-                        .AddAbstractFactory<RevisePage>()
-                        .AddAbstractFactory<CheckPage>();
+                        .AddTransient<StartPage>()
+                        .AddTransient<RevisePage>()
+                        .AddTransient<CheckPage>();
                 })
                 .Build();
 
@@ -89,6 +85,8 @@ namespace IrregularVerbs
 
             IrregularVerbsStorage verbsStorage = _host.Services.GetRequiredService<IrregularVerbsStorage>();
             AppSettings.Validator.MaxVerbsCount = verbsStorage.IrregularVerbs.Count;
+            
+            // TODO handle resource files errors
             
             _pageManager = _host.Services.GetRequiredService<PageManager>();
             _mainWindow = _host.Services.GetRequiredService<MainWindow>();
@@ -127,6 +125,6 @@ namespace IrregularVerbs
             base.OnExit(e);
         }
         
-        // TODO add UnhandledException
+        // TODO add UnhandledException with message box
     }
 }

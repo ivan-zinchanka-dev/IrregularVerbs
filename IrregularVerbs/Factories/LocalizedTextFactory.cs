@@ -1,10 +1,9 @@
-﻿using IrregularVerbs.CodeBase.AbstractFactory;
-using IrregularVerbs.Models.Configs;
+﻿using IrregularVerbs.Models.Configs;
 using IrregularVerbs.Services;
 
 namespace IrregularVerbs.Factories;
 
-public class LocalizedTextFactory : IParametrizedFactory<LocalizedText, string>
+public class LocalizedTextFactory
 {
     private readonly LocalizationService _localizationService;
 

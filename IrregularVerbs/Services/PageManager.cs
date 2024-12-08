@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Windows.Controls;
-using IrregularVerbs.CodeBase.AbstractFactory;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace IrregularVerbs.Services;
@@ -17,7 +16,7 @@ public class PageManager
         _serviceProvider = serviceProvider;
     }
 
-    public bool SwitchTo<TPage>()
+    public bool SwitchTo<TPage>() where TPage : Page
     {
         Type pageType = typeof(TPage);
 
@@ -26,22 +25,15 @@ public class PageManager
             return false;
         }
 
-        IAbstractFactory<TPage> factory = _serviceProvider.GetService<IAbstractFactory<TPage>>();       // ref factory
-        
-        if (factory != null)
+        if (_serviceProvider.GetService<TPage>() is Page page)
         {
-            if (factory.Create() is Page page)
-            {
-                _currentPage = page;
-                OnPageCreated?.Invoke(_currentPage);
-                return true;
-            }
-            else
-            {
-                return false;
-            }
+            _currentPage = page;
+            OnPageCreated?.Invoke(_currentPage);
+            return true;
         }
-
-        return false;
+        else
+        {
+            return false;
+        }
     }
 }

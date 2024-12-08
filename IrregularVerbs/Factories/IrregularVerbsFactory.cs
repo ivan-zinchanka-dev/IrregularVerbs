@@ -1,19 +1,17 @@
 ﻿using System.Data;
-using IrregularVerbs.CodeBase.AbstractFactory;
 using IrregularVerbs.Models.Answers;
-using IrregularVerbs.Models.Configs;
 using IrregularVerbs.Models.Verbs;
 
 namespace IrregularVerbs.Factories;
 
 public class IrregularVerbsFactory
 {
-    private readonly IParametrizedFactory<LocalizedText, string> _localizedTextFactory;
+    private readonly LocalizedTextFactory _localizedTextFactory;
     private readonly FixedFormFactory _fixedFormFactory;
     private readonly VolatileFormFactory _volatileFormFactory;
     
     public IrregularVerbsFactory(
-        IParametrizedFactory<LocalizedText, string> localizedTextFactory, 
+        LocalizedTextFactory localizedTextFactory, 
         FixedFormFactory fixedFormFactory, 
         VolatileFormFactory volatileFormFactory)
     {
