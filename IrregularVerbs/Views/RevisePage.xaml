@@ -14,10 +14,12 @@
             <RowDefinition Height="0.1*"/>
         </Grid.RowDefinitions>
         
-        <ListView Grid.Row="0" 
+        <ListView x:FieldModifier="private"
+                  x:Name="_grid"
+                  Grid.Row="0" 
                   ItemsSource="{Binding IrregularVerbs}"
                   Style="{StaticResource MaterialDesignListView}"
-                  >
+                  Loaded="FrameworkElement_OnLoaded">
             <ListView.View>
                 <GridView AllowsColumnReorder="False">
                     <GridViewColumn Width="200"
