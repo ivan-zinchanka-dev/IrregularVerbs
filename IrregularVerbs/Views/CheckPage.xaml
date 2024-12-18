@@ -25,7 +25,9 @@
             <RowDefinition Height="0.1*"/>
         </Grid.RowDefinitions>
         
-        <DataGrid Grid.Row="0"
+        <DataGrid x:FieldModifier="private"
+                  x:Name="_grid"
+                  Grid.Row="0"
                   ItemsSource="{Binding Answers}"
                   HeadersVisibility="Column"
                   HorizontalScrollBarVisibility="Hidden"
@@ -33,7 +35,8 @@
                   CanUserSortColumns="False"
                   CanUserReorderColumns="False"
                   CanUserAddRows="False"
-                  CanUserDeleteRows="False">
+                  CanUserDeleteRows="False"
+                  Loaded="AdjustGrid">
             <DataGrid.Columns>
                 <DataGridTextColumn Width="200"
                                     Header="Native Word"
@@ -80,7 +83,7 @@
                                 </StackPanel>
                             </Border>
                         </DataTemplate> 
-                    </DataGridTemplateColumn.CellTemplate> 
+                    </DataGridTemplateColumn.CellTemplate>
                 </DataGridTemplateColumn>
                 
             </DataGrid.Columns>
