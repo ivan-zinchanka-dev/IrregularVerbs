@@ -7,7 +7,7 @@
       xmlns:base="clr-namespace:IrregularVerbs.Views.Base"
       mc:Ignorable="d"
       d:DataContext="{d:DesignInstance viewModels:RevisePageViewModel}"
-      Title="RevisePage" Height="650" Width="650">
+      Title="RevisePage" Height="650" Width="850">
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="0.9*"/>
@@ -20,19 +20,19 @@
                   >
             <ListView.View>
                 <GridView AllowsColumnReorder="False">
-                    <GridViewColumn Width="150"
+                    <GridViewColumn Width="200"
                                     Header="Native Word" 
                                     DisplayMemberBinding="{Binding Path=NativeWord}">
                     </GridViewColumn>
-                    <GridViewColumn Width="140"
+                    <GridViewColumn Width="200"
                                     Header="Infinitive" 
                                     DisplayMemberBinding="{Binding Path=Infinitive}">
                     </GridViewColumn>
-                    <GridViewColumn Width="140"
+                    <GridViewColumn Width="200"
                                     Header="Past Simple" 
                                     DisplayMemberBinding="{Binding Path=PastSimple}">
                     </GridViewColumn>
-                    <GridViewColumn Width="150"
+                    <GridViewColumn Width="200"
                                     Header="Past Participle" 
                                     DisplayMemberBinding="{Binding Path=PastParticiple}">
                     </GridViewColumn>

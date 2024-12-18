@@ -7,7 +7,7 @@
       xmlns:base="clr-namespace:IrregularVerbs.Views.Base"
       mc:Ignorable="d"
       d:DataContext="{d:DesignInstance viewModels:CheckPageViewModel}"
-      Title="CheckPage" Height="650" Width="650">
+      Title="CheckPage" Height="650" Width="850">
     
     <base:EndPage.Resources> 
         <Style TargetType="Button" x:Key="LocalActionButton"
@@ -35,37 +35,40 @@
                   CanUserAddRows="False"
                   CanUserDeleteRows="False">
             <DataGrid.Columns>
-                <DataGridTextColumn Width="150"
+                <DataGridTextColumn Width="200"
                                     Header="Native Word"
                                     IsReadOnly="True"
                                     Binding="{Binding Path=NativeWord}"/>
                 
-                <DataGridTextColumn Width="100"
+                <DataGridTextColumn Width="165"
                                     Header="Infinitive" 
                                     Binding="{Binding Path=Infinitive}"/>
                 
-                <DataGridTextColumn Width="100"
+                <DataGridTextColumn Width="165"
                                     Header="Past Simple" 
                                     Binding="{Binding Path=PastSimple}"/>
                 
-                <DataGridTextColumn Width="100"
+                <DataGridTextColumn Width="165"
                                     Header="Past Participle" 
                                     Binding="{Binding Path=PastParticiple}"/>
                 
-                <DataGridTemplateColumn Width="200"
+                <DataGridTemplateColumn Width="160"
                                         Header="Result"
                                         IsReadOnly="True">
                     <DataGridTemplateColumn.CellTemplate> 
                         <DataTemplate> 
-                            <Border Background="{Binding Path=Result, 
+                            <Border
+                                BorderBrush="{Binding Path=Result, 
                                     Converter={StaticResource AnswerResultToBrushConverter}}" 
-                                    BorderBrush="Black" BorderThickness="1">
+                                BorderThickness="0"
+                                Background="{Binding Path=Result, 
+                                    Converter={StaticResource AnswerResultToBrushConverter}}" 
+                                    >
                                 <StackPanel Orientation="Horizontal">
                                     <TextBlock Text="{Binding Path=Result,
                                                StringFormat='{}{0}. '}" />
                                     <TextBlock>
                                         <Hyperlink Foreground="Navy" 
-                                                   Tag="{Binding Path=InstanceId}" 
                                                    Command="{Binding DataContext.InfoCommand, 
                                                             RelativeSource={RelativeSource AncestorType=Page}}"
                                                    CommandParameter="{Binding}"
