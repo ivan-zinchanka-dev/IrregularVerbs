@@ -8,6 +8,9 @@ namespace IrregularVerbs.Views;
 
 public partial class RevisePage : EndPage
 {
+    private const double MinColumnWidthMultiplier = 0.75d;
+    private const double MaxColumnWidthMultiplier = 1.25d;
+    
     private readonly RevisePageViewModel _viewModel;
     
     public RevisePage(RevisePageViewModel viewModel)
@@ -19,19 +22,16 @@ public partial class RevisePage : EndPage
         RegisterBackCommand(_viewModel.BackCommand);
     }
 
-    private void FrameworkElement_OnLoaded(object sender, RoutedEventArgs e)
+    private void AdjustGrid(object sender, RoutedEventArgs e)
     {
-        // TODO
-        /*GridView gridView = _grid.View as GridView;
-        
-        foreach (GridViewColumn column in gridView.Columns)
+        foreach (DataGridColumn column in _grid.Columns)
         {
-            double normalWidth = column.Width;
+            double normalWidth = column.Width.Value;
             
             column.MinWidth = normalWidth * MinColumnWidthMultiplier;
             column.MaxWidth = normalWidth * MaxColumnWidthMultiplier;
         }
 
-        gridView.Columns.Last().CanUserResize = false;*/
+        _grid.Columns.Last().CanUserResize = false;
     }
 }
