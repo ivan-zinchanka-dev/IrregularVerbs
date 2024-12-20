@@ -1,6 +1,10 @@
-﻿using System.Threading.Tasks;
+﻿using System;
+using System.Diagnostics;
+using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Navigation;
+using System.Windows.Threading;
+using IrregularVerbs.CodeBase;
 using IrregularVerbs.Factories;
 using IrregularVerbs.Models.Configs;
 using IrregularVerbs.Services;
@@ -38,6 +42,12 @@ namespace IrregularVerbs
         protected override async void OnStartup(StartupEventArgs e)
         {
             base.OnStartup(e);
+            
+            PresentationTraceSources.DataBindingSource.Listeners.Add(new BindingErrorTraceListener());
+            PresentationTraceSources.DataBindingSource.Switch.Level = SourceLevels.Error;
+            
+            AppDomain.CurrentDomain.UnhandledException += OnAppDomainUnhandledException;
+            DispatcherUnhandledException += OnDispatcherUnhandledException;
             
             _preferencesService = new UserPreferencesService(LogicalResources);
             _cacheService = new CacheService();
@@ -122,9 +132,30 @@ namespace IrregularVerbs
             _host.Dispose();
             
             _preferencesService.AppSettings.OnPropertyChanged -= SetNativeLanguage;
+            
+            DispatcherUnhandledException -= OnDispatcherUnhandledException;
+            AppDomain.CurrentDomain.UnhandledException -= OnAppDomainUnhandledException;
+            
             base.OnExit(e);
         }
         
         // TODO add UnhandledException with message box
+        
+        private void OnDispatcherUnhandledException(object sender, DispatcherUnhandledExceptionEventArgs e)
+        {
+            //_logger.LogError( e.Exception, "An unhandled exception occurred.");
+        }
+
+        private void OnAppDomainUnhandledException(object sender, UnhandledExceptionEventArgs e)
+        {
+            /*if (e.ExceptionObject is Exception exception)
+            {
+                _logger.LogError(exception, "An unhandled exception occurred."); 
+            }
+            else
+            {
+                _logger.LogError(e.ExceptionObject.ToString());
+            }*/
+        }
     }
 }
