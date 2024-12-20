@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Diagnostics;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Navigation;
@@ -31,8 +32,22 @@ namespace IrregularVerbs
         private IHost _host;
         private PageManager _pageManager;
         private MainWindow _mainWindow;
+
+        private const string ErrorMessageHeader = "Error!";
+        private const string ErrorMessageBody = "An error occurred while the program was running. For more details, see the log file.";
         
-        // TODO Check multiple startups and message box if need
+        private void PreventMultipleStartup()
+        {
+            Mutex appMutex = new Mutex(true, AppDomain.CurrentDomain.FriendlyName, out bool createdNew);
+            
+            // TODO doesnt work
+            
+            if (!createdNew)
+            {
+                MessageBox.Show("This application is already running", "Warning!", MessageBoxButton.OK, MessageBoxImage.Warning);
+                Shutdown();
+            }
+        }
         
         private void SetNativeLanguage()
         {
@@ -42,6 +57,7 @@ namespace IrregularVerbs
         protected override async void OnStartup(StartupEventArgs e)
         {
             base.OnStartup(e);
+            PreventMultipleStartup();
             
             PresentationTraceSources.DataBindingSource.Listeners.Add(new BindingErrorTraceListener());
             PresentationTraceSources.DataBindingSource.Switch.Level = SourceLevels.Error;
@@ -139,23 +155,16 @@ namespace IrregularVerbs
             base.OnExit(e);
         }
         
-        // TODO add UnhandledException with message box
+        // TODO Logs
         
         private void OnDispatcherUnhandledException(object sender, DispatcherUnhandledExceptionEventArgs e)
         {
-            //_logger.LogError( e.Exception, "An unhandled exception occurred.");
+            MessageBox.Show(ErrorMessageBody, ErrorMessageHeader, MessageBoxButton.OK, MessageBoxImage.Error);
         }
 
         private void OnAppDomainUnhandledException(object sender, UnhandledExceptionEventArgs e)
         {
-            /*if (e.ExceptionObject is Exception exception)
-            {
-                _logger.LogError(exception, "An unhandled exception occurred."); 
-            }
-            else
-            {
-                _logger.LogError(e.ExceptionObject.ToString());
-            }*/
+            MessageBox.Show(ErrorMessageBody, ErrorMessageHeader, MessageBoxButton.OK, MessageBoxImage.Error);
         }
     }
 }

@@ -13,6 +13,8 @@ public partial class CheckPage : EndPage
     
     private readonly CheckPageViewModel _viewModel;
     
+    // TODO Exception on esc when navigating in table (press tab to navigate)
+    
     public CheckPage(CheckPageViewModel viewModel)
     {
         _viewModel = viewModel;
