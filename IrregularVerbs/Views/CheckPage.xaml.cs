@@ -1,6 +1,7 @@
 ﻿using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Input;
 using IrregularVerbs.ViewModels;
 using IrregularVerbs.Views.Base;
 
@@ -12,8 +13,6 @@ public partial class CheckPage : EndPage
     private const double MaxColumnWidthMultiplier = 1.25d;
     
     private readonly CheckPageViewModel _viewModel;
-    
-    // TODO Exception on esc when navigating in table (press tab to navigate)
     
     public CheckPage(CheckPageViewModel viewModel)
     {
@@ -27,7 +26,7 @@ public partial class CheckPage : EndPage
         Unloaded += OnUnloaded;
     }
     
-    private void AdjustGrid(object sender, RoutedEventArgs e)
+    private void AdjustGrid(object sender, RoutedEventArgs eventArgs)
     {
         foreach (DataGridColumn column in _grid.Columns)
         {
@@ -40,6 +39,14 @@ public partial class CheckPage : EndPage
         _grid.Columns.Last().CanUserResize = false;
     }
     
+    private void OnGridPreviewKeyDown(object sender, KeyEventArgs eventArgs)
+    {
+        if (eventArgs.Key == Key.Escape)                                        // prevent binding exception
+        {
+            eventArgs.Handled = true;
+        }
+    }
+
     private void OnTaskChecked()
     {
         _checkButton.Visibility = Visibility.Collapsed;

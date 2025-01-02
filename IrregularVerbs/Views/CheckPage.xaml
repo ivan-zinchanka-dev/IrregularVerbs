@@ -36,7 +36,8 @@
                   CanUserReorderColumns="False"
                   CanUserAddRows="False"
                   CanUserDeleteRows="False"
-                  Loaded="AdjustGrid">
+                  Loaded="AdjustGrid"
+                  PreviewKeyDown="OnGridPreviewKeyDown">
             <DataGrid.Columns>
                 <DataGridTextColumn Width="200"
                                     Header="Native Word"
