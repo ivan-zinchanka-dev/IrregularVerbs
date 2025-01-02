@@ -1,5 +1,7 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Diagnostics;
+using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Windows;
@@ -38,13 +40,17 @@ namespace IrregularVerbs
         
         private void PreventMultipleStartup()
         {
-            Mutex appMutex = new Mutex(true, AppDomain.CurrentDomain.FriendlyName, out bool createdNew);
+            Process currentProcess = Process.GetCurrentProcess();
             
-            // TODO doesnt work
+            IEnumerable<Process> runningProcesses = Process.GetProcessesByName(currentProcess.ProcessName)
+                .Where(process => process.Id != currentProcess.Id);
+
+            bool alreadyRunning = runningProcesses.Any();
             
-            if (!createdNew)
+            if (alreadyRunning)
             {
-                MessageBox.Show("This application is already running", "Warning!", MessageBoxButton.OK, MessageBoxImage.Warning);
+                MessageBox.Show("This application is already running", "Warning!", 
+                    MessageBoxButton.OK, MessageBoxImage.Warning);
                 Shutdown();
             }
         }
