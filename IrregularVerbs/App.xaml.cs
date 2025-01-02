@@ -60,19 +60,6 @@ namespace IrregularVerbs
         {
             _localizationService.CurrentLanguage = _preferencesService.AppSettings.NativeLanguage;
         }
-
-        private Serilog.Core.Logger CreateLogger()
-        {
-            return new LoggerConfiguration()
-                .MinimumLevel.Debug()
-                .WriteTo.Debug()
-                .WriteTo.File(
-                    path: "Logs/app.logs", 
-                    rollOnFileSizeLimit: true, 
-                    fileSizeLimitBytes: 1_000_000, 
-                    outputTemplate: "[{Timestamp:HH:mm:ss} {Level:u3}] ({SourceContext:l}) {Message:lj}{NewLine}{Exception}")
-                .CreateLogger();
-        }
         
         protected override async void OnStartup(StartupEventArgs e)
         {
@@ -85,7 +72,7 @@ namespace IrregularVerbs
             AppDomain.CurrentDomain.UnhandledException += OnAppDomainUnhandledException;
             DispatcherUnhandledException += OnDispatcherUnhandledException;
 
-            Log.Logger = CreateLogger();
+            Log.Logger = new LoggingConfigurator().CreateLogger();
 
             try
             {
@@ -109,27 +96,7 @@ namespace IrregularVerbs
                         logging.ClearProviders();
                         logging.AddSerilog(Log.Logger);
                     })
-                    .ConfigureServices(services =>
-                    {
-                        services
-                            .AddSingleton<ApplicationSettings>(_preferencesService.AppSettings)
-                            .AddSingleton<LocalizationService>(_localizationService)
-                            .AddSingleton<LocalizedTextFactory>()
-                            .AddSingleton<FixedFormFactory>()
-                            .AddSingleton<VolatileFormFactory>()
-                            .AddSingleton<IrregularVerbsFactory>()
-                            .AddSingleton<IrregularVerbsStorage>()
-                            .AddTransient<IrregularVerbsTeacher>()
-                            .AddSingleton<CacheService>(_cacheService)
-                            .AddSingleton<PageManager>()
-                            .AddSingleton<MainWindow>()
-                            .AddTransient<StartPageViewModel>()
-                            .AddTransient<RevisePageViewModel>()
-                            .AddTransient<CheckPageViewModel>()
-                            .AddTransient<StartPage>()
-                            .AddTransient<RevisePage>()
-                            .AddTransient<CheckPage>();
-                    })
+                    .ConfigureServices(ConfigureServices)
                     .Build();
 
                 await _host.StartAsync();
@@ -158,6 +125,28 @@ namespace IrregularVerbs
             {
                 await Log.CloseAndFlushAsync();
             }
+        }
+
+        private void ConfigureServices(IServiceCollection services)
+        {
+            services
+                .AddSingleton<ApplicationSettings>(_preferencesService.AppSettings)
+                .AddSingleton<LocalizationService>(_localizationService)
+                .AddSingleton<LocalizedTextFactory>()
+                .AddSingleton<FixedFormFactory>()
+                .AddSingleton<VolatileFormFactory>()
+                .AddSingleton<IrregularVerbsFactory>()
+                .AddSingleton<IrregularVerbsStorage>()
+                .AddTransient<IrregularVerbsTeacher>()
+                .AddSingleton<CacheService>(_cacheService)
+                .AddSingleton<PageManager>()
+                .AddSingleton<MainWindow>()
+                .AddTransient<StartPageViewModel>()
+                .AddTransient<RevisePageViewModel>()
+                .AddTransient<CheckPageViewModel>()
+                .AddTransient<StartPage>()
+                .AddTransient<RevisePage>()
+                .AddTransient<CheckPage>();
         }
 
         private void OnMainWindowNavigating(object sender, NavigatingCancelEventArgs args)

@@ -7,7 +7,7 @@ using IrregularVerbs.Models.Configs;
 
 namespace IrregularVerbs.Services;
 
-public class UserPreferencesService : AppDataService
+public class UserPreferencesService : AppDataService, IDisposable
 {
     private const string PreferencesFolderName = "Preferences";
     private const string AppSettingsResourceKey = "ApplicationSettings";
@@ -24,7 +24,7 @@ public class UserPreferencesService : AppDataService
         CheckPreferencesFolder();
     }
     
-    public override async Task InitializeAsync()
+    public async Task InitializeAsync()
     {
         await LoadAppSettingsAsync();
     }
@@ -72,13 +72,12 @@ public class UserPreferencesService : AppDataService
         
         await File.WriteAllTextAsync(fullFileName, jsonNotation);
     }
-
-    ~UserPreferencesService()
+    
+    public void Dispose()
     {
         if (AppSettings != null)
         {
             AppSettings.OnPropertyChanged -= SaveAppSettingsAsync;
         }
     }
-
 }

@@ -15,8 +15,6 @@ public abstract class AppDataService
         CheckApplicationFolder();
     }
 
-    public abstract Task InitializeAsync();
-
     private void CheckApplicationFolder()
     {
         string path = Path.Combine(AppDataPath, AppFolderName);

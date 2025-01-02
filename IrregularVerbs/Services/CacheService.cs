@@ -19,7 +19,7 @@ public class CacheService : AppDataService
         CheckCacheFolder();
     }
     
-    public override async Task InitializeAsync()
+    public async Task InitializeAsync()
     {
         await LoadPriorityCacheAsync();
     }
