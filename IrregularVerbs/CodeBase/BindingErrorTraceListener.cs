@@ -17,7 +17,7 @@ public class BindingErrorTraceListener : TraceListener
     {
         Write(message);
 
-        MessageBox.Show(_messageBuilder.ToString(), "Binding error", MessageBoxButton.OK, MessageBoxImage.Warning);
+        MessageBox.Show(_messageBuilder.ToString(), "Binding error!", MessageBoxButton.OK, MessageBoxImage.Warning);
         _messageBuilder.Clear();
     }
 }

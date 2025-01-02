@@ -30,37 +30,20 @@ public class LocalizationService
 
     public LocalizationService()
     {
-        Encoding.RegisterProvider(CodePagesEncodingProvider.Instance);
-        
         if (File.Exists(LocalizationSourcePath))
         {
-            using (Stream stream = File.Open(LocalizationSourcePath, FileMode.Open, FileAccess.Read))
+            try
             {
-                using (IExcelDataReader reader = ExcelReaderFactory.CreateReader(stream))
-                {
-                    DataTable dataTable = reader.AsDataSet().Tables[0];
-                    
-                    for (int i = 1; i < dataTable.Rows.Count; i++)
-                    {
-                        DataRow dataRow = dataTable.Rows[i];
-                        string term = dataRow[0].ToString();
-                        
-                        if (!string.IsNullOrEmpty(term))
-                        {
-                            _dictionary.Add(term, new List<string>()
-                            {
-                                dataRow[1].ToString(),
-                                dataRow[2].ToString(),
-                                dataRow[3].ToString(),
-                            });
-                        }
-                    }
-                }
+                ReadTableData();
+            }
+            catch (Exception exception)
+            {
+                throw new Exception("Localization source table is corrupted", exception);
             }
         }
         else
         {
-            throw new FileNotFoundException("File not found", LocalizationSourcePath);
+            throw new FileNotFoundException("Localization source table not found", LocalizationSourcePath);
         }
     }
 
@@ -77,6 +60,35 @@ public class LocalizationService
         }
         
         return $"[{term}]";
+    }
+    
+    private void ReadTableData()
+    {
+        Encoding.RegisterProvider(CodePagesEncodingProvider.Instance);
+        
+        using (Stream stream = File.Open(LocalizationSourcePath, FileMode.Open, FileAccess.Read))
+        {
+            using (IExcelDataReader reader = ExcelReaderFactory.CreateReader(stream))
+            {
+                DataTable dataTable = reader.AsDataSet().Tables[0];
+                    
+                for (int i = 1; i < dataTable.Rows.Count; i++)
+                {
+                    DataRow dataRow = dataTable.Rows[i];
+                    string term = dataRow[0].ToString();
+                        
+                    if (!string.IsNullOrEmpty(term))
+                    {
+                        _dictionary.Add(term, new List<string>()
+                        {
+                            dataRow[1].ToString(),
+                            dataRow[2].ToString(),
+                            dataRow[3].ToString(),
+                        });
+                    }
+                }
+            }
+        }
     }
 
 }

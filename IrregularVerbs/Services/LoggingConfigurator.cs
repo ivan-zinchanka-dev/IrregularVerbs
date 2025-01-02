@@ -1,4 +1,6 @@
-﻿using System.IO;
+﻿using System.Diagnostics;
+using System.IO;
+using IrregularVerbs.CodeBase;
 using Serilog;
 using Serilog.Core;
 
@@ -9,7 +11,7 @@ public class LoggingConfigurator : AppDataService
     private const string LogsFolderName = "Logs";
     private const string LogsFileName = "app_logs.txt";
     private const string LogOutputTemplate =
-        "[{Timestamp:HH:mm:ss} {Level:u3}] ({SourceContext:l}) {Message:lj}{NewLine}{Exception}";
+        "[{Timestamp:HH:mm:ss} {Level:u3}] [{SourceContext:l}] {Message:lj}{NewLine}{Exception}";
     private const int LogsFileSizeLimitBytes = 1_000_000;
     
     private DirectoryInfo _logsDirectoryInfo;
@@ -34,7 +36,7 @@ public class LoggingConfigurator : AppDataService
     public Logger CreateLogger()
     {
         return new LoggerConfiguration()
-            .MinimumLevel.Debug()
+            .MinimumLevel.Information()
             .WriteTo.Debug()
             .WriteTo.File(
                 path: LogsFilePath, 
@@ -42,5 +44,11 @@ public class LoggingConfigurator : AppDataService
                 fileSizeLimitBytes: LogsFileSizeLimitBytes, 
                 outputTemplate: LogOutputTemplate)
             .CreateLogger();
+    }
+
+    public void AddBindingTraceListening()
+    {
+        PresentationTraceSources.DataBindingSource.Listeners.Add(new BindingErrorTraceListener());
+        PresentationTraceSources.DataBindingSource.Switch.Level = SourceLevels.Error;
     }
 }

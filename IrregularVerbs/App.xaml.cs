@@ -2,12 +2,10 @@
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
-using System.Threading;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Navigation;
 using System.Windows.Threading;
-using IrregularVerbs.CodeBase;
 using IrregularVerbs.Factories;
 using IrregularVerbs.Models.Configs;
 using IrregularVerbs.Services;
@@ -17,6 +15,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using Serilog;
+using ILogger = Serilog.ILogger;
 
 namespace IrregularVerbs
 {
@@ -35,6 +34,7 @@ namespace IrregularVerbs
         private IHost _host;
         private PageManager _pageManager;
         private MainWindow _mainWindow;
+        private ILogger _appLogger;
 
         private const string ErrorMessageHeader = "Error!";
         private const string ErrorMessageBody = "An error occurred while the program was running. For more details, see the log file.";
@@ -61,21 +61,23 @@ namespace IrregularVerbs
             _localizationService.CurrentLanguage = _preferencesService.AppSettings.NativeLanguage;
         }
         
-        protected override async void OnStartup(StartupEventArgs e)
+        protected override async void OnStartup(StartupEventArgs eventArgs)
         {
-            base.OnStartup(e);
+            base.OnStartup(eventArgs);
             PreventMultipleStartup();
             
-            PresentationTraceSources.DataBindingSource.Listeners.Add(new BindingErrorTraceListener());
-            PresentationTraceSources.DataBindingSource.Switch.Level = SourceLevels.Error;
+            LoggingConfigurator loggingConfigurator = new LoggingConfigurator();
+            Log.Logger = loggingConfigurator.CreateLogger();
+            _appLogger = Log.ForContext<App>();
+            loggingConfigurator.AddBindingTraceListening();
             
             AppDomain.CurrentDomain.UnhandledException += OnAppDomainUnhandledException;
             DispatcherUnhandledException += OnDispatcherUnhandledException;
-
-            Log.Logger = new LoggingConfigurator().CreateLogger();
-
+            
             try
             {
+                _appLogger.Information("Application is starting...");
+                
                 _preferencesService = new UserPreferencesService(LogicalResources);
                 _cacheService = new CacheService();
                 
@@ -87,6 +89,8 @@ namespace IrregularVerbs
                 _localizationService = new LocalizationService();
                 SetNativeLanguage();
                 _preferencesService.AppSettings.OnPropertyChanged += SetNativeLanguage;
+                
+                _appLogger.Information("Localization service has been loaded successfully."); 
                 
                 await cacheServiceLaunchTask;
                 
@@ -100,11 +104,11 @@ namespace IrregularVerbs
                     .Build();
 
                 await _host.StartAsync();
-
+                
                 IrregularVerbsStorage verbsStorage = _host.Services.GetRequiredService<IrregularVerbsStorage>();
                 AppSettings.Validator.MaxVerbsCount = verbsStorage.IrregularVerbs.Count;
                 
-                // TODO handle resource files errors
+                _appLogger.Information("Verbs storage has been loaded successfully."); 
                 
                 _pageManager = _host.Services.GetRequiredService<PageManager>();
                 _mainWindow = _host.Services.GetRequiredService<MainWindow>();
@@ -118,7 +122,7 @@ namespace IrregularVerbs
             }
             catch (Exception ex)
             {
-                Log.Error(ex, "An unhandled exception occured");
+                _appLogger.Fatal(ex, "An startup unhandled exception occured");
                 MessageBox.Show(ErrorMessageBody, ErrorMessageHeader, MessageBoxButton.OK, MessageBoxImage.Error);
             }
             finally
@@ -149,22 +153,24 @@ namespace IrregularVerbs
                 .AddTransient<CheckPage>();
         }
 
-        private void OnMainWindowNavigating(object sender, NavigatingCancelEventArgs args)
+        private void OnMainWindowNavigating(object sender, NavigatingCancelEventArgs eventArgs)
         {
-            if (args.NavigationMode == NavigationMode.Forward || 
-                args.NavigationMode == NavigationMode.Back)
+            if (eventArgs.NavigationMode == NavigationMode.Forward || 
+                eventArgs.NavigationMode == NavigationMode.Back)
             {
-                args.Cancel = true;
+                eventArgs.Cancel = true;
             }
         }
         
-        private void OnMainWindowLoaded(object sender, RoutedEventArgs args)
+        private void OnMainWindowLoaded(object sender, RoutedEventArgs eventArgs)
         {
             _pageManager.SwitchTo<StartPage>();
         }
 
-        protected override async void OnExit(ExitEventArgs e)
+        protected override async void OnExit(ExitEventArgs eventArgs)
         {
+            _appLogger.Information("Application is shutting down...");
+            
             _pageManager.OnPageCreated -= _mainWindow.NavigateTo;
             _mainWindow.Navigating -= OnMainWindowNavigating;
             _mainWindow.Loaded -= OnMainWindowLoaded;
@@ -177,19 +183,19 @@ namespace IrregularVerbs
             DispatcherUnhandledException -= OnDispatcherUnhandledException;
             AppDomain.CurrentDomain.UnhandledException -= OnAppDomainUnhandledException;
             
-            base.OnExit(e);
+            base.OnExit(eventArgs);
         }
         
         private void OnDispatcherUnhandledException(object sender, DispatcherUnhandledExceptionEventArgs eventArgs)
         {
-            Log.Error(eventArgs.Exception, "An dispatcher unhandled exception occured");
+            _appLogger.Fatal(eventArgs.Exception, "An dispatcher unhandled exception occured");
             MessageBox.Show(ErrorMessageBody, ErrorMessageHeader, MessageBoxButton.OK, MessageBoxImage.Error);
         }
 
         private void OnAppDomainUnhandledException(object sender, UnhandledExceptionEventArgs eventArgs)
         {
             Exception exception = eventArgs.ExceptionObject as Exception;
-            Log.Error(exception, "An app domain unhandled exception occured");
+            _appLogger.Fatal(exception, "An app domain unhandled exception occured");
             MessageBox.Show(ErrorMessageBody, ErrorMessageHeader, MessageBoxButton.OK, MessageBoxImage.Error);
         }
     }
