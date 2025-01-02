@@ -16,6 +16,7 @@ using IrregularVerbs.Views;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
+using Serilog;
 
 namespace IrregularVerbs
 {
@@ -60,6 +61,19 @@ namespace IrregularVerbs
             _localizationService.CurrentLanguage = _preferencesService.AppSettings.NativeLanguage;
         }
 
+        private Serilog.Core.Logger CreateLogger()
+        {
+            return new LoggerConfiguration()
+                .MinimumLevel.Debug()
+                .WriteTo.Debug()
+                .WriteTo.File(
+                    path: "Logs/app.logs", 
+                    rollOnFileSizeLimit: true, 
+                    fileSizeLimitBytes: 1_000_000, 
+                    outputTemplate: "[{Timestamp:HH:mm:ss} {Level:u3}] ({SourceContext:l}) {Message:lj}{NewLine}{Exception}")
+                .CreateLogger();
+        }
+        
         protected override async void OnStartup(StartupEventArgs e)
         {
             base.OnStartup(e);
@@ -70,64 +84,80 @@ namespace IrregularVerbs
             
             AppDomain.CurrentDomain.UnhandledException += OnAppDomainUnhandledException;
             DispatcherUnhandledException += OnDispatcherUnhandledException;
-            
-            _preferencesService = new UserPreferencesService(LogicalResources);
-            _cacheService = new CacheService();
-            
-            Task prefsServiceLaunchTask = _preferencesService.InitializeAsync();
-            Task cacheServiceLaunchTask = _cacheService.InitializeAsync();
-            
-            await prefsServiceLaunchTask;
-            
-            _localizationService = new LocalizationService();
-            SetNativeLanguage();
-            _preferencesService.AppSettings.OnPropertyChanged += SetNativeLanguage;
-            
-            await cacheServiceLaunchTask;
 
-            _host = Host.CreateDefaultBuilder()
-                .ConfigureLogging(logging =>
-                {
-                    logging.ClearProviders();
-                })
-                .ConfigureServices(services =>
-                {
-                    services
-                        .AddSingleton<ApplicationSettings>(_preferencesService.AppSettings)
-                        .AddSingleton<LocalizationService>(_localizationService)
-                        .AddSingleton<LocalizedTextFactory>()
-                        .AddSingleton<FixedFormFactory>()
-                        .AddSingleton<VolatileFormFactory>()
-                        .AddSingleton<IrregularVerbsFactory>()
-                        .AddSingleton<IrregularVerbsStorage>()
-                        .AddTransient<IrregularVerbsTeacher>()
-                        .AddSingleton<CacheService>(_cacheService)
-                        .AddSingleton<PageManager>()
-                        .AddSingleton<MainWindow>()
-                        .AddTransient<StartPageViewModel>()
-                        .AddTransient<RevisePageViewModel>()
-                        .AddTransient<CheckPageViewModel>()
-                        .AddTransient<StartPage>()
-                        .AddTransient<RevisePage>()
-                        .AddTransient<CheckPage>();
-                })
-                .Build();
+            Log.Logger = CreateLogger();
 
-            await _host.StartAsync();
+            try
+            {
+                _preferencesService = new UserPreferencesService(LogicalResources);
+                _cacheService = new CacheService();
+                
+                Task prefsServiceLaunchTask = _preferencesService.InitializeAsync();
+                Task cacheServiceLaunchTask = _cacheService.InitializeAsync();
+                
+                await prefsServiceLaunchTask;
+                
+                _localizationService = new LocalizationService();
+                SetNativeLanguage();
+                _preferencesService.AppSettings.OnPropertyChanged += SetNativeLanguage;
+                
+                await cacheServiceLaunchTask;
+                
+                _host = Host.CreateDefaultBuilder()
+                    .ConfigureLogging(logging =>
+                    {
+                        logging.ClearProviders();
+                        logging.AddSerilog(Log.Logger);
+                    })
+                    .ConfigureServices(services =>
+                    {
+                        services
+                            .AddSingleton<ApplicationSettings>(_preferencesService.AppSettings)
+                            .AddSingleton<LocalizationService>(_localizationService)
+                            .AddSingleton<LocalizedTextFactory>()
+                            .AddSingleton<FixedFormFactory>()
+                            .AddSingleton<VolatileFormFactory>()
+                            .AddSingleton<IrregularVerbsFactory>()
+                            .AddSingleton<IrregularVerbsStorage>()
+                            .AddTransient<IrregularVerbsTeacher>()
+                            .AddSingleton<CacheService>(_cacheService)
+                            .AddSingleton<PageManager>()
+                            .AddSingleton<MainWindow>()
+                            .AddTransient<StartPageViewModel>()
+                            .AddTransient<RevisePageViewModel>()
+                            .AddTransient<CheckPageViewModel>()
+                            .AddTransient<StartPage>()
+                            .AddTransient<RevisePage>()
+                            .AddTransient<CheckPage>();
+                    })
+                    .Build();
 
-            IrregularVerbsStorage verbsStorage = _host.Services.GetRequiredService<IrregularVerbsStorage>();
-            AppSettings.Validator.MaxVerbsCount = verbsStorage.IrregularVerbs.Count;
-            
-            // TODO handle resource files errors
-            
-            _pageManager = _host.Services.GetRequiredService<PageManager>();
-            _mainWindow = _host.Services.GetRequiredService<MainWindow>();
-            
-            _mainWindow.Loaded += OnMainWindowLoaded;
-            _mainWindow.Navigating += OnMainWindowNavigating;
-            _pageManager.OnPageCreated += _mainWindow.NavigateTo;
-            
-            _mainWindow.Show();
+                await _host.StartAsync();
+
+                IrregularVerbsStorage verbsStorage = _host.Services.GetRequiredService<IrregularVerbsStorage>();
+                AppSettings.Validator.MaxVerbsCount = verbsStorage.IrregularVerbs.Count;
+                
+                // TODO handle resource files errors
+                
+                _pageManager = _host.Services.GetRequiredService<PageManager>();
+                _mainWindow = _host.Services.GetRequiredService<MainWindow>();
+                
+                _mainWindow.Loaded += OnMainWindowLoaded;
+                _mainWindow.Navigating += OnMainWindowNavigating;
+                _pageManager.OnPageCreated += _mainWindow.NavigateTo;
+                
+                _mainWindow.Show();
+
+            }
+            catch (Exception ex)
+            {
+                Log.Error(ex, "An unhandled exception occured");
+                MessageBox.Show(ErrorMessageBody, ErrorMessageHeader, MessageBoxButton.OK, MessageBoxImage.Error);
+            }
+            finally
+            {
+                await Log.CloseAndFlushAsync();
+            }
         }
 
         private void OnMainWindowNavigating(object sender, NavigatingCancelEventArgs args)
@@ -161,15 +191,16 @@ namespace IrregularVerbs
             base.OnExit(e);
         }
         
-        // TODO Logs
-        
-        private void OnDispatcherUnhandledException(object sender, DispatcherUnhandledExceptionEventArgs e)
+        private void OnDispatcherUnhandledException(object sender, DispatcherUnhandledExceptionEventArgs eventArgs)
         {
+            Log.Error(eventArgs.Exception, "An dispatcher unhandled exception occured");
             MessageBox.Show(ErrorMessageBody, ErrorMessageHeader, MessageBoxButton.OK, MessageBoxImage.Error);
         }
 
-        private void OnAppDomainUnhandledException(object sender, UnhandledExceptionEventArgs e)
+        private void OnAppDomainUnhandledException(object sender, UnhandledExceptionEventArgs eventArgs)
         {
+            Exception exception = eventArgs.ExceptionObject as Exception;
+            Log.Error(exception, "An app domain unhandled exception occured");
             MessageBox.Show(ErrorMessageBody, ErrorMessageHeader, MessageBoxButton.OK, MessageBoxImage.Error);
         }
     }
