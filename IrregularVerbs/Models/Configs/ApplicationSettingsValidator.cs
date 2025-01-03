@@ -2,11 +2,10 @@
 
 public class ApplicationSettingsValidator
 {
-    private const string VerbsCountErrorMessagePattern = 
-        "The number of verbs must be an integer greater than 0 and less than {0}";
+    private const string VerbsCountErrorMessagePattern = "Enter a number from 1 to {0} inclusive";
 
     public int MaxVerbsCount { get; set; } = 1000;
-    public string VerbsCountErrorMessage => string.Format(VerbsCountErrorMessagePattern, MaxVerbsCount + 1);
+    public string VerbsCountErrorMessage => string.Format(VerbsCountErrorMessagePattern, MaxVerbsCount);
         
     public bool ValidateVerbsCount(int verbsCount)
     {

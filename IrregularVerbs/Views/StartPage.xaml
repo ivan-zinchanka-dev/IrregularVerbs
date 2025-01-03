@@ -15,7 +15,8 @@
                       Style="{StaticResource MaterialDesignCardGroupBox}"
                       Header="Settings"
                       FontFamily="{StaticResource MaterialDesignFont}"
-                      Validation.Error="OnValidationError">
+                      Validation.Error="OnValidationError"
+                      >
                 <Grid Width="300">
                     <Grid.RowDefinitions>
                         <RowDefinition Height="*"/>
@@ -46,7 +47,8 @@
                     </TextBlock>
                     <TextBox Grid.Row="1" Grid.Column="1"
                              Margin="0 5 5 0">
-                        <Binding Path="VerbsCount" NotifyOnValidationError="True">
+                        <Binding Path="VerbsCount" NotifyOnValidationError="True"
+                                 UpdateSourceTrigger="PropertyChanged">
                             <Binding.ValidationRules>
                                 <components:VerbsCountValidationRule/>
                             </Binding.ValidationRules>
