@@ -13,14 +13,16 @@
             <ToolBar DockPanel.Dock="Top" 
                      HorizontalAlignment="Right" 
                      Height="20" >
-                <TextBlock Text="Tooltips"
-                           FontSize="12"/>
                 <Separator/>
+                <TextBlock Text="Tooltips"
+                           FontSize="12"
+                           Margin="0 0 5 0"/>
+            
                 <ToggleButton Style="{StaticResource MaterialDesignSwitchToggleButton}"/>
                 <Separator/>
                 <TextBlock Text="Dark theme"
-                           FontSize="12"/>
-                <Separator/>
+                           FontSize="12"
+                           Margin="0 0 5 0"/>
                 <ToggleButton Style="{StaticResource MaterialDesignSwitchToggleButton}"/>
             </ToolBar>   
             
