@@ -29,6 +29,7 @@
                   x:Name="_grid"
                   Grid.Row="0"
                   ItemsSource="{Binding Answers}"
+                  ToolTip="Click on the desired cell to enter text. You can also use keys such as Tab to move between cells."
                   HeadersVisibility="Column"
                   HorizontalScrollBarVisibility="Hidden"
                   AutoGenerateColumns="False"

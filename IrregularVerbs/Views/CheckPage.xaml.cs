@@ -49,6 +49,9 @@ public partial class CheckPage : EndPage
 
     private void OnTaskChecked()
     {
+        _grid.IsReadOnly = true;
+        ToolTipService.SetIsEnabled(_grid, false);
+        
         _checkButton.Visibility = Visibility.Collapsed;
         _backButton.Visibility = Visibility.Visible;
     }
