@@ -124,9 +124,7 @@ namespace IrregularVerbs
             {
                 _appLogger.Fatal(ex, "An startup unhandled exception occured");
                 MessageBox.Show(ErrorMessageBody, ErrorMessageHeader, MessageBoxButton.OK, MessageBoxImage.Error);
-            }
-            finally
-            {
+                
                 await Log.CloseAndFlushAsync();
             }
         }
@@ -152,7 +150,12 @@ namespace IrregularVerbs
                 .AddTransient<RevisePage>()
                 .AddTransient<CheckPage>();
         }
-
+        
+        private void OnMainWindowLoaded(object sender, RoutedEventArgs eventArgs)
+        {
+            _pageManager.SwitchTo<StartPage>();
+        }
+        
         private void OnMainWindowNavigating(object sender, NavigatingCancelEventArgs eventArgs)
         {
             if (eventArgs.NavigationMode == NavigationMode.Forward || 
@@ -161,15 +164,11 @@ namespace IrregularVerbs
                 eventArgs.Cancel = true;
             }
         }
-        
-        private void OnMainWindowLoaded(object sender, RoutedEventArgs eventArgs)
-        {
-            _pageManager.SwitchTo<StartPage>();
-        }
 
         protected override async void OnExit(ExitEventArgs eventArgs)
         {
             _appLogger.Information("Application is shutting down...");
+            await Log.CloseAndFlushAsync();
             
             _pageManager.OnPageCreated -= _mainWindow.NavigateTo;
             _mainWindow.Navigating -= OnMainWindowNavigating;
