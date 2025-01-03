@@ -3,7 +3,9 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:configs="clr-namespace:IrregularVerbs.Models.Configs"
         mc:Ignorable="d"
+        d:DataContext="{d:DesignInstance configs:ApplicationSettings}"
         WindowStartupLocation="CenterScreen"
         Title="Irregular verbs" 
         Height="720"
@@ -18,12 +20,14 @@
                            FontSize="12"
                            Margin="0 0 5 0"/>
             
-                <ToggleButton Style="{StaticResource MaterialDesignSwitchToggleButton}"/>
+                <ToggleButton IsChecked="{Binding EnableTooltips}" 
+                              Style="{StaticResource MaterialDesignSwitchToggleButton}"/>
                 <Separator/>
                 <TextBlock Text="Dark theme"
                            FontSize="12"
                            Margin="0 0 5 0"/>
-                <ToggleButton Style="{StaticResource MaterialDesignSwitchToggleButton}"/>
+                <ToggleButton IsChecked="{Binding DarkTheme}"  
+                              Style="{StaticResource MaterialDesignSwitchToggleButton}"/>
             </ToolBar>   
             
             <Frame x:FieldModifier="private" 

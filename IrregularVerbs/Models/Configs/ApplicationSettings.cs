@@ -7,8 +7,10 @@ public class ApplicationSettings
     private Language _nativeLanguage;
     private int _verbsCount;
     private bool _alphabeticalOrder;
+    private bool _enableTooltips;
+    private bool _darkTheme;
+    
     public ApplicationSettingsValidator Validator { get; private set; } = new ApplicationSettingsValidator();
-
     public event Action OnPropertyChanged;
     
     public Language NativeLanguage
@@ -37,6 +39,26 @@ public class ApplicationSettings
         set
         {
             _alphabeticalOrder = value;
+            OnPropertyChanged?.Invoke();
+        }
+    }
+
+    public bool EnableTooltips
+    {
+        get => _enableTooltips;
+        set
+        {
+            _enableTooltips = value;
+            OnPropertyChanged?.Invoke();
+        }
+    }
+    
+    public bool DarkTheme
+    {
+        get => _darkTheme;
+        set
+        {
+            _darkTheme = value;
             OnPropertyChanged?.Invoke();
         }
     }

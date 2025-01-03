@@ -11,6 +11,8 @@
     <configs:ApplicationSettings x:Key="ApplicationSettings" 
                                 NativeLanguage="Russian"
                                 VerbsCount="10"
-                                AlphabeticalOrder="True"/>
+                                AlphabeticalOrder="True"
+                                EnableTooltips="True"
+                                DarkTheme="False"/>
     
 </ResourceDictionary>
