@@ -1,4 +1,4 @@
-﻿<NavigationWindow x:Class="IrregularVerbs.MainWindow"
+﻿<Window x:Class="IrregularVerbs.MainWindow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
@@ -6,8 +6,28 @@
         mc:Ignorable="d"
         WindowStartupLocation="CenterScreen"
         Title="Irregular verbs" 
-        Height="700"
+        Height="720"
         Width="900"
-        Style="{StaticResource MaterialDesignWindow}"
-        ShowsNavigationUI="False">
-</NavigationWindow>
+        Style="{StaticResource MaterialDesignWindow}">
+        <DockPanel>
+            <ToolBar DockPanel.Dock="Top" 
+                     HorizontalAlignment="Right" 
+                     Height="20" >
+                <TextBlock Text="Tooltips"
+                           FontSize="12"/>
+                <Separator/>
+                <ToggleButton Style="{StaticResource MaterialDesignSwitchToggleButton}"/>
+                <Separator/>
+                <TextBlock Text="Dark theme"
+                           FontSize="12"/>
+                <Separator/>
+                <ToggleButton Style="{StaticResource MaterialDesignSwitchToggleButton}"/>
+            </ToolBar>   
+            
+            <Frame x:FieldModifier="private" 
+                   x:Name="_mainFrame"
+                   NavigationUIVisibility="Hidden"
+                   DockPanel.Dock="Right">
+            </Frame>
+        </DockPanel>
+</Window>
