@@ -44,7 +44,8 @@
                     <TextBlock Grid.Row="1" Grid.Column="0"
                                Margin="5 5 0 0" 
                                Text="Number of verbs: "
-                               ToolTip="The number of verbs you will see in the test">
+                               ToolTip="The number of verbs you will see in the test"
+                               ToolTipService.IsEnabled="{Binding EnableTooltips}">
                     </TextBlock>
                     <TextBox Grid.Row="1" Grid.Column="1"
                              Margin="0 5 5 0">
@@ -60,7 +61,8 @@
                     <TextBlock Grid.Row="2" Grid.Column="0"
                                Margin="5 5 0 5" 
                                Text="Alphabetical order: "
-                               ToolTip="Should the list of verbs be displayed in alphabetical order?">
+                               ToolTip="Should the list of verbs be displayed in alphabetical order?"
+                               ToolTipService.IsEnabled="{Binding EnableTooltips}">
                     </TextBlock>
                     <CheckBox Grid.Row="2" Grid.Column="1"
                               Margin="0 5 5 5"
@@ -80,6 +82,7 @@
                             Margin="5 5 5 5"
                             Content="Revise"
                             ToolTip="Review the list of irregular verbs"
+                            ToolTipService.IsEnabled="{Binding AppSettings.EnableTooltips}"
                             Command="{Binding ReviseCommand}"
                             Style="{StaticResource MaterialDesignRaisedButton}">
                     </Button>
@@ -88,6 +91,7 @@
                             Margin="5 5 5 5"
                             Content="Check"
                             ToolTip="Take the self-test"
+                            ToolTipService.IsEnabled="{Binding AppSettings.EnableTooltips}"
                             Command="{Binding CheckCommand}"
                             Style="{StaticResource MaterialDesignRaisedDarkButton}">
                     </Button>
