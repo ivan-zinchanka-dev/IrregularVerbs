@@ -10,6 +10,9 @@
     <ItemGroup>
       <None Remove="Resources\irregular_verbs_source.json" />
       <None Remove="Resources\irregular_verbs_source.xlsx" />
+      <Content Include="Assets\Icons\book_blue.ico">
+        <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      </Content>
       <Content Include="Resources\irregular_verbs_source.xlsx">
         <CopyToOutputDirectory>Always</CopyToOutputDirectory>
       </Content>
@@ -34,17 +37,11 @@
     </ItemGroup>
 
     <PropertyGroup>
-        <ApplicationIcon>book_blue.ico</ApplicationIcon>
+        <ApplicationIcon>Assets\Icons\book_blue.ico</ApplicationIcon>
     </PropertyGroup>
     
     <ItemGroup>
       <None Remove="Assets\Icons\book_blue.ico" />
-    </ItemGroup>
-
-    <ItemGroup>
-      <Content Include="book_blue.ico">
-        <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-      </Content>
     </ItemGroup>
 
 </Project>
