@@ -15,7 +15,6 @@ namespace IrregularVerbs
             remove => _mainFrame.Navigating -= value;
         }
         
-        // TODO Add app icon
         // TODO Add dark mode
         
         public MainWindow(ApplicationSettings appSettings)
