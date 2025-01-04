@@ -33,4 +33,18 @@
       <PackageReference Include="Serilog.Sinks.File" Version="6.0.0" />
     </ItemGroup>
 
+    <ItemGroup>
+      <Folder Include="Assets\Icons\" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <None Remove="Assets\Icons\book_blue.ico" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <Content Include="book_blue.ico">
+        <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      </Content>
+    </ItemGroup>
+
 </Project>

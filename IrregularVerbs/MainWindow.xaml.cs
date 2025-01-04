@@ -7,7 +7,7 @@ namespace IrregularVerbs
 {
     public partial class MainWindow : Window
     {
-        private ApplicationSettings _applicationSettings;
+        private readonly ApplicationSettings _applicationSettings;
         
         public event NavigatingCancelEventHandler Navigating
         {
