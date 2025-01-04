@@ -20,7 +20,7 @@
                            FontSize="12"
                            Margin="0 0 5 0"/>
             
-                <ToggleButton IsChecked="{Binding EnableTooltips}" 
+                <ToggleButton IsChecked="{Binding EnableToolTips}" 
                               Style="{StaticResource MaterialDesignSwitchToggleButton}"/>
                 <Separator/>
                 <TextBlock Text="Dark theme"

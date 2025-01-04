@@ -3,6 +3,7 @@ using System.Collections.ObjectModel;
 using System.Windows.Input;
 using IrregularVerbs.CodeBase;
 using IrregularVerbs.Models.Answers;
+using IrregularVerbs.Models.Configs;
 using IrregularVerbs.Services;
 using IrregularVerbs.Views;
 
@@ -10,6 +11,7 @@ namespace IrregularVerbs.ViewModels;
 
 public class CheckPageViewModel : BaseViewModel
 {
+    private ApplicationSettings _appSettings;
     private ObservableCollection<IrregularVerbAnswer> _answers;
     private string _resultMessage;
     private RelayCommand _checkCommand;
@@ -21,6 +23,16 @@ public class CheckPageViewModel : BaseViewModel
     private bool _taskIsChecked;
     
     public event Action OnTaskChecked;
+    
+    public ApplicationSettings AppSettings
+    {
+        get => _appSettings;
+        set
+        {
+            _appSettings = value;
+            OnPropertyChanged();
+        }
+    }
     
     public ObservableCollection<IrregularVerbAnswer> Answers
     {
@@ -72,8 +84,9 @@ public class CheckPageViewModel : BaseViewModel
         }
     }
     
-    public CheckPageViewModel(IrregularVerbsTeacher teacher, PageManager pageManager)
+    public CheckPageViewModel(ApplicationSettings appSettings, IrregularVerbsTeacher teacher, PageManager pageManager)
     {
+        _appSettings = appSettings;
         _teacher = teacher;
         _pageManager = pageManager;
         _teacher.UsePriorities();

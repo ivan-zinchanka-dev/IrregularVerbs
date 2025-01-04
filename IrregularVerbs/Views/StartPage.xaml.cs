@@ -17,6 +17,8 @@ public partial class StartPage : Page
         InitializeComponent();
     }
     
+    // TODO Fix buttons availability
+    
     private void OnValidationError(object sender, ValidationErrorEventArgs eventArgs)
     {
         switch (eventArgs.Action)

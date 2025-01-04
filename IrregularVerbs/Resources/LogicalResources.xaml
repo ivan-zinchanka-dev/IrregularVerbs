@@ -12,7 +12,7 @@
                                 NativeLanguage="Russian"
                                 VerbsCount="10"
                                 AlphabeticalOrder="True"
-                                EnableTooltips="True"
+                                EnableToolTips="True"
                                 DarkTheme="False"/>
     
 </ResourceDictionary>

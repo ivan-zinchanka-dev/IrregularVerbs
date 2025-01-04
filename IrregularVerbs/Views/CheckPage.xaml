@@ -30,6 +30,7 @@
                   Grid.Row="0"
                   ItemsSource="{Binding Answers}"
                   ToolTip="Click on the desired cell to enter text. You can also use keys such as Tab to move between cells."
+                  ToolTipService.IsEnabled = "{Binding AppSettings.EnableToolTips}"
                   HeadersVisibility="Column"
                   HorizontalScrollBarVisibility="Hidden"
                   AutoGenerateColumns="False"

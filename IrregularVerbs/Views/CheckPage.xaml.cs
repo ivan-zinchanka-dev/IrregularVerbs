@@ -1,6 +1,7 @@
 ﻿using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Data;
 using System.Windows.Input;
 using IrregularVerbs.ViewModels;
 using IrregularVerbs.Views.Base;
@@ -51,6 +52,7 @@ public partial class CheckPage : EndPage
     {
         _grid.IsReadOnly = true;
         ToolTipService.SetIsEnabled(_grid, false);
+        BindingOperations.ClearBinding(_grid, ToolTipService.ToolTipProperty);
         
         _checkButton.Visibility = Visibility.Collapsed;
         _backButton.Visibility = Visibility.Visible;
