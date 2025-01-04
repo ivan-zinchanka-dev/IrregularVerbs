@@ -1,7 +1,7 @@
 ﻿using System.Windows.Controls;
 using System.Windows.Data;
-using System.Windows.Input;
 using IrregularVerbs.ViewModels;
+using ValidationError = IrregularVerbs.CodeBase.Validation.ValidationError;
 
 namespace IrregularVerbs.Views;
 
@@ -17,8 +17,6 @@ public partial class StartPage : Page
         InitializeComponent();
     }
     
-    // TODO Fix buttons availability
-    
     private void OnValidationError(object sender, ValidationErrorEventArgs eventArgs)
     {
         switch (eventArgs.Action)
@@ -30,9 +28,9 @@ public partial class StartPage : Page
                     string propertyName = bindingExpression.ResolvedSourcePropertyName;
                     string errorMessage = eventArgs.Error.ErrorContent?.ToString();
                 
-                    _viewModel.TryAddValidationError(propertyName, errorMessage);
+                    _viewModel.AddValidationError(new ValidationError(propertyName, errorMessage));
                 }
-
+                
                 break;
             }
             case ValidationErrorEventAction.Removed:
@@ -40,10 +38,11 @@ public partial class StartPage : Page
                 if (eventArgs.Error.BindingInError is BindingExpression bindingExpression)
                 {
                     string propertyName = bindingExpression.ResolvedSourcePropertyName;
-                
-                    _viewModel.TryRemoveValidationError(propertyName);
+                    string errorMessage = eventArgs.Error.ErrorContent?.ToString();
+                    
+                    _viewModel.RemoveValidationError(new ValidationError(propertyName, errorMessage));
                 }
-
+                
                 break;
             }
         }

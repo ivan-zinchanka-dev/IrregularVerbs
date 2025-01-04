@@ -64,14 +64,14 @@ public class StartPageViewModel : BaseViewModel
         return _validationErrorCollection.GetErrors(propertyName);
     }
 
-    public bool TryAddValidationError(string propertyName, string errorMessage)
-    {
-        return _validationErrorCollection.TryAddError(propertyName, errorMessage);
+    public void AddValidationError(ValidationError error)
+    { 
+        _validationErrorCollection.AddError(error);
     }
     
-    public bool TryRemoveValidationError(string propertyName)
+    public bool RemoveValidationError(ValidationError error)
     {
-        return _validationErrorCollection.TryClearErrors(propertyName);
+        return _validationErrorCollection.RemoveError(error);
     }
 
 }
