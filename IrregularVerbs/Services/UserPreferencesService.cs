@@ -65,7 +65,7 @@ public class UserPreferencesService : AppDataService, IDisposable
         AppSettings.OnPropertyChanged += SaveAppSettingsAsync;
     }
 
-    private async void SaveAppSettingsAsync()
+    private async void SaveAppSettingsAsync(string propertyName)
     {
         string jsonNotation = JsonSerializer.Serialize(AppSettings);
         string fullFileName = Path.Combine(_preferencesDirectoryInfo.FullName, AppSettingsFileName);

@@ -11,7 +11,9 @@ public class ApplicationSettings
     private bool _darkTheme;
     
     public ApplicationSettingsValidator Validator { get; private set; } = new ApplicationSettingsValidator();
-    public event Action OnPropertyChanged;
+    public event Action<string> OnPropertyChanged;
+    
+    // TODO Reactive property?
     
     public Language NativeLanguage
     {
@@ -19,7 +21,7 @@ public class ApplicationSettings
         set
         {
             _nativeLanguage = value;
-            OnPropertyChanged?.Invoke();
+            OnPropertyChanged?.Invoke(nameof(NativeLanguage));
         }
     }
     
@@ -29,7 +31,7 @@ public class ApplicationSettings
         set
         {
             _verbsCount = value;
-            OnPropertyChanged?.Invoke();
+            OnPropertyChanged?.Invoke(nameof(VerbsCount));
         }
     }
     
@@ -39,7 +41,7 @@ public class ApplicationSettings
         set
         {
             _alphabeticalOrder = value;
-            OnPropertyChanged?.Invoke();
+            OnPropertyChanged?.Invoke(nameof(AlphabeticalOrder));
         }
     }
 
@@ -49,7 +51,7 @@ public class ApplicationSettings
         set
         {
             _enableToolTips = value;
-            OnPropertyChanged?.Invoke();
+            OnPropertyChanged?.Invoke(nameof(EnableToolTips));
         }
     }
     
@@ -59,7 +61,7 @@ public class ApplicationSettings
         set
         {
             _darkTheme = value;
-            OnPropertyChanged?.Invoke();
+            OnPropertyChanged?.Invoke(nameof(DarkTheme));
         }
     }
 }

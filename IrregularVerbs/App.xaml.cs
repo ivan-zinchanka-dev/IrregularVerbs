@@ -6,11 +6,13 @@ using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Navigation;
 using System.Windows.Threading;
+using IrregularVerbs.CodeBase.ThemeManagement;
 using IrregularVerbs.Factories;
 using IrregularVerbs.Models.Configs;
 using IrregularVerbs.Services;
 using IrregularVerbs.ViewModels;
 using IrregularVerbs.Views;
+using MaterialDesignThemes.Wpf;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
@@ -35,7 +37,8 @@ namespace IrregularVerbs
         private PageManager _pageManager;
         private MainWindow _mainWindow;
         private ILogger _appLogger;
-
+        private ThemeManager _themeManager;
+        
         private const string ErrorMessageHeader = "Error!";
         private const string ErrorMessageBody = "An error occurred while the program was running. For more details, see the log file.";
         
@@ -56,11 +59,32 @@ namespace IrregularVerbs
             }
         }
         
+        private void SetNativeLanguage(string propertyName)
+        {
+            if (propertyName == nameof(_preferencesService.AppSettings.NativeLanguage))
+            {
+                SetNativeLanguage();
+            }
+        }
+        
         private void SetNativeLanguage()
         {
             _localizationService.CurrentLanguage = _preferencesService.AppSettings.NativeLanguage;
         }
         
+        private void SetBaseTheme(string propertyName)
+        {
+            if (propertyName == nameof(_preferencesService.AppSettings.DarkTheme))
+            {
+                SetBaseTheme();
+            }
+        }
+        
+        private void SetBaseTheme()
+        {
+            _themeManager.SwitchBaseTheme(AppSettings.DarkTheme ? BaseTheme.Dark : BaseTheme.Light);
+        }
+
         protected override async void OnStartup(StartupEventArgs eventArgs)
         {
             base.OnStartup(eventArgs);
@@ -89,6 +113,10 @@ namespace IrregularVerbs
                 _localizationService = new LocalizationService();
                 SetNativeLanguage();
                 _preferencesService.AppSettings.OnPropertyChanged += SetNativeLanguage;
+
+                _themeManager = new ThemeManager();
+                SetBaseTheme();
+                _preferencesService.AppSettings.OnPropertyChanged += SetBaseTheme;
                 
                 _appLogger.Information("Localization service has been loaded successfully."); 
                 
