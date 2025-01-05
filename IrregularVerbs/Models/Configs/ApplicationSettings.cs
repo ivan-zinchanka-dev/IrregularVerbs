@@ -1,8 +1,9 @@
-﻿using System;
+﻿using System.ComponentModel;
+using System.Runtime.CompilerServices;
 
 namespace IrregularVerbs.Models.Configs;
 
-public class ApplicationSettings
+public class ApplicationSettings : INotifyPropertyChanged
 {
     private Language _nativeLanguage;
     private int _verbsCount;
@@ -11,9 +12,8 @@ public class ApplicationSettings
     private bool _darkTheme;
     
     public ApplicationSettingsValidator Validator { get; private set; } = new ApplicationSettingsValidator();
-    public event Action<string> OnPropertyChanged;
     
-    // TODO Reactive property?
+    // TODO Better INotifyPropertyChanged, (INotifyDataErrorInfo) ?
     
     public Language NativeLanguage
     {
@@ -21,7 +21,7 @@ public class ApplicationSettings
         set
         {
             _nativeLanguage = value;
-            OnPropertyChanged?.Invoke(nameof(NativeLanguage));
+            OnPropertyChanged();
         }
     }
     
@@ -31,7 +31,7 @@ public class ApplicationSettings
         set
         {
             _verbsCount = value;
-            OnPropertyChanged?.Invoke(nameof(VerbsCount));
+            OnPropertyChanged();
         }
     }
     
@@ -41,7 +41,7 @@ public class ApplicationSettings
         set
         {
             _alphabeticalOrder = value;
-            OnPropertyChanged?.Invoke(nameof(AlphabeticalOrder));
+            OnPropertyChanged();
         }
     }
 
@@ -51,7 +51,7 @@ public class ApplicationSettings
         set
         {
             _enableToolTips = value;
-            OnPropertyChanged?.Invoke(nameof(EnableToolTips));
+            OnPropertyChanged();
         }
     }
     
@@ -61,7 +61,15 @@ public class ApplicationSettings
         set
         {
             _darkTheme = value;
-            OnPropertyChanged?.Invoke(nameof(DarkTheme));
+            OnPropertyChanged();
         }
     }
+
+    public event PropertyChangedEventHandler PropertyChanged;
+
+    protected virtual void OnPropertyChanged([CallerMemberName] string propertyName = null)
+    {
+        PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
+    }
+    
 }

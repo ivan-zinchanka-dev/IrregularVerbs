@@ -1,4 +1,5 @@
 ﻿using System;
+using System.ComponentModel;
 using System.IO;
 using System.Text.Json;
 using System.Threading.Tasks;
@@ -62,10 +63,10 @@ public class UserPreferencesService : AppDataService, IDisposable
             }
         }
 
-        AppSettings.OnPropertyChanged += SaveAppSettingsAsync;
+        AppSettings.PropertyChanged += SaveAppSettingsAsync;
     }
 
-    private async void SaveAppSettingsAsync(string propertyName)
+    private async void SaveAppSettingsAsync(object sender, PropertyChangedEventArgs eventArgs)
     {
         string jsonNotation = JsonSerializer.Serialize(AppSettings);
         string fullFileName = Path.Combine(_preferencesDirectoryInfo.FullName, AppSettingsFileName);
@@ -77,7 +78,7 @@ public class UserPreferencesService : AppDataService, IDisposable
     {
         if (AppSettings != null)
         {
-            AppSettings.OnPropertyChanged -= SaveAppSettingsAsync;
+            AppSettings.PropertyChanged -= SaveAppSettingsAsync;
         }
     }
 }

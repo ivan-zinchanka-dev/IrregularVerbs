@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Diagnostics;
 using System.Linq;
 using System.Threading.Tasks;
@@ -59,9 +60,9 @@ namespace IrregularVerbs
             }
         }
         
-        private void SetNativeLanguage(string propertyName)
+        private void SetNativeLanguage(object sender, PropertyChangedEventArgs eventArgs)
         {
-            if (propertyName == nameof(_preferencesService.AppSettings.NativeLanguage))
+            if (eventArgs.PropertyName == nameof(_preferencesService.AppSettings.NativeLanguage))
             {
                 SetNativeLanguage();
             }
@@ -72,9 +73,9 @@ namespace IrregularVerbs
             _localizationService.CurrentLanguage = _preferencesService.AppSettings.NativeLanguage;
         }
         
-        private void SetBaseTheme(string propertyName)
+        private void SetBaseTheme(object sender, PropertyChangedEventArgs eventArgs)
         {
-            if (propertyName == nameof(_preferencesService.AppSettings.DarkTheme))
+            if (eventArgs.PropertyName == nameof(_preferencesService.AppSettings.DarkTheme))
             {
                 SetBaseTheme();
             }
@@ -112,11 +113,11 @@ namespace IrregularVerbs
                 
                 _localizationService = new LocalizationService();
                 SetNativeLanguage();
-                _preferencesService.AppSettings.OnPropertyChanged += SetNativeLanguage;
+                _preferencesService.AppSettings.PropertyChanged += SetNativeLanguage;
 
                 _themeManager = new ThemeManager();
                 SetBaseTheme();
-                _preferencesService.AppSettings.OnPropertyChanged += SetBaseTheme;
+                _preferencesService.AppSettings.PropertyChanged += SetBaseTheme;
                 
                 _appLogger.Information("Localization service has been loaded successfully."); 
                 
@@ -205,7 +206,8 @@ namespace IrregularVerbs
             await _host.StopAsync();
             _host.Dispose();
             
-            _preferencesService.AppSettings.OnPropertyChanged -= SetNativeLanguage;
+            _preferencesService.AppSettings.PropertyChanged -= SetBaseTheme;
+            _preferencesService.AppSettings.PropertyChanged -= SetNativeLanguage;
             
             DispatcherUnhandledException -= OnDispatcherUnhandledException;
             AppDomain.CurrentDomain.UnhandledException -= OnAppDomainUnhandledException;
