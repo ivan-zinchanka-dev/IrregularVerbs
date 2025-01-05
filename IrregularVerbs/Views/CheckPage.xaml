@@ -73,7 +73,8 @@
                                                FontWeight="Bold"/>
                                     <TextBlock>
                                         <Hyperlink Foreground="{Binding HyperLinkColor, 
-                                            RelativeSource={RelativeSource AncestorType=Page}}" 
+                                            RelativeSource={RelativeSource AncestorType=Page}, 
+                                            Converter={StaticResource ColorToBrushConverter}}" 
                                                    Command="{Binding DataContext.InfoCommand, 
                                                             RelativeSource={RelativeSource AncestorType=Page}}"
                                                    CommandParameter="{Binding}">
@@ -109,8 +110,10 @@
                      HorizontalAlignment="Left"
                      Margin="15 0 0 0"
                      Width="150"
-                     FontSize="15"
-                     Text="{Binding ResultMessage}">
+                     FontSize="17"
+                     FontWeight="Bold"
+                     Text="{Binding ResultMessage}"
+                     Style="{StaticResource MaterialDesignTextBlock}">
             </TextBlock>
             
         </Grid>

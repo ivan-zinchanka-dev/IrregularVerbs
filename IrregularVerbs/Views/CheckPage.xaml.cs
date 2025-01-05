@@ -19,8 +19,8 @@ public partial class CheckPage : EndPage
     private readonly CheckPageViewModel _viewModel;
     private readonly ThemeManager _themeManager;
     
-    public SolidColorBrush HyperLinkColor => _themeManager.CurrentBaseTheme == BaseTheme.Dark ? 
-        new SolidColorBrush(Colors.Aqua) : new SolidColorBrush(Colors.Blue);
+    public Color HyperLinkColor => _themeManager.CurrentBaseTheme == BaseTheme.Dark ? 
+        Colors.DodgerBlue : Colors.Navy;
     
     public CheckPage(CheckPageViewModel viewModel, ThemeManager themeManager)
     {
