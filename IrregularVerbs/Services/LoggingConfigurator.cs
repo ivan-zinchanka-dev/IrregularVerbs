@@ -13,6 +13,7 @@ public class LoggingConfigurator : AppDataService
     private const string LogOutputTemplate =
         "[{Timestamp:HH:mm:ss} {Level:u3}] [{SourceContext:l}] {Message:lj}{NewLine}{Exception}";
     private const int LogsFileSizeLimitBytes = 1_000_000;
+    private const int MaxLogsFiles = 3;
     
     private DirectoryInfo _logsDirectoryInfo;
     private string LogsFilePath => Path.Combine(AppDirectoryInfo.FullName, LogsFolderName, LogsFileName);
@@ -42,7 +43,8 @@ public class LoggingConfigurator : AppDataService
                 path: LogsFilePath, 
                 rollOnFileSizeLimit: true, 
                 fileSizeLimitBytes: LogsFileSizeLimitBytes, 
-                outputTemplate: LogOutputTemplate)
+                outputTemplate: LogOutputTemplate,
+                retainedFileCountLimit: MaxLogsFiles)
             .CreateLogger();
     }
 
