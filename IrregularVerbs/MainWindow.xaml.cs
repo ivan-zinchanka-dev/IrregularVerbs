@@ -2,32 +2,59 @@
 using System.Windows.Controls;
 using System.Windows.Navigation;
 using IrregularVerbs.Models.Configs;
+using IrregularVerbs.Services;
+using IrregularVerbs.Views;
 
 namespace IrregularVerbs
 {
     public partial class MainWindow : Window
     {
         private readonly ApplicationSettings _applicationSettings;
-        
-        public event NavigatingCancelEventHandler Navigating
-        {
-            add => _mainFrame.Navigating += value;
-            remove => _mainFrame.Navigating -= value;
-        }
+        private readonly PageManager _pageManager;
         
         // TODO Add dark mode
         
-        public MainWindow(ApplicationSettings appSettings)
+        public MainWindow(ApplicationSettings appSettings, PageManager pageManager)
         {
             _applicationSettings = appSettings;
+            _pageManager = pageManager;
             DataContext = _applicationSettings;
             
             InitializeComponent();
+            
+            Loaded += OnLoaded;
+            _mainFrame.Navigating += OnNavigating;
+            _pageManager.OnPageCreated += NavigateTo;
+            
+            Unloaded += OnUnloaded;
         }
         
-        public void NavigateTo(Page page)
+        private void OnLoaded(object sender, RoutedEventArgs eventArgs)
+        {
+            _pageManager.SwitchTo<StartPage>();
+        }
+        
+        private void OnNavigating(object sender, NavigatingCancelEventArgs eventArgs)
+        {
+            if (eventArgs.NavigationMode == NavigationMode.Forward || 
+                eventArgs.NavigationMode == NavigationMode.Back)
+            {
+                eventArgs.Cancel = true;
+            }
+        }
+        
+        private void NavigateTo(Page page)
         {
             _mainFrame.Navigate(page);
+        }
+        
+        private void OnUnloaded(object sender, RoutedEventArgs eventArgs)
+        {
+            Loaded -= OnLoaded;
+            _mainFrame.Navigating -= OnNavigating;
+            _pageManager.OnPageCreated -= NavigateTo;
+            
+            Unloaded -= OnUnloaded;
         }
     }
 }

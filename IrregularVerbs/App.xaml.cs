@@ -37,7 +37,6 @@ namespace IrregularVerbs
         private CacheService _cacheService;
         
         private IHost _host;
-        private PageManager _pageManager;
         private MainWindow _mainWindow;
         private ILogger _appLogger;
         private ThemeManager _themeManager;
@@ -118,8 +117,6 @@ namespace IrregularVerbs
                 _preferencesService.AppSettings.PropertyChanged += SetNativeLanguage;
                 _appLogger.Information("Localization service has been loaded successfully."); 
                 
-                
-                
                 _themeManager = new ThemeManager();
                 SetBaseTheme();
                 _preferencesService.AppSettings.PropertyChanged += SetBaseTheme;
@@ -140,13 +137,7 @@ namespace IrregularVerbs
                 IrregularVerbsStorage verbsStorage = _host.Services.GetRequiredService<IrregularVerbsStorage>();
                 _appLogger.Information("Verbs storage has been loaded successfully."); 
                 
-                _pageManager = _host.Services.GetRequiredService<PageManager>();
                 _mainWindow = _host.Services.GetRequiredService<MainWindow>();
-                
-                _mainWindow.Loaded += OnMainWindowLoaded;
-                _mainWindow.Navigating += OnMainWindowNavigating;
-                _pageManager.OnPageCreated += _mainWindow.NavigateTo;
-                
                 _mainWindow.Show();
             }
             catch (Exception ex)
@@ -180,28 +171,10 @@ namespace IrregularVerbs
                 .AddTransient<CheckPage>();
         }
         
-        private void OnMainWindowLoaded(object sender, RoutedEventArgs eventArgs)
-        {
-            _pageManager.SwitchTo<StartPage>();
-        }
-        
-        private void OnMainWindowNavigating(object sender, NavigatingCancelEventArgs eventArgs)
-        {
-            if (eventArgs.NavigationMode == NavigationMode.Forward || 
-                eventArgs.NavigationMode == NavigationMode.Back)
-            {
-                eventArgs.Cancel = true;
-            }
-        }
-
         protected override async void OnExit(ExitEventArgs eventArgs)
         {
             _appLogger.Information("Application is shutting down...");
             await Log.CloseAndFlushAsync();
-            
-            _pageManager.OnPageCreated -= _mainWindow.NavigateTo;
-            _mainWindow.Navigating -= OnMainWindowNavigating;
-            _mainWindow.Loaded -= OnMainWindowLoaded;
             
             await _host.StopAsync();
             _host.Dispose();
