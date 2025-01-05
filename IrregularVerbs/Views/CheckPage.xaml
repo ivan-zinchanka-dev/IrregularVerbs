@@ -63,22 +63,18 @@
                                         IsReadOnly="True">
                     <DataGridTemplateColumn.CellTemplate> 
                         <DataTemplate> 
-                            <Border
-                                BorderBrush="{Binding Path=Result, 
-                                    Converter={StaticResource AnswerResultToBrushConverter}}" 
-                                BorderThickness="0"
-                                Background="{Binding Path=Result, 
-                                    Converter={StaticResource AnswerResultToBrushConverter}}" 
-                                    >
+                            <Border>
                                 <StackPanel Orientation="Horizontal">
                                     <TextBlock Text="{Binding Path=Result,
-                                               StringFormat='{}{0}. '}" />
+                                               StringFormat='{}{0}. '}" 
+                                               Foreground="{Binding Path=Result, 
+                                               Converter={StaticResource AnswerResultToBrushConverter}}"
+                                               FontWeight="Bold"/>
                                     <TextBlock>
                                         <Hyperlink Foreground="Navy" 
                                                    Command="{Binding DataContext.InfoCommand, 
                                                             RelativeSource={RelativeSource AncestorType=Page}}"
-                                                   CommandParameter="{Binding}"
-                                                   >
+                                                   CommandParameter="{Binding}">
                                             <Run Text="{Binding Path=Result, 
                                                  Converter={StaticResource AnswerResultToInfoConverter}}"/>
                                         </Hyperlink>

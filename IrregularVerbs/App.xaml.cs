@@ -84,6 +84,7 @@ namespace IrregularVerbs
         
         private void SetBaseTheme()
         {
+            _themeManager ??= _host.Services.GetRequiredService<ThemeManager>();
             _themeManager.SwitchBaseTheme(AppSettings.DarkTheme ? BaseTheme.Dark : BaseTheme.Light);
         }
 
@@ -136,7 +137,6 @@ namespace IrregularVerbs
                 _mainWindow = _host.Services.GetRequiredService<MainWindow>();
                 _mainWindow.Show();
                 
-                _themeManager = new ThemeManager();
                 SetBaseTheme();
                 _preferencesService.AppSettings.PropertyChanged += SetBaseTheme;
             }
@@ -168,7 +168,8 @@ namespace IrregularVerbs
                 .AddTransient<CheckPageViewModel>()
                 .AddTransient<StartPage>()
                 .AddTransient<RevisePage>()
-                .AddTransient<CheckPage>();
+                .AddTransient<CheckPage>()
+                .AddSingleton<ThemeManager>();
         }
         
         protected override async void OnExit(ExitEventArgs eventArgs)

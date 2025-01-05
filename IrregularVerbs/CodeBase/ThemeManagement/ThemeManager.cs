@@ -4,18 +4,18 @@ namespace IrregularVerbs.CodeBase.ThemeManagement;
 
 public class ThemeManager
 {
-    private BaseTheme _currentBaseTheme;
+    public BaseTheme CurrentBaseTheme { get; private set; }
 
     public ThemeManager()
     {
         PaletteHelper paletteHelper = new PaletteHelper();
         Theme theme = paletteHelper.GetTheme();
-        _currentBaseTheme = theme.GetBaseTheme();
+        CurrentBaseTheme = theme.GetBaseTheme();
     }
 
     public bool SwitchBaseTheme(BaseTheme newBaseTheme)
     {
-        if (_currentBaseTheme == newBaseTheme)
+        if (CurrentBaseTheme == newBaseTheme)
         {
             return false;
         }
@@ -26,7 +26,7 @@ public class ThemeManager
         theme.SetBaseTheme(newBaseTheme);
         paletteHelper.SetTheme(theme);
 
-        _currentBaseTheme = newBaseTheme;
+        CurrentBaseTheme = newBaseTheme;
         
         return true;
     }
