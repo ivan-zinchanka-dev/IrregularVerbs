@@ -12,8 +12,6 @@ namespace IrregularVerbs
         private readonly ApplicationSettings _applicationSettings;
         private readonly PageManager _pageManager;
         
-        // TODO Add dark mode
-        
         public MainWindow(ApplicationSettings appSettings, PageManager pageManager)
         {
             _applicationSettings = appSettings;
