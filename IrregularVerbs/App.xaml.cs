@@ -117,10 +117,6 @@ namespace IrregularVerbs
                 _preferencesService.AppSettings.PropertyChanged += SetNativeLanguage;
                 _appLogger.Information("Localization service has been loaded successfully."); 
                 
-                _themeManager = new ThemeManager();
-                SetBaseTheme();
-                _preferencesService.AppSettings.PropertyChanged += SetBaseTheme;
-                
                 await cacheServiceLaunchTask;
                 
                 _host = Host.CreateDefaultBuilder()
@@ -139,6 +135,10 @@ namespace IrregularVerbs
                 
                 _mainWindow = _host.Services.GetRequiredService<MainWindow>();
                 _mainWindow.Show();
+                
+                _themeManager = new ThemeManager();
+                SetBaseTheme();
+                _preferencesService.AppSettings.PropertyChanged += SetBaseTheme;
             }
             catch (Exception ex)
             {

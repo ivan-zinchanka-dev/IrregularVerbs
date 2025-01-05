@@ -15,8 +15,7 @@
                       Style="{StaticResource MaterialDesignCardGroupBox}"
                       Header="Settings"
                       FontFamily="{StaticResource MaterialDesignFont}"
-                      Validation.Error="OnValidationError"
-                      >
+                      Validation.Error="OnValidationError">
                 <Grid Width="300">
                     <Grid.RowDefinitions>
                         <RowDefinition Height="*"/>
@@ -30,7 +29,8 @@
                     
                     <TextBlock Grid.Row="0" Grid.Column="0"
                                Margin="5 5 0 0" 
-                               Text="Your native language: ">
+                               Text="Your native language: "
+                               Style="{StaticResource MaterialDesignTextBlock}">
                     </TextBlock>
                     <ComboBox Grid.Row="0" Grid.Column="1"
                               Margin="0 5 5 0"
@@ -45,7 +45,8 @@
                                Margin="5 5 0 0" 
                                Text="Number of verbs: "
                                ToolTip="The number of verbs you will see in the test"
-                               ToolTipService.IsEnabled="{Binding EnableToolTips}">
+                               ToolTipService.IsEnabled="{Binding EnableToolTips}"
+                               Style="{DynamicResource MaterialDesignTextBlock}">
                     </TextBlock>
                     <TextBox Grid.Row="1" Grid.Column="1"
                              Margin="0 5 5 0">
@@ -62,7 +63,8 @@
                                Margin="5 5 0 5" 
                                Text="Alphabetical order: "
                                ToolTip="Should the list of verbs be displayed in alphabetical order?"
-                               ToolTipService.IsEnabled="{Binding EnableToolTips}">
+                               ToolTipService.IsEnabled="{Binding EnableToolTips}"
+                               Style="{StaticResource MaterialDesignTextBlock}">
                     </TextBlock>
                     <CheckBox Grid.Row="2" Grid.Column="1"
                               Margin="0 5 5 5"
@@ -93,7 +95,7 @@
                             ToolTip="Take the self-test"
                             ToolTipService.IsEnabled="{Binding AppSettings.EnableToolTips}"
                             Command="{Binding CheckCommand}"
-                            Style="{StaticResource MaterialDesignRaisedDarkButton}">
+                            Style="{StaticResource MaterialDesignRaisedSecondaryButton}">
                     </Button>
                 </Grid>
                 
