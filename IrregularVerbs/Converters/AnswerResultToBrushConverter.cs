@@ -60,11 +60,11 @@ public class AnswerResultToBrushConverter : IValueConverter
     {
         if (value is SolidColorBrush brush)
         {
-            if (brush.Equals(Brushes.LightGreen))
+            if (brush.Color == ResultColors.CorrectLight || brush.Color == ResultColors.CorrectDark)
             {
                 return AnswerResult.Correct;
             }
-            else if (brush.Equals(Brushes.LightCoral))
+            else if (brush.Color == ResultColors.IncorrectLight || brush.Color == ResultColors.IncorrectDark)
             {
                 return AnswerResult.Incorrect;
             }
