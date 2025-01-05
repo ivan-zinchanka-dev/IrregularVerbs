@@ -2,7 +2,7 @@
 using System.Globalization;
 using System.Windows.Data;
 
-namespace IrregularVerbs.Converters;
+namespace IrregularVerbs.CodeBase.Converters;
 
 public class EnumToInt32Converter : IValueConverter
 {

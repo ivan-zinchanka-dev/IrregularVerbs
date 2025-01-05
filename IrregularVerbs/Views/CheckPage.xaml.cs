@@ -3,8 +3,11 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Data;
 using System.Windows.Input;
+using System.Windows.Media;
+using IrregularVerbs.CodeBase.ThemeManagement;
 using IrregularVerbs.ViewModels;
 using IrregularVerbs.Views.Base;
+using MaterialDesignThemes.Wpf;
 
 namespace IrregularVerbs.Views;
 
@@ -14,10 +17,15 @@ public partial class CheckPage : EndPage
     private const double MaxColumnWidthMultiplier = 1.25d;
     
     private readonly CheckPageViewModel _viewModel;
+    private readonly ThemeManager _themeManager;
     
-    public CheckPage(CheckPageViewModel viewModel)
+    public SolidColorBrush HyperLinkColor => _themeManager.CurrentBaseTheme == BaseTheme.Dark ? 
+        new SolidColorBrush(Colors.Aqua) : new SolidColorBrush(Colors.Blue);
+    
+    public CheckPage(CheckPageViewModel viewModel, ThemeManager themeManager)
     {
         _viewModel = viewModel;
+        _themeManager = themeManager;
         DataContext = _viewModel;
         
         InitializeComponent();
