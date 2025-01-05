@@ -30,10 +30,12 @@ namespace IrregularVerbs
 
         private ResourceDictionary LogicalResources => Resources.MergedDictionaries[0];
 
+        public IServiceProvider Services => _host.Services;
+        
         private LocalizationService _localizationService;
         private UserPreferencesService _preferencesService;
         private CacheService _cacheService;
-
+        
         private IHost _host;
         private PageManager _pageManager;
         private MainWindow _mainWindow;
@@ -114,12 +116,13 @@ namespace IrregularVerbs
                 _localizationService = new LocalizationService();
                 SetNativeLanguage();
                 _preferencesService.AppSettings.PropertyChanged += SetNativeLanguage;
-
+                _appLogger.Information("Localization service has been loaded successfully."); 
+                
+                
+                
                 _themeManager = new ThemeManager();
                 SetBaseTheme();
                 _preferencesService.AppSettings.PropertyChanged += SetBaseTheme;
-                
-                _appLogger.Information("Localization service has been loaded successfully."); 
                 
                 await cacheServiceLaunchTask;
                 
@@ -135,8 +138,6 @@ namespace IrregularVerbs
                 await _host.StartAsync();
                 
                 IrregularVerbsStorage verbsStorage = _host.Services.GetRequiredService<IrregularVerbsStorage>();
-                AppSettings.Validator.MaxVerbsCount = verbsStorage.IrregularVerbs.Count;
-                
                 _appLogger.Information("Verbs storage has been loaded successfully."); 
                 
                 _pageManager = _host.Services.GetRequiredService<PageManager>();
@@ -147,7 +148,6 @@ namespace IrregularVerbs
                 _pageManager.OnPageCreated += _mainWindow.NavigateTo;
                 
                 _mainWindow.Show();
-
             }
             catch (Exception ex)
             {

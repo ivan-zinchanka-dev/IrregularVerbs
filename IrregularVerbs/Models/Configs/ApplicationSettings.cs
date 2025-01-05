@@ -1,4 +1,5 @@
 ﻿using System.ComponentModel;
+using System.ComponentModel.DataAnnotations;
 using System.Runtime.CompilerServices;
 
 namespace IrregularVerbs.Models.Configs;
@@ -11,9 +12,7 @@ public class ApplicationSettings : INotifyPropertyChanged
     private bool _enableToolTips;
     private bool _darkTheme;
     
-    public ApplicationSettingsValidator Validator { get; private set; } = new ApplicationSettingsValidator();
-    
-    // TODO Better INotifyPropertyChanged, (INotifyDataErrorInfo) ?
+    public event PropertyChangedEventHandler PropertyChanged;
     
     public Language NativeLanguage
     {
@@ -25,6 +24,7 @@ public class ApplicationSettings : INotifyPropertyChanged
         }
     }
     
+    [Range(1, int.MaxValue)]
     public int VerbsCount
     {
         get => _verbsCount;
@@ -64,12 +64,9 @@ public class ApplicationSettings : INotifyPropertyChanged
             OnPropertyChanged();
         }
     }
-
-    public event PropertyChangedEventHandler PropertyChanged;
-
-    protected virtual void OnPropertyChanged([CallerMemberName] string propertyName = null)
+    
+    private void OnPropertyChanged([CallerMemberName] string propertyName = null)
     {
         PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
     }
-    
 }
