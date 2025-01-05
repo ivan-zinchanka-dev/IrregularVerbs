@@ -11,9 +11,17 @@ namespace IrregularVerbs.Converters;
 
 public class AnswerResultToBrushConverter : IValueConverter
 {
+    private static class ResultColors
+    {
+        public static readonly Color CorrectLight = Color.FromRgb(50, 200, 50);
+        public static readonly Color CorrectDark = Color.FromRgb(144, 238, 144);
+        public static readonly Color IncorrectLight = Color.FromRgb(255, 0, 0);
+        public static readonly Color IncorrectDark = Color.FromRgb(250, 128, 114);
+    }
+    
     private const string InputClassNameMismatch = "Value must be an IrregularVerbs.Models.Answers.AnswerResult";
     private const string OutputClassNameMismatch = "Value must be a System.Windows.Media.SolidColorBrush";
-
+    
     private readonly ThemeManager _themeManager = App.Instance.Services.GetRequiredService<ThemeManager>();
     
     public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
@@ -24,15 +32,13 @@ public class AnswerResultToBrushConverter : IValueConverter
             {
                 case AnswerResult.Correct:
                     return GetBrushByCurrentTheme(
-                        new SolidColorBrush(Color.FromRgb(50, 205, 50)), 
-                        new SolidColorBrush(Color.FromRgb(144, 238, 144)));    
-                //return GetBrushByCurrentTheme(Brushes.LimeGreen, Brushes.LightGreen);
+                        new SolidColorBrush(ResultColors.CorrectLight), 
+                        new SolidColorBrush(ResultColors.CorrectDark));    
                 
                 case AnswerResult.Incorrect:
                     return GetBrushByCurrentTheme(
-                        new SolidColorBrush(Color.FromRgb(255, 0, 0)),
-                        new SolidColorBrush(Color.FromRgb(252, 62, 56)));  
-                    /*return GetBrushByCurrentTheme(Brushes.Red, Brushes.Salmon);*/
+                        new SolidColorBrush(ResultColors.IncorrectLight),
+                        new SolidColorBrush(ResultColors.IncorrectDark));  
                 
                 case AnswerResult.None: 
                 default:
