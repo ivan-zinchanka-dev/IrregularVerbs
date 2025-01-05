@@ -3,7 +3,7 @@ using System.Collections;
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
 
-namespace IrregularVerbs.CodeBase;
+namespace IrregularVerbs.CodeBase.MVVM;
 
 public abstract class BaseViewModel : INotifyPropertyChanged, INotifyDataErrorInfo
 {
@@ -16,5 +16,10 @@ public abstract class BaseViewModel : INotifyPropertyChanged, INotifyDataErrorIn
     protected void OnPropertyChanged([CallerMemberName] string propertyName = null)
     {
         PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
+    }
+    
+    protected void OnErrorsChanged([CallerMemberName] string propertyName = null)
+    {
+        ErrorsChanged?.Invoke(this, new DataErrorsChangedEventArgs(propertyName));
     }
 }

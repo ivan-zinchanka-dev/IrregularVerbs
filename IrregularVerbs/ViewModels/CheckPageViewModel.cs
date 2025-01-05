@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.ObjectModel;
 using System.Windows.Input;
-using IrregularVerbs.CodeBase;
+using IrregularVerbs.CodeBase.MVVM;
 using IrregularVerbs.Models.Answers;
 using IrregularVerbs.Models.Configs;
 using IrregularVerbs.Services;

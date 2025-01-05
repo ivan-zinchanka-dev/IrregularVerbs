@@ -5,12 +5,12 @@ using IrregularVerbs.Models.Answers;
 
 namespace IrregularVerbs.Converters;
 
-public class AnswerResultToInfoConverter : IValueConverter
+public class AnswerResultToInfoTextConverter : IValueConverter
 {
     private const string InputClassNameMismatch = "Value must be an IrregularVerbs.Models.Answers.AnswerResult";
     private const string OutputClassNameMismatch = "Value must be a System.String";
 
-    private const string MoreInfo = "More info";
+    private const string MoreInfoText = "More info";
     
     public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
     {
@@ -24,7 +24,7 @@ public class AnswerResultToInfoConverter : IValueConverter
                     return string.Empty;
                 
                 case AnswerResult.Incorrect:
-                    return MoreInfo;
+                    return MoreInfoText;
             }
         }
         else
@@ -42,7 +42,7 @@ public class AnswerResultToInfoConverter : IValueConverter
                 case "":
                      return AnswerResult.Correct;
                 
-                case MoreInfo:
+                case MoreInfoText:
                     return AnswerResult.Incorrect;
                 
                  default:

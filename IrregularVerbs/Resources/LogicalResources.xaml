@@ -8,7 +8,7 @@
     <baseConverters:EnumToInt32Converter x:Key="EnumToNumberConverter"/>
     
     <customConverters:AnswerResultToBrushConverter x:Key="AnswerResultToBrushConverter"/>
-    <customConverters:AnswerResultToInfoConverter x:Key="AnswerResultToInfoConverter"/>
+    <customConverters:AnswerResultToInfoTextConverter x:Key="AnswerResultToInfoConverter"/>
     
     <configs:ApplicationSettings x:Key="ApplicationSettings" 
                                 NativeLanguage="Russian"

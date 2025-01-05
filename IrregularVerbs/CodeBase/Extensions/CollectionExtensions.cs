@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Diagnostics.Contracts;
 
-namespace IrregularVerbs.Extensions;
+namespace IrregularVerbs.CodeBase.Extensions;
 
 public static class CollectionExtensions
 {

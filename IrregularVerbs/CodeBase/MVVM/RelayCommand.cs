@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Windows.Input;
 
-namespace IrregularVerbs.CodeBase;
+namespace IrregularVerbs.CodeBase.MVVM;
 
 public class RelayCommand : ICommand
 {

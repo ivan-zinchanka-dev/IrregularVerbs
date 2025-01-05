@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using IrregularVerbs.Extensions;
+using IrregularVerbs.CodeBase.Extensions;
 using IrregularVerbs.Factories;
 using IrregularVerbs.Models;
 using IrregularVerbs.Models.Answers;

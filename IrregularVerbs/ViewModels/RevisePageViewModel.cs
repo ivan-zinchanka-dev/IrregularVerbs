@@ -1,6 +1,6 @@
 ﻿using System.Collections.ObjectModel;
 using System.Windows.Input;
-using IrregularVerbs.CodeBase;
+using IrregularVerbs.CodeBase.MVVM;
 using IrregularVerbs.Models.Verbs;
 using IrregularVerbs.Services;
 using IrregularVerbs.Views;

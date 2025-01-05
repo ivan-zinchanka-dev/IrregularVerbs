@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Windows.Input;
-using IrregularVerbs.CodeBase;
+using IrregularVerbs.CodeBase.MVVM;
 using IrregularVerbs.CodeBase.Validation;
 using IrregularVerbs.Models.Configs;
 using IrregularVerbs.Services;
