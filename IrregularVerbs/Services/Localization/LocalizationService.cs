@@ -4,10 +4,11 @@ using System.Data;
 using System.IO;
 using System.Text;
 using ExcelDataReader;
+using IrregularVerbs.CodeBase.Localization;
 
-namespace IrregularVerbs.Services;
+namespace IrregularVerbs.Services.Localization;
 
-public class LocalizationService
+public class LocalizationService : ILocalizationService
 {
     private const string LocalizationSourcePath = "Resources/localization.xlsx";
 
@@ -22,8 +23,15 @@ public class LocalizationService
 
         set
         {
-            _currentLanguage = value;
-            OnLanguageChanged?.Invoke(_currentLanguage);
+            if (_languages.Contains(value))
+            {
+                _currentLanguage = value;
+                OnLanguageChanged?.Invoke(_currentLanguage);
+            }
+            else
+            {
+                throw new LocalizationException($"Language \"{value}\" not defined.");
+            }
         }
     }
 
@@ -31,7 +39,7 @@ public class LocalizationService
     
     public event Action<string> OnLanguageChanged;
 
-    private int GetLanguageId(string language)
+    private int GetLanguageIndex(string language)
     {
         return _languages.IndexOf(language);
     }
@@ -46,12 +54,13 @@ public class LocalizationService
             }
             catch (Exception exception)
             {
-                throw new Exception("Localization source table is corrupted", exception);
+                throw new LocalizationException("Localization source table is corrupted", exception);
             }
         }
         else
         {
-            throw new FileNotFoundException("Localization source table not found", LocalizationSourcePath);
+            throw new LocalizationException(
+                $"Localization source table not found. Expected source path: {LocalizationSourcePath}");
         }
     }
 
@@ -59,29 +68,55 @@ public class LocalizationService
     {
         try
         {
-            if (_dictionary.TryGetValue(term, out List<string> results))
+            if (TryLocalizeInternal(term, out string result))
             {
-                string match = results[GetLanguageId(CurrentLanguage)];
-
-                if (!string.IsNullOrEmpty(match))
-                {
-                    return match;
-                }
+                return result;
             }
-            
-            return GetFailResult(term);
+
+            throw CreateTranslationException(term);
         }
-        catch (Exception ex)
+        catch (Exception exception)
         {
-            return GetFailResult(term);
+            throw CreateTranslationException(term, exception);
         }
     }
 
-    private static string GetFailResult(string term)
+    public bool TryLocalize(string term, out string result)
     {
-        return $"[{term}]";
+        try
+        {
+            return TryLocalizeInternal(term, out result);
+        }
+        catch (Exception exception)
+        {
+            result = null;
+            return false;
+        }
     }
 
+    private bool TryLocalizeInternal(string term, out string result)
+    {
+        if (_dictionary.TryGetValue(term, out List<string> results))
+        {
+            string match = results[GetLanguageIndex(CurrentLanguage)];
+
+            if (match != null)
+            {
+                result = match;
+                return true;
+            }
+        }
+
+        result = null;
+        return false;
+    }
+    
+    private LocalizationException CreateTranslationException(string term, Exception innerException = null)
+    {
+        return new LocalizationException(
+            $"Failed to translate term \"{term}\" into \"{CurrentLanguage}\" language.", innerException);
+    }
+    
     private void ReadTableData()
     {
         Encoding.RegisterProvider(CodePagesEncodingProvider.Instance);

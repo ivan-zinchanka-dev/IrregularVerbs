@@ -10,6 +10,7 @@ using IrregularVerbs.CodeBase.ThemeManagement;
 using IrregularVerbs.Factories;
 using IrregularVerbs.Models.Configs;
 using IrregularVerbs.Services;
+using IrregularVerbs.Services.Localization;
 using IrregularVerbs.Utilities;
 using IrregularVerbs.ViewModels;
 using IrregularVerbs.Views;

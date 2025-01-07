@@ -6,6 +6,7 @@ using IrregularVerbs.CodeBase.MVVM;
 using IrregularVerbs.CodeBase.Validation;
 using IrregularVerbs.Models.Configs;
 using IrregularVerbs.Services;
+using IrregularVerbs.Services.Localization;
 using IrregularVerbs.Views;
 
 namespace IrregularVerbs.ViewModels;

@@ -1,6 +1,7 @@
 ﻿using System;
 using IrregularVerbs.Models.Configs;
 using IrregularVerbs.Services;
+using IrregularVerbs.Services.Localization;
 using NUnit.Framework;
 
 namespace IrregularVerbs.Tests;
@@ -9,14 +10,16 @@ namespace IrregularVerbs.Tests;
 public class GeneralTests
 {
     [Test]
-    public void Check()
+    public void Check1()
     {
-        Language lang = Language.English;
-        object obj = lang;
-
-        int number = (int)obj;
-        
-        Console.WriteLine(number);
-
+        try
+        {
+            throw new LocalizationException("Language not found");
+        }
+        catch (Exception e)
+        {
+            Console.WriteLine(e);
+            throw;
+        }
     }
 }

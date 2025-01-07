@@ -1,4 +1,4 @@
-﻿using IrregularVerbs.Services;
+﻿using IrregularVerbs.Services.Localization;
 
 namespace IrregularVerbs.Models.Configs;
 
