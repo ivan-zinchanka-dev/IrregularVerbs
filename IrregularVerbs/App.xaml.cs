@@ -5,12 +5,12 @@ using System.Diagnostics;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Windows;
-using System.Windows.Navigation;
 using System.Windows.Threading;
 using IrregularVerbs.CodeBase.ThemeManagement;
 using IrregularVerbs.Factories;
 using IrregularVerbs.Models.Configs;
 using IrregularVerbs.Services;
+using IrregularVerbs.Utilities;
 using IrregularVerbs.ViewModels;
 using IrregularVerbs.Views;
 using MaterialDesignThemes.Wpf;
@@ -24,25 +24,19 @@ namespace IrregularVerbs
 {
     public partial class App : Application
     {
-        public static App Instance => (App)Current;
-
-        public ApplicationSettings AppSettings => _preferencesService.AppSettings;
-
-        private ResourceDictionary LogicalResources => Resources.MergedDictionaries[0];
-
-        public IServiceProvider Services => _host.Services;
+        private IHost _host;
+        private ILogger _appLogger;
+        private ThemeManager _themeManager;
+        private MainWindow _mainWindow;
         
         private LocalizationService _localizationService;
         private UserPreferencesService _preferencesService;
         private CacheService _cacheService;
         
-        private IHost _host;
-        private MainWindow _mainWindow;
-        private ILogger _appLogger;
-        private ThemeManager _themeManager;
-        
-        private const string ErrorMessageHeader = "Error!";
-        private const string ErrorMessageBody = "An error occurred while the program was running. For more details, see the log file.";
+        public static App Instance => (App)Current;
+        public ApplicationSettings AppSettings => _preferencesService.AppSettings;
+        public IServiceProvider Services => _host.Services;
+        private ResourceDictionary LogicalResources => Resources.MergedDictionaries[0];
         
         private void PreventMultipleStartup()
         {
@@ -55,39 +49,11 @@ namespace IrregularVerbs
             
             if (alreadyRunning)
             {
-                MessageBox.Show("This application is already running", "Warning!", 
-                    MessageBoxButton.OK, MessageBoxImage.Warning);
+                MessageBoxUtility.ShowWarningMessageBox();
                 Shutdown();
             }
         }
         
-        private void SetNativeLanguage(object sender, PropertyChangedEventArgs eventArgs)
-        {
-            if (eventArgs.PropertyName == nameof(_preferencesService.AppSettings.NativeLanguage))
-            {
-                SetNativeLanguage();
-            }
-        }
-        
-        private void SetNativeLanguage()
-        {
-            _localizationService.CurrentLanguage = _preferencesService.AppSettings.NativeLanguage;
-        }
-        
-        private void SetBaseTheme(object sender, PropertyChangedEventArgs eventArgs)
-        {
-            if (eventArgs.PropertyName == nameof(_preferencesService.AppSettings.DarkTheme))
-            {
-                SetBaseTheme();
-            }
-        }
-        
-        private void SetBaseTheme()
-        {
-            _themeManager ??= _host.Services.GetRequiredService<ThemeManager>();
-            _themeManager.SwitchBaseTheme(AppSettings.DarkTheme ? BaseTheme.Dark : BaseTheme.Light);
-        }
-
         protected override async void OnStartup(StartupEventArgs eventArgs)
         {
             base.OnStartup(eventArgs);
@@ -115,7 +81,7 @@ namespace IrregularVerbs
                 
                 _localizationService = new LocalizationService();
                 SetNativeLanguage();
-                _preferencesService.AppSettings.PropertyChanged += SetNativeLanguage;
+                _preferencesService.AppSettings.PropertyChanged += SetNativeLanguageIfNeed;
                 _appLogger.Information("Localization service has been loaded successfully."); 
                 
                 await cacheServiceLaunchTask;
@@ -138,17 +104,16 @@ namespace IrregularVerbs
                 _mainWindow.Show();
                 
                 SetBaseTheme();
-                _preferencesService.AppSettings.PropertyChanged += SetBaseTheme;
+                _preferencesService.AppSettings.PropertyChanged += SetBaseThemeIfNeed;
             }
             catch (Exception ex)
             {
                 _appLogger.Fatal(ex, "An startup unhandled exception occured");
-                MessageBox.Show(ErrorMessageBody, ErrorMessageHeader, MessageBoxButton.OK, MessageBoxImage.Error);
-                
-                await Log.CloseAndFlushAsync();
+                MessageBoxUtility.ShowErrorMessageBox();
+                Shutdown();
             }
         }
-
+        
         private void ConfigureServices(IServiceCollection services)
         {
             services
@@ -172,6 +137,33 @@ namespace IrregularVerbs
                 .AddSingleton<ThemeManager>();
         }
         
+        private void SetNativeLanguageIfNeed(object sender, PropertyChangedEventArgs eventArgs)
+        {
+            if (eventArgs.PropertyName == nameof(_preferencesService.AppSettings.NativeLanguage))
+            {
+                SetNativeLanguage();
+            }
+        }
+        
+        private void SetNativeLanguage()
+        {
+            _localizationService.CurrentLanguage = _preferencesService.AppSettings.NativeLanguage;
+        }
+        
+        private void SetBaseThemeIfNeed(object sender, PropertyChangedEventArgs eventArgs)
+        {
+            if (eventArgs.PropertyName == nameof(_preferencesService.AppSettings.DarkTheme))
+            {
+                SetBaseTheme();
+            }
+        }
+        
+        private void SetBaseTheme()
+        {
+            _themeManager ??= _host.Services.GetRequiredService<ThemeManager>();
+            _themeManager.SwitchBaseTheme(AppSettings.DarkTheme ? BaseTheme.Dark : BaseTheme.Light);
+        }
+        
         protected override async void OnExit(ExitEventArgs eventArgs)
         {
             _appLogger.Information("Application is shutting down...");
@@ -180,8 +172,8 @@ namespace IrregularVerbs
             await _host.StopAsync();
             _host.Dispose();
             
-            _preferencesService.AppSettings.PropertyChanged -= SetBaseTheme;
-            _preferencesService.AppSettings.PropertyChanged -= SetNativeLanguage;
+            _preferencesService.AppSettings.PropertyChanged -= SetBaseThemeIfNeed;
+            _preferencesService.AppSettings.PropertyChanged -= SetNativeLanguageIfNeed;
             
             DispatcherUnhandledException -= OnDispatcherUnhandledException;
             AppDomain.CurrentDomain.UnhandledException -= OnAppDomainUnhandledException;
@@ -192,14 +184,14 @@ namespace IrregularVerbs
         private void OnDispatcherUnhandledException(object sender, DispatcherUnhandledExceptionEventArgs eventArgs)
         {
             _appLogger.Fatal(eventArgs.Exception, "An dispatcher unhandled exception occured");
-            MessageBox.Show(ErrorMessageBody, ErrorMessageHeader, MessageBoxButton.OK, MessageBoxImage.Error);
+            MessageBoxUtility.ShowErrorMessageBox();
         }
 
         private void OnAppDomainUnhandledException(object sender, UnhandledExceptionEventArgs eventArgs)
         {
             Exception exception = eventArgs.ExceptionObject as Exception;
             _appLogger.Fatal(exception, "An app domain unhandled exception occured");
-            MessageBox.Show(ErrorMessageBody, ErrorMessageHeader, MessageBoxButton.OK, MessageBoxImage.Error);
+            MessageBoxUtility.ShowErrorMessageBox();
         }
     }
 }

@@ -6,13 +6,8 @@ namespace IrregularVerbs.Models;
 [Serializable]
 public class TermPriorities
 {
-    private readonly Dictionary<string, int> _priorities;
+    private readonly Dictionary<string, int> _priorities = new Dictionary<string, int>();
     [field:NonSerialized] public event Action OnChanged;
-    
-    public TermPriorities()
-    {
-        _priorities = new Dictionary<string, int>();
-    }
 
     public int GetPriority(string term)
     {
