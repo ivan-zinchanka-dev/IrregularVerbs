@@ -14,8 +14,9 @@ public class LocalizationService : ILocalizationService
 
     private readonly List<string> _languages = new List<string>();
     private readonly Dictionary<string, List<string>> _dictionary = new Dictionary<string, List<string>>();
-    
     private string _currentLanguage;
+    
+    public IReadOnlyCollection<string> Languages => _languages; 
     
     public string CurrentLanguage
     {
@@ -34,16 +35,9 @@ public class LocalizationService : ILocalizationService
             }
         }
     }
-
-    public IReadOnlyCollection<string> Languages => _languages; 
     
     public event Action<string> OnLanguageChanged;
-
-    private int GetLanguageIndex(string language)
-    {
-        return _languages.IndexOf(language);
-    }
-
+    
     public LocalizationService()
     {
         if (File.Exists(LocalizationSourcePath))
@@ -111,6 +105,11 @@ public class LocalizationService : ILocalizationService
         return false;
     }
     
+    private int GetLanguageIndex(string language)
+    {
+        return _languages.IndexOf(language);
+    }
+    
     private LocalizationException CreateTranslationException(string term, Exception innerException = null)
     {
         return new LocalizationException(
@@ -155,5 +154,4 @@ public class LocalizationService : ILocalizationService
             _dictionary.Add(term, words);
         }
     }
-
 }
