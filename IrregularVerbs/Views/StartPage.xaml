@@ -11,8 +11,7 @@
       Title="StartPage" Width="400" Height="400">
     <Grid>
         <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center">
-            <GroupBox DataContext="{Binding AppSettings}"
-                      Style="{StaticResource MaterialDesignCardGroupBox}"
+            <GroupBox Style="{StaticResource MaterialDesignCardGroupBox}"
                       Header="Settings"
                       FontFamily="{StaticResource MaterialDesignFont}"
                       Validation.Error="OnValidationError">
@@ -33,15 +32,13 @@
                                Style="{StaticResource MaterialDesignTextBlock}">
                     </TextBlock>
                     <ComboBox Grid.Row="0" Grid.Column="1"
+                              ItemsSource="{Binding Languages}"
                               Margin="0 5 5 0"
-                              SelectedIndex="{Binding Path=NativeLanguage, 
-                              Converter={StaticResource EnumToNumberConverter}}">
-                        <system:String>english</system:String>
-                        <system:String>russian</system:String>
-                        <system:String>belarusian</system:String>
+                              SelectedIndex="{Binding SelectedLanguageIndex}">
                     </ComboBox>
                     
                     <TextBlock Grid.Row="1" Grid.Column="0"
+                               DataContext="{Binding AppSettings}"
                                Margin="5 5 0 0" 
                                Text="Number of verbs: "
                                ToolTip="The number of verbs you will see in the test"
@@ -49,6 +46,7 @@
                                Style="{DynamicResource MaterialDesignTextBlock}">
                     </TextBlock>
                     <TextBox Grid.Row="1" Grid.Column="1"
+                             DataContext="{Binding AppSettings}"
                              Margin="0 5 5 0">
                         <Binding Path="VerbsCount" 
                                  NotifyOnValidationError="True"
@@ -60,6 +58,7 @@
                     </TextBox>
                     
                     <TextBlock Grid.Row="2" Grid.Column="0"
+                               DataContext="{Binding AppSettings}"
                                Margin="5 5 0 5" 
                                Text="Alphabetical order: "
                                ToolTip="Should the list of verbs be displayed in alphabetical order?"
@@ -67,6 +66,7 @@
                                Style="{StaticResource MaterialDesignTextBlock}">
                     </TextBlock>
                     <CheckBox Grid.Row="2" Grid.Column="1"
+                              DataContext="{Binding AppSettings}"
                               Margin="0 5 5 5"
                               IsChecked="{Binding Path=AlphabeticalOrder}">
                     </CheckBox>

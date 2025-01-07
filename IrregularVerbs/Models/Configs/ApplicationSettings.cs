@@ -6,7 +6,7 @@ namespace IrregularVerbs.Models.Configs;
 
 public class ApplicationSettings : INotifyPropertyChanged
 {
-    private Language _nativeLanguage;
+    private string _nativeLanguage;
     private int _verbsCount;
     private bool _alphabeticalOrder;
     private bool _enableToolTips;
@@ -14,7 +14,7 @@ public class ApplicationSettings : INotifyPropertyChanged
     
     public event PropertyChangedEventHandler PropertyChanged;
     
-    public Language NativeLanguage
+    public string NativeLanguage
     {
         get => _nativeLanguage;
         set

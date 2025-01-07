@@ -13,16 +13,22 @@ namespace IrregularVerbs.ViewModels;
 public class StartPageViewModel : BaseViewModel
 {
     private ApplicationSettings _appSettings;
+    private List<string> _languages;
     private RelayCommand _reviseCommand;
     private RelayCommand _checkCommand;
 
     private readonly PageManager _pageManager;
+    private readonly LocalizationService _localizationService;
     private readonly List<ValidationError> _validationErrors = new List<ValidationError>(5);
     
-    public StartPageViewModel(ApplicationSettings appSettings, PageManager pageManager)
+    public StartPageViewModel(
+        ApplicationSettings appSettings, 
+        PageManager pageManager, 
+        LocalizationService localizationService)
     {
         _appSettings = appSettings;
         _pageManager = pageManager;
+        _localizationService = localizationService;
     }
     
     public ApplicationSettings AppSettings
@@ -34,7 +40,15 @@ public class StartPageViewModel : BaseViewModel
             OnPropertyChanged();
         }
     }
-    
+
+    public IReadOnlyCollection<string> Languages => _languages ??= _localizationService.Languages.ToList();
+
+    public int SelectedLanguageIndex
+    {
+        get => _languages.IndexOf(AppSettings.NativeLanguage);
+        set => AppSettings.NativeLanguage = _languages[value];
+    }
+
     public ICommand ReviseCommand
     {
         get

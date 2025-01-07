@@ -13,7 +13,7 @@ public class LocalizationService
 
     private readonly List<string> _languages = new List<string>();
     private readonly Dictionary<string, List<string>> _dictionary = new Dictionary<string, List<string>>();
-
+    
     private string _currentLanguage;
     
     public string CurrentLanguage
@@ -27,6 +27,8 @@ public class LocalizationService
         }
     }
 
+    public IReadOnlyCollection<string> Languages => _languages; 
+    
     public event Action<string> OnLanguageChanged;
 
     private int GetLanguageId(string language)
