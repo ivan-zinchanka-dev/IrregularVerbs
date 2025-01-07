@@ -7,7 +7,7 @@ using ExcelDataReader;
 using IrregularVerbs.Factories;
 using IrregularVerbs.Models.Verbs;
 
-namespace IrregularVerbs.Services;
+namespace IrregularVerbs.Services.Main;
 
 public class IrregularVerbsStorage
 {

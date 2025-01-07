@@ -1,8 +1,7 @@
 ﻿using System;
 using System.IO;
-using System.Threading.Tasks;
 
-namespace IrregularVerbs.Services;
+namespace IrregularVerbs.Services.AppData;
 
 public abstract class AppDataService
 {

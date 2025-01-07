@@ -8,8 +8,9 @@ using IrregularVerbs.Models.Answers;
 using IrregularVerbs.Models.Components;
 using IrregularVerbs.Models.Configs;
 using IrregularVerbs.Models.Verbs;
+using IrregularVerbs.Services.AppData;
 
-namespace IrregularVerbs.Services;
+namespace IrregularVerbs.Services.Main;
 
 public class IrregularVerbsTeacher
 {

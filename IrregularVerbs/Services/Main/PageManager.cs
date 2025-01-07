@@ -3,7 +3,7 @@ using System.Windows.Controls;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 
-namespace IrregularVerbs.Services;
+namespace IrregularVerbs.Services.Main;
 
 public class PageManager
 {

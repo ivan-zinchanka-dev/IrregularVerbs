@@ -4,7 +4,7 @@ using System.Runtime.Serialization.Formatters.Binary;
 using System.Threading.Tasks;
 using IrregularVerbs.Models;
 
-namespace IrregularVerbs.Services;
+namespace IrregularVerbs.Services.AppData;
 
 public class CacheService : AppDataService
 {

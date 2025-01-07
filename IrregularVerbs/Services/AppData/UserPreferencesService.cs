@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 using System.Windows;
 using IrregularVerbs.Models.Configs;
 
-namespace IrregularVerbs.Services;
+namespace IrregularVerbs.Services.AppData;
 
 public class UserPreferencesService : AppDataService, IDisposable
 {

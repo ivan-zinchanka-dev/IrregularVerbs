@@ -4,6 +4,7 @@ using System.Globalization;
 using System.Windows.Controls;
 using IrregularVerbs.Models.Configs;
 using IrregularVerbs.Services;
+using IrregularVerbs.Services.Main;
 using Microsoft.Extensions.DependencyInjection;
 using ValidationResult = System.Windows.Controls.ValidationResult;
 

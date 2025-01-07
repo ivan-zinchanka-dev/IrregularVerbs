@@ -2,7 +2,7 @@
 using System.Windows.Controls;
 using System.Windows.Navigation;
 using IrregularVerbs.Models.Configs;
-using IrregularVerbs.Services;
+using IrregularVerbs.Services.Main;
 using IrregularVerbs.Views;
 
 namespace IrregularVerbs

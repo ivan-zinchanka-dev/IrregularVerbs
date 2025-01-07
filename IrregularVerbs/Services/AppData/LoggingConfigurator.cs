@@ -4,7 +4,7 @@ using IrregularVerbs.CodeBase;
 using Serilog;
 using Serilog.Core;
 
-namespace IrregularVerbs.Services;
+namespace IrregularVerbs.Services.AppData;
 
 public class LoggingConfigurator : AppDataService
 {
