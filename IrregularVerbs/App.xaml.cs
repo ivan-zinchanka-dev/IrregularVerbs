@@ -147,7 +147,7 @@ namespace IrregularVerbs
         
         private void SetNativeLanguage()
         {
-            _localizationService.CurrentLanguage = _preferencesService.AppSettings.NativeLanguage;
+            _localizationService.CurrentLanguage = _preferencesService.AppSettings.NativeLanguage.ToString();
         }
         
         private void SetBaseThemeIfNeed(object sender, PropertyChangedEventArgs eventArgs)

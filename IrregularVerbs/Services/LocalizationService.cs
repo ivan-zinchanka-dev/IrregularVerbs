@@ -4,18 +4,19 @@ using System.Data;
 using System.IO;
 using System.Text;
 using ExcelDataReader;
-using IrregularVerbs.Models.Configs;
 
 namespace IrregularVerbs.Services;
 
 public class LocalizationService
 {
     private const string LocalizationSourcePath = "Resources/localization.xlsx";
+
+    private readonly List<string> _languages = new List<string>();
     private readonly Dictionary<string, List<string>> _dictionary = new Dictionary<string, List<string>>();
 
-    private Language _currentLanguage;
+    private string _currentLanguage;
     
-    public Language CurrentLanguage
+    public string CurrentLanguage
     {
         get => _currentLanguage;
 
@@ -26,7 +27,12 @@ public class LocalizationService
         }
     }
 
-    public event Action<Language> OnLanguageChanged;
+    public event Action<string> OnLanguageChanged;
+
+    private int GetLanguageId(string language)
+    {
+        return _languages.IndexOf(language);
+    }
 
     public LocalizationService()
     {
@@ -49,19 +55,31 @@ public class LocalizationService
 
     public string Localize(string term)
     {
-        if (_dictionary.TryGetValue(term, out List<string> results))
+        try
         {
-            string match = results[(int)CurrentLanguage];
-
-            if (!string.IsNullOrEmpty(match))
+            if (_dictionary.TryGetValue(term, out List<string> results))
             {
-                return match;
+                string match = results[GetLanguageId(CurrentLanguage)];
+
+                if (!string.IsNullOrEmpty(match))
+                {
+                    return match;
+                }
             }
+            
+            return GetFailResult(term);
         }
-        
+        catch (Exception ex)
+        {
+            return GetFailResult(term);
+        }
+    }
+
+    private static string GetFailResult(string term)
+    {
         return $"[{term}]";
     }
-    
+
     private void ReadTableData()
     {
         Encoding.RegisterProvider(CodePagesEncodingProvider.Instance);
@@ -70,24 +88,34 @@ public class LocalizationService
         {
             using (IExcelDataReader reader = ExcelReaderFactory.CreateReader(stream))
             {
-                DataTable dataTable = reader.AsDataSet().Tables[0];
-                    
-                for (int i = 1; i < dataTable.Rows.Count; i++)
-                {
-                    DataRow dataRow = dataTable.Rows[i];
-                    string term = dataRow[0].ToString();
-                        
-                    if (!string.IsNullOrEmpty(term))
-                    {
-                        _dictionary.Add(term, new List<string>()
-                        {
-                            dataRow[1].ToString(),
-                            dataRow[2].ToString(),
-                            dataRow[3].ToString(),
-                        });
-                    }
-                }
+                ReadTableData(reader.AsDataSet().Tables[0]);
             }
+        }
+    }
+
+    private void ReadTableData(DataTable sourceTable)
+    {
+        int columnsCount = sourceTable.Columns.Count;
+        DataRow headers = sourceTable.Rows[0];
+                
+        for (int headerIndex = 1; headerIndex < columnsCount; headerIndex++)
+        {
+            _languages.Add(headers[headerIndex].ToString());
+        }
+                
+        for (int rowIndex = 1; rowIndex < sourceTable.Rows.Count; rowIndex++)
+        {
+            DataRow dataRow = sourceTable.Rows[rowIndex];
+            string term = dataRow[0].ToString();
+                        
+            List<string> words = new List<string>(columnsCount);
+                        
+            for (int wordIndex = 1; wordIndex < columnsCount; wordIndex++)
+            {
+                words.Add(dataRow[wordIndex].ToString());
+            }
+                        
+            _dictionary.Add(term, words);
         }
     }
 
