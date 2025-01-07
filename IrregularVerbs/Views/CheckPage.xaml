@@ -5,7 +5,6 @@
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
       xmlns:viewModels="clr-namespace:IrregularVerbs.ViewModels"
       xmlns:base="clr-namespace:IrregularVerbs.Views.Base"
-      xmlns:views="clr-namespace:IrregularVerbs.Views"
       mc:Ignorable="d"
       d:DataContext="{d:DesignInstance viewModels:CheckPageViewModel}"
       Title="CheckPage" Height="650" Width="850">
