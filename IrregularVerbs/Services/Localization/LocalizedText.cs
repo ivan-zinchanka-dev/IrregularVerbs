@@ -1,15 +1,15 @@
-﻿using IrregularVerbs.Services.Localization;
+﻿using IrregularVerbs.CodeBase.Localization;
 
-namespace IrregularVerbs.Models.Configs;
+namespace IrregularVerbs.Services.Localization;
 
 public class LocalizedText
 {
     private readonly string _term;
-    private readonly LocalizationService _localizationService;
+    private readonly ILocalizationService _localizationService;
 
     public string Term => _term;
     
-    public LocalizedText(string term, LocalizationService localizationService)
+    public LocalizedText(string term, ILocalizationService localizationService)
     {
         _term = term;
         _localizationService = localizationService;

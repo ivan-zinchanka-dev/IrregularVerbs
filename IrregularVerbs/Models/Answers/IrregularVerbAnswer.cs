@@ -2,6 +2,7 @@
 using System.Runtime.CompilerServices;
 using IrregularVerbs.Models.Configs;
 using IrregularVerbs.Models.Verbs;
+using IrregularVerbs.Services.Localization;
 
 namespace IrregularVerbs.Models.Answers;
 

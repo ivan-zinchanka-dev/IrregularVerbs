@@ -1,14 +1,14 @@
-﻿using IrregularVerbs.Models.Configs;
-using IrregularVerbs.Services;
+﻿using IrregularVerbs.CodeBase.Localization;
+using IrregularVerbs.Models.Configs;
 using IrregularVerbs.Services.Localization;
 
 namespace IrregularVerbs.Factories;
 
 public class LocalizedTextFactory
 {
-    private readonly LocalizationService _localizationService;
+    private readonly ILocalizationService _localizationService;
 
-    public LocalizedTextFactory(LocalizationService localizationService)
+    public LocalizedTextFactory(ILocalizationService localizationService)
     {
         _localizationService = localizationService;
     }

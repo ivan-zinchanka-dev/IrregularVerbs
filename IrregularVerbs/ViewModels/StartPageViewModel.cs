@@ -2,11 +2,11 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Windows.Input;
+using IrregularVerbs.CodeBase.Localization;
 using IrregularVerbs.CodeBase.MVVM;
 using IrregularVerbs.CodeBase.Validation;
 using IrregularVerbs.Models.Configs;
 using IrregularVerbs.Services;
-using IrregularVerbs.Services.Localization;
 using IrregularVerbs.Views;
 
 namespace IrregularVerbs.ViewModels;
@@ -19,13 +19,13 @@ public class StartPageViewModel : BaseViewModel
     private RelayCommand _checkCommand;
 
     private readonly PageManager _pageManager;
-    private readonly LocalizationService _localizationService;
+    private readonly ILocalizationService _localizationService;
     private readonly List<ValidationError> _validationErrors = new List<ValidationError>(5);
     
     public StartPageViewModel(
         ApplicationSettings appSettings, 
         PageManager pageManager, 
-        LocalizationService localizationService)
+        ILocalizationService localizationService)
     {
         _appSettings = appSettings;
         _pageManager = pageManager;

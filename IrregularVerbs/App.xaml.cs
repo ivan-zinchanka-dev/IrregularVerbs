@@ -6,6 +6,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Threading;
+using IrregularVerbs.CodeBase.Localization;
 using IrregularVerbs.CodeBase.ThemeManagement;
 using IrregularVerbs.Factories;
 using IrregularVerbs.Models.Configs;
@@ -30,7 +31,7 @@ namespace IrregularVerbs
         private ThemeManager _themeManager;
         private MainWindow _mainWindow;
         
-        private LocalizationService _localizationService;
+        private ILocalizationService _localizationService;
         private UserPreferencesService _preferencesService;
         private CacheService _cacheService;
         
@@ -119,7 +120,7 @@ namespace IrregularVerbs
         {
             services
                 .AddSingleton<ApplicationSettings>(_preferencesService.AppSettings)
-                .AddSingleton<LocalizationService>(_localizationService)
+                .AddSingleton<ILocalizationService>(_localizationService)
                 .AddSingleton<LocalizedTextFactory>()
                 .AddSingleton<FixedFormFactory>()
                 .AddSingleton<VolatileFormFactory>()
