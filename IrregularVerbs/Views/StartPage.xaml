@@ -38,17 +38,15 @@
                     </ComboBox>
                     
                     <TextBlock Grid.Row="1" Grid.Column="0"
-                               DataContext="{Binding AppSettings}"
                                Margin="5 5 0 0" 
                                Text="Number of verbs: "
                                ToolTip="The number of verbs you will see in the test"
-                               ToolTipService.IsEnabled="{Binding EnableToolTips}"
+                               ToolTipService.IsEnabled="{Binding AppSettings.EnableToolTips}"
                                Style="{DynamicResource MaterialDesignTextBlock}">
                     </TextBlock>
                     <TextBox Grid.Row="1" Grid.Column="1"
-                             DataContext="{Binding AppSettings}"
                              Margin="0 5 5 0">
-                        <Binding Path="VerbsCount" 
+                        <Binding Path="AppSettings.VerbsCount" 
                                  NotifyOnValidationError="True"
                                  UpdateSourceTrigger="PropertyChanged">
                             <Binding.ValidationRules>
@@ -58,17 +56,15 @@
                     </TextBox>
                     
                     <TextBlock Grid.Row="2" Grid.Column="0"
-                               DataContext="{Binding AppSettings}"
                                Margin="5 5 0 5" 
                                Text="Alphabetical order: "
                                ToolTip="Should the list of verbs be displayed in alphabetical order?"
-                               ToolTipService.IsEnabled="{Binding EnableToolTips}"
+                               ToolTipService.IsEnabled="{Binding AppSettings.EnableToolTips}"
                                Style="{StaticResource MaterialDesignTextBlock}">
                     </TextBlock>
                     <CheckBox Grid.Row="2" Grid.Column="1"
-                              DataContext="{Binding AppSettings}"
                               Margin="0 5 5 5"
-                              IsChecked="{Binding Path=AlphabeticalOrder}">
+                              IsChecked="{Binding Path=AppSettings.AlphabeticalOrder}">
                     </CheckBox>
                     
                 </Grid>
