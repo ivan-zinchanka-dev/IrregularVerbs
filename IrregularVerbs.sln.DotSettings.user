@@ -1,0 +1,11 @@
+﻿<wpf:ResourceDictionary xml:space="preserve" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:s="clr-namespace:System;assembly=mscorlib" xmlns:ss="urn:shemas-jetbrains-com:settings-storage-xaml" xmlns:wpf="http://schemas.microsoft.com/winfx/2006/xaml/presentation">
+	<s:String x:Key="/Default/Environment/UnitTesting/UnitTestSessionStore/Sessions/=a6019d58_002D134e_002D42eb_002Da4c8_002D2ad4056c9506/@EntryIndexedValue">&lt;SessionState ContinuousTestingMode="0" Name="VolatileFormTests" xmlns="urn:schemas-jetbrains-com:jetbrains-ut-session"&gt;&#xD;
+  &lt;TestAncestor&gt;&#xD;
+    &lt;TestId&gt;NUnit3x::FBFAD79F-3E7B-4039-BD42-A97E3EE41921::net6.0-windows::IrregularVerbs.Tests.VolatileFormTests&lt;/TestId&gt;&#xD;
+  &lt;/TestAncestor&gt;&#xD;
+&lt;/SessionState&gt;</s:String>
+	<s:String x:Key="/Default/Environment/UnitTesting/UnitTestSessionStore/Sessions/=e45a32bc_002De58b_002D47b2_002Dafda_002Db24b3908493c/@EntryIndexedValue">&lt;SessionState ContinuousTestingMode="0" Name="VolatileFormTests #2" xmlns="urn:schemas-jetbrains-com:jetbrains-ut-session"&gt;&#xD;
+  &lt;TestAncestor&gt;&#xD;
+    &lt;TestId&gt;NUnit3x::FBFAD79F-3E7B-4039-BD42-A97E3EE41921::net6.0-windows::IrregularVerbs.Tests.VolatileFormTests&lt;/TestId&gt;&#xD;
+  &lt;/TestAncestor&gt;&#xD;
+&lt;/SessionState&gt;</s:String></wpf:ResourceDictionary>

@@ -1,5 +1,5 @@
 ﻿using System;
-using IrregularVerbs.Models.Components;
+using IrregularVerbs.Domain.Models.Components;
 using NUnit.Framework;
 
 namespace IrregularVerbs.Tests;

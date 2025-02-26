@@ -1,0 +1,19 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:customConverters="clr-namespace:IrregularVerbs.Presentation.Converters"
+                    xmlns:configs="clr-namespace:IrregularVerbs.Domain.Models.Configs;assembly=IrregularVerbs.Domain">
+    
+    <customConverters:ColorToBrushConverter x:Key="ColorToBrushConverter"/>
+    <customConverters:EnumToInt32Converter x:Key="EnumToNumberConverter"/>
+    
+    <customConverters:AnswerResultToBrushConverter x:Key="AnswerResultToBrushConverter"/>
+    <customConverters:AnswerResultToInfoTextConverter x:Key="AnswerResultToInfoConverter"/>
+    
+    <configs:ApplicationSettings x:Key="ApplicationSettings" 
+                                 NativeLanguage="Russian"
+                                 VerbsCount="10"
+                                 AlphabeticalOrder="True"
+                                 EnableToolTips="True"
+                                 DarkTheme="False"/>
+    
+</ResourceDictionary>
