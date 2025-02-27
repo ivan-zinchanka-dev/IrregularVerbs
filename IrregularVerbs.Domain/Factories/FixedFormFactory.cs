@@ -4,7 +4,7 @@ public class FixedFormFactory
 {
     public string FromNotation(string sourceNotation)
     {
-        sourceNotation = sourceNotation.Trim();
+        sourceNotation = sourceNotation.Trim().ToLower();
         
         if (sourceNotation.Length > 0 && char.IsUpper(sourceNotation[0]))
         {
