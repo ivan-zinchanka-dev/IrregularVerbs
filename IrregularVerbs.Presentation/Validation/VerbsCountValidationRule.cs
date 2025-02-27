@@ -9,7 +9,7 @@ using ValidationResult = System.Windows.Controls.ValidationResult;
 
 namespace IrregularVerbs.Presentation.Validation;
 
-public class VerbsCountValidationRule : ValidationRule
+internal class VerbsCountValidationRule : ValidationRule
 {
     private const string ErrorMessagePattern = "Enter a number from 1 to {0} inclusive";
     

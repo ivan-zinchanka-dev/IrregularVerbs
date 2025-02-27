@@ -1,13 +1,9 @@
-﻿using System;
+﻿using System.Collections;
 using System.ComponentModel;
-using System.IO;
 using System.Text.Json;
-using System.Threading.Tasks;
-using System.Windows;
 using IrregularVerbs.Domain.Models.Configs;
-using IrregularVerbs.Domain.Services.AppData;
 
-namespace IrregularVerbs.Presentation.Services.AppData;
+namespace IrregularVerbs.Domain.Services.AppData;
 
 public class UserPreferencesService : AppDataService, IDisposable
 {
@@ -15,12 +11,12 @@ public class UserPreferencesService : AppDataService, IDisposable
     private const string AppSettingsResourceKey = "ApplicationSettings";
     private const string AppSettingsFileName = "app_settings.json";
     
-    private readonly ResourceDictionary _appResourceDictionary;
+    private readonly IDictionary _appResourceDictionary;
     private DirectoryInfo _preferencesDirectoryInfo;
     
     public ApplicationSettings AppSettings { get; private set; }
 
-    public UserPreferencesService(ResourceDictionary appResourceDictionary)
+    public UserPreferencesService(IDictionary appResourceDictionary)
     {
         _appResourceDictionary = appResourceDictionary;
         CheckPreferencesFolder();

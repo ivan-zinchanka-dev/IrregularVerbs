@@ -54,7 +54,6 @@ public class IrregularVerbsTeacher
         
         OrderByPriority(ref verbs);
         UpdateNotShownTermPriorities(verbs.Skip(questionsCount));
-        
         verbs = verbs.Take(questionsCount).ToList();
 
         if (_applicationSettings.AlphabeticalOrder)
@@ -70,7 +69,6 @@ public class IrregularVerbsTeacher
         }
         
         _logger.LogInformation("The task was generated successfully");
-
         return _cachedTask;
     }
 
@@ -79,27 +77,24 @@ public class IrregularVerbsTeacher
         if (_cachedTask == null)
         {
             _logger.LogError("There is no task to check");
-            return new CheckingResult(0, 0);
+            return new CheckingResult();
         }
-
-        CheckingResult checkingResult = new CheckingResult
-        {
-            AllAnswersCount = _cachedTask.Count
-        };
-
+        
+        int correctAnswersCount = 0;
         foreach (IrregularVerbAnswer answer in _cachedTask)
         {
             CheckAnswer(answer);
 
             if (answer.Result == AnswerResult.Correct)
             {
-                checkingResult.CorrectAnswersCount++;
+                correctAnswersCount++;
             }
         }
         
+        CheckingResult checkingResult = new CheckingResult(_cachedTask.Count, correctAnswersCount);
         _logger.LogInformation("The task was checked successfully");
-        UpdateShownTermPriorities(_cachedTask);
         
+        UpdateShownTermPriorities(_cachedTask);
         return checkingResult;
     }
     
@@ -117,11 +112,9 @@ public class IrregularVerbsTeacher
                     new VolatileForm(input.Infinitive),
                     new VolatileForm(input.PastSimple),
                     new VolatileForm(input.PastParticiple));
-                
             }
             
             answer.Result = ToAnswerResult(original.Inspect(input));
-            
         }
         catch (Exception ex)
         {

@@ -4,7 +4,7 @@ using System.Windows;
 
 namespace IrregularVerbs.Presentation.ViewModels.Base;
 
-public class BindingErrorTraceListener : TraceListener
+internal class BindingErrorTraceListener : TraceListener
 {
     private readonly StringBuilder _messageBuilder = new StringBuilder();
 

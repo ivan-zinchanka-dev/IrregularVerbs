@@ -9,7 +9,7 @@ using Microsoft.Extensions.DependencyInjection;
 
 namespace IrregularVerbs.Presentation.Converters;
 
-public class AnswerResultToBrushConverter : IValueConverter
+internal class AnswerResultToBrushConverter : IValueConverter
 {
     private static class ResultColors
     {
@@ -40,7 +40,7 @@ public class AnswerResultToBrushConverter : IValueConverter
                         new SolidColorBrush(ResultColors.IncorrectLight),
                         new SolidColorBrush(ResultColors.IncorrectDark));  
                 
-                case AnswerResult.None: 
+                case AnswerResult.Unchecked: 
                 default:
                     return Brushes.Transparent;
             }
@@ -70,7 +70,7 @@ public class AnswerResultToBrushConverter : IValueConverter
             }
             else
             {
-                return AnswerResult.None;
+                return AnswerResult.Unchecked;
             }
         }
         else

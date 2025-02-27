@@ -5,7 +5,7 @@ using IrregularVerbs.Domain.Models.Answers;
 
 namespace IrregularVerbs.Presentation.Converters;
 
-public class AnswerResultToInfoTextConverter : IValueConverter
+internal class AnswerResultToInfoTextConverter : IValueConverter
 {
     private const string InputClassNameMismatch = "Value must be an IrregularVerbs.Models.Answers.AnswerResult";
     private const string OutputClassNameMismatch = "Value must be a System.String";
@@ -19,7 +19,7 @@ public class AnswerResultToInfoTextConverter : IValueConverter
             switch (result)
             {
                 case AnswerResult.Correct:
-                case AnswerResult.None: 
+                case AnswerResult.Unchecked: 
                 default:
                     return string.Empty;
                 
@@ -46,7 +46,7 @@ public class AnswerResultToInfoTextConverter : IValueConverter
                     return AnswerResult.Incorrect;
                 
                  default:
-                     return AnswerResult.None;
+                     return AnswerResult.Unchecked;
             }
         }
         else

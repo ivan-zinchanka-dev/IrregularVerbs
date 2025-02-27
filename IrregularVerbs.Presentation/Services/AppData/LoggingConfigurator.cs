@@ -7,7 +7,7 @@ using Serilog.Core;
 
 namespace IrregularVerbs.Presentation.Services.AppData;
 
-public class LoggingConfigurator : AppDataService
+internal class LoggingConfigurator : AppDataService
 {
     private const string LogsFolderName = "Logs";
     private const string LogsFileName = "app_logs.txt";

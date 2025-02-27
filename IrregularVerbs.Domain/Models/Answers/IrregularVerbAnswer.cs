@@ -33,7 +33,7 @@ public class IrregularVerbAnswer : INotifyPropertyChanged
         Infinitive = string.Empty;
         PastSimple = string.Empty;
         PastParticiple = string.Empty;
-        _result = AnswerResult.None;
+        _result = AnswerResult.Unchecked;
     }
 
     public override string ToString()

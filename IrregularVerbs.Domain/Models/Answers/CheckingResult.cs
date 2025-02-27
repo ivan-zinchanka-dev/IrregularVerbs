@@ -1,9 +1,14 @@
 ﻿namespace IrregularVerbs.Domain.Models.Answers;
 
-public struct CheckingResult
+public readonly struct CheckingResult
 {
-    public int AllAnswersCount { get; set; }
-    public int CorrectAnswersCount { get; set; }
+    public int AllAnswersCount { get; }
+    public int CorrectAnswersCount { get; }
+
+    public CheckingResult()
+    {
+        AllAnswersCount = CorrectAnswersCount = 0;
+    }
     
     public CheckingResult(int allAnswersCount, int correctAnswersCount) 
     {

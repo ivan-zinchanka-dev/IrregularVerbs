@@ -13,7 +13,11 @@ public class VolatileIrregularVerb : BaseIrregularVerb
     public sealed override string PastSimple => _pastSimple.ToString();
     public sealed override string PastParticiple => _pastParticiple.ToString();
     
-    public VolatileIrregularVerb(LocalizedText nativeWord, VolatileForm infinitive, VolatileForm pastSimple, VolatileForm pastParticiple)
+    public VolatileIrregularVerb(
+        LocalizedText nativeWord, 
+        VolatileForm infinitive, 
+        VolatileForm pastSimple, 
+        VolatileForm pastParticiple)
     {
         NativeWord = nativeWord;
         _infinitive = infinitive;

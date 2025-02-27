@@ -2,7 +2,7 @@
 
 namespace IrregularVerbs.Presentation.Utilities;
 
-public static class MessageBoxUtility
+internal static class MessageBoxUtility
 {
     private const string ErrorCaption = "Error!";
     private const string WarningCaption = "Warning!";

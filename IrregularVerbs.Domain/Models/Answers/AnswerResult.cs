@@ -2,7 +2,7 @@
 
 public enum AnswerResult : byte
 {
-    None = 0,
+    Unchecked = 0,
     Correct = 1,
     Incorrect = 2,
 }
