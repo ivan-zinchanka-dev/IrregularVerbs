@@ -6,6 +6,7 @@ using IrregularVerbs.Domain.Models.Components;
 using IrregularVerbs.Domain.Models.Configs;
 using IrregularVerbs.Domain.Models.Verbs;
 using IrregularVerbs.Domain.Services.AppData;
+using Microsoft.Extensions.Logging;
 
 namespace IrregularVerbs.Domain.Services.Testing;
 
@@ -14,6 +15,7 @@ public class IrregularVerbsTeacher
     private readonly ApplicationSettings _applicationSettings;
     private readonly IrregularVerbsStorage _storage;
     private readonly IrregularVerbsFactory _verbsFactory;
+    private readonly ILogger<IrregularVerbsTeacher> _logger;
     private readonly CacheService _cacheService;
 
     private bool _usePriorities;
@@ -23,11 +25,13 @@ public class IrregularVerbsTeacher
         ApplicationSettings appSettings, 
         IrregularVerbsStorage storage, 
         IrregularVerbsFactory verbsFactory,
+        ILogger<IrregularVerbsTeacher> logger,
         CacheService cacheService)
     {
         _applicationSettings = appSettings;
         _storage = storage;
         _verbsFactory = verbsFactory;
+        _logger = logger;
         _cacheService = cacheService;
     }
 
@@ -41,6 +45,7 @@ public class IrregularVerbsTeacher
     {
         if (_storage.IrregularVerbs == null)
         {
+            _logger.LogError("The irregular verbs collection is null");
             return new List<IrregularVerbAnswer>();
         }
 
@@ -63,6 +68,8 @@ public class IrregularVerbsTeacher
         {
             _cachedTask.Add(new IrregularVerbAnswer(verb));
         }
+        
+        _logger.LogInformation("The task was generated successfully");
 
         return _cachedTask;
     }
@@ -71,7 +78,8 @@ public class IrregularVerbsTeacher
     {
         if (_cachedTask == null)
         {
-            throw new Exception("No tasks to check");
+            _logger.LogError("There is no task to check");
+            return new CheckingResult(0, 0);
         }
 
         CheckingResult checkingResult = new CheckingResult
@@ -89,8 +97,9 @@ public class IrregularVerbsTeacher
             }
         }
         
+        _logger.LogInformation("The task was checked successfully");
         UpdateShownTermPriorities(_cachedTask);
-
+        
         return checkingResult;
     }
     

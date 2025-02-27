@@ -2,6 +2,12 @@
 
 public struct CheckingResult
 {
-    public int CorrectAnswersCount { get; set; }
     public int AllAnswersCount { get; set; }
+    public int CorrectAnswersCount { get; set; }
+    
+    public CheckingResult(int allAnswersCount, int correctAnswersCount) 
+    {
+        AllAnswersCount = allAnswersCount;
+        CorrectAnswersCount = correctAnswersCount;
+    }
 }
