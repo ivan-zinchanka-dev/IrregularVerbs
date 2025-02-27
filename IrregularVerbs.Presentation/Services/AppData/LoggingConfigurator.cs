@@ -1,7 +1,7 @@
 ﻿using System.Diagnostics;
 using System.IO;
 using IrregularVerbs.Domain.Services.AppData;
-using IrregularVerbs.Presentation.CodeBase;
+using IrregularVerbs.Presentation.ViewModels.Base;
 using Serilog;
 using Serilog.Core;
 

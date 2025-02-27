@@ -23,8 +23,6 @@
     </ItemGroup>
 
     <ItemGroup>
-      <PackageReference Include="ExcelDataReader" Version="3.6.0" />
-      <PackageReference Include="ExcelDataReader.DataSet" Version="3.6.0" />
       <PackageReference Include="MaterialDesignThemes" Version="5.1.0" />
       <PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="9.0.0" />
       <PackageReference Include="Microsoft.Extensions.DependencyInjection.Abstractions" Version="9.0.0" />

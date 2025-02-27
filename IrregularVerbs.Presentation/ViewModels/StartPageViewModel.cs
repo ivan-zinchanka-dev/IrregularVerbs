@@ -5,8 +5,8 @@ using System.Windows.Input;
 using IrregularVerbs.Domain.Models.Configs;
 using IrregularVerbs.Domain.Models.Validation;
 using IrregularVerbs.Domain.Services.Localization;
-using IrregularVerbs.Presentation.CodeBase.MVVM;
 using IrregularVerbs.Presentation.Services.Management;
+using IrregularVerbs.Presentation.ViewModels.Base;
 using IrregularVerbs.Presentation.Views;
 
 namespace IrregularVerbs.Presentation.ViewModels;

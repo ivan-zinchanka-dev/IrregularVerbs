@@ -3,7 +3,7 @@ using System.Collections;
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
 
-namespace IrregularVerbs.Presentation.CodeBase.MVVM;
+namespace IrregularVerbs.Presentation.ViewModels.Base;
 
 public abstract class BaseViewModel : INotifyPropertyChanged, INotifyDataErrorInfo
 {

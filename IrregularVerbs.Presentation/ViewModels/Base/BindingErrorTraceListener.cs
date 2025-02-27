@@ -2,7 +2,7 @@
 using System.Text;
 using System.Windows;
 
-namespace IrregularVerbs.Presentation.CodeBase;
+namespace IrregularVerbs.Presentation.ViewModels.Base;
 
 public class BindingErrorTraceListener : TraceListener
 {

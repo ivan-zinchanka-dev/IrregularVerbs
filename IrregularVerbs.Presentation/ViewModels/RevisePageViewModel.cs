@@ -2,8 +2,8 @@
 using System.Windows.Input;
 using IrregularVerbs.Domain.Models.Verbs;
 using IrregularVerbs.Domain.Services.Testing;
-using IrregularVerbs.Presentation.CodeBase.MVVM;
 using IrregularVerbs.Presentation.Services.Management;
+using IrregularVerbs.Presentation.ViewModels.Base;
 using IrregularVerbs.Presentation.Views;
 
 namespace IrregularVerbs.Presentation.ViewModels;

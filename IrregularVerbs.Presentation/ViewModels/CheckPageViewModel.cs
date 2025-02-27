@@ -4,8 +4,8 @@ using System.Windows.Input;
 using IrregularVerbs.Domain.Models.Answers;
 using IrregularVerbs.Domain.Models.Configs;
 using IrregularVerbs.Domain.Services.Testing;
-using IrregularVerbs.Presentation.CodeBase.MVVM;
 using IrregularVerbs.Presentation.Services.Management;
+using IrregularVerbs.Presentation.ViewModels.Base;
 using IrregularVerbs.Presentation.Views;
 
 namespace IrregularVerbs.Presentation.ViewModels;
