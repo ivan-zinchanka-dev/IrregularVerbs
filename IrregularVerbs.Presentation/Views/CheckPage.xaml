@@ -9,7 +9,7 @@
               mc:Ignorable="d"
               d:DataContext="{d:DesignInstance viewModels:CheckPageViewModel}"
               Title="CheckPage" Height="650" Width="850">
-    <!--TODO Fix right column width-->
+    
     <base:EndPage.Resources> 
         <Style TargetType="Button" x:Key="LocalActionButton"
                BasedOn="{StaticResource MaterialDesignRaisedButton}">
@@ -59,7 +59,7 @@
                                     Header="Past Participle" 
                                     Binding="{Binding Path=PastParticiple}"/>
                 
-                <DataGridTemplateColumn Width="160"
+                <DataGridTemplateColumn Width="155"
                                         Header="Result"
                                         IsReadOnly="True">
                     <DataGridTemplateColumn.CellTemplate> 

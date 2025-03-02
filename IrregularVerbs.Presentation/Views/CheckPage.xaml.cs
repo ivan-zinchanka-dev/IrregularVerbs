@@ -13,8 +13,8 @@ namespace IrregularVerbs.Presentation.Views;
 
 internal partial class CheckPage : EndPage
 {
-    private const double MinColumnWidthMultiplier = 0.75d;
-    private const double MaxColumnWidthMultiplier = 1.25d;
+    private const double MinColumnWidthMultiplier = 0.9d;
+    private const double MaxColumnWidthMultiplier = 1.0d;
     
     private readonly CheckPageViewModel _viewModel;
     private readonly ThemeManager _themeManager;

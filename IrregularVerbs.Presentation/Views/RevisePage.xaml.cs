@@ -8,7 +8,7 @@ namespace IrregularVerbs.Presentation.Views;
 
 internal partial class RevisePage : EndPage
 {
-    private const double MinColumnWidthMultiplier = 0.75d;
+    private const double MinColumnWidthMultiplier = 0.9d;
     private const double MaxColumnWidthMultiplier = 1.25d;
     
     private readonly RevisePageViewModel _viewModel;
