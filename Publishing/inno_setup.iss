@@ -45,9 +45,9 @@ Name: "desktopicon"; Description: "{cm:CreateDesktopIcon}"; GroupDescription: "{
 
 [Files]
 ; Copy all files from the net6.0-windows folder
-Source: "D:\Documents\Reposes\IrregularVerbs\IrregularVerbs\bin\Release\net6.0-windows\*.*"; DestDir: "{app}"; Flags: recursesubdirs createallsubdirs
-; Rename the IrregularVerbs.exe to Irregular Verbs.exe during installation
-Source: "D:\Documents\Reposes\IrregularVerbs\IrregularVerbs\bin\Release\net6.0-windows\IrregularVerbs.exe"; DestDir: "{app}"; DestName: "Irregular Verbs.exe"; Flags: ignoreversion
+Source: "D:\Documents\Reposes\IrregularVerbs\IrregularVerbs.Presentation\bin\Release\net6.0-windows\*.*"; DestDir: "{app}"; Flags: recursesubdirs createallsubdirs
+; Rename the IrregularVerbs.Presentation.exe to Irregular Verbs.exe during installation
+Source: "D:\Documents\Reposes\IrregularVerbs\IrregularVerbs.Presentation\bin\Release\net6.0-windows\IrregularVerbs.Presentation.exe"; DestDir: "{app}"; DestName: "Irregular Verbs.exe"; Flags: ignoreversion
 ; NOTE: Don't use "Flags: ignoreversion" on any shared system files
 
 [Icons]
