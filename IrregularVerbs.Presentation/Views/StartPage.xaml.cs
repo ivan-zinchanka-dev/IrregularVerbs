@@ -5,7 +5,7 @@ using ValidationError = IrregularVerbs.Domain.Models.Validation.ValidationError;
 
 namespace IrregularVerbs.Presentation.Views;
 
-public partial class StartPage : Page
+internal partial class StartPage : Page
 {
     private readonly StartPageViewModel _viewModel;
     

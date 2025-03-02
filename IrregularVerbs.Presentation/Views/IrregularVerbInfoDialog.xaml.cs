@@ -3,7 +3,7 @@ using IrregularVerbs.Domain.Models.Verbs;
 
 namespace IrregularVerbs.Presentation.Views;
 
-public partial class IrregularVerbInfoDialog : Window
+internal partial class IrregularVerbInfoDialog : Window
 {
     private const string CorrectVerbsPattern = 
         "Native Word: {0}\nInfinitive: {1}\nPast Simple: {2}\nPast Participle: {3}";

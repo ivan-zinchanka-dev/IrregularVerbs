@@ -11,7 +11,7 @@ using MaterialDesignThemes.Wpf;
 
 namespace IrregularVerbs.Presentation.Views;
 
-public partial class CheckPage : EndPage
+internal partial class CheckPage : EndPage
 {
     private const double MinColumnWidthMultiplier = 0.75d;
     private const double MaxColumnWidthMultiplier = 1.25d;

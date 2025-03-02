@@ -6,7 +6,7 @@ using IrregularVerbs.Presentation.Views.Base;
 
 namespace IrregularVerbs.Presentation.Views;
 
-public partial class RevisePage : EndPage
+internal partial class RevisePage : EndPage
 {
     private const double MinColumnWidthMultiplier = 0.75d;
     private const double MaxColumnWidthMultiplier = 1.25d;

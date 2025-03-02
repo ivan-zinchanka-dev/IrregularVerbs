@@ -8,7 +8,7 @@ using IrregularVerbs.Presentation.Views;
 
 namespace IrregularVerbs.Presentation.ViewModels;
 
-public class RevisePageViewModel : BaseViewModel
+internal class RevisePageViewModel : BaseViewModel
 {
     private ObservableCollection<BaseIrregularVerb> _irregularVerbs = new ObservableCollection<BaseIrregularVerb>();
     private RelayCommand _backCommand;

@@ -5,7 +5,7 @@ using Microsoft.Extensions.Logging;
 
 namespace IrregularVerbs.Presentation.Services.Management;
 
-public class PageManager
+internal class PageManager
 {
     private readonly IServiceProvider _serviceProvider;
     private readonly ILogger<PageManager> _logger;

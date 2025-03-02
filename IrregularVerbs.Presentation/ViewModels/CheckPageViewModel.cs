@@ -10,7 +10,7 @@ using IrregularVerbs.Presentation.Views;
 
 namespace IrregularVerbs.Presentation.ViewModels;
 
-public class CheckPageViewModel : BaseViewModel
+internal class CheckPageViewModel : BaseViewModel
 {
     private ApplicationSettings _appSettings;
     private ObservableCollection<IrregularVerbAnswer> _answers;

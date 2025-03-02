@@ -3,7 +3,7 @@ using System.Windows.Input;
 
 namespace IrregularVerbs.Presentation.Views.Base;
 
-public abstract class EndPage : Page
+internal abstract class EndPage : Page
 {
     protected void RegisterBackCommand(ICommand backCommand)
     {

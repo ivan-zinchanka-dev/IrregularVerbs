@@ -5,7 +5,7 @@ using System.Runtime.CompilerServices;
 
 namespace IrregularVerbs.Presentation.ViewModels.Base;
 
-public abstract class BaseViewModel : INotifyPropertyChanged, INotifyDataErrorInfo
+internal abstract class BaseViewModel : INotifyPropertyChanged, INotifyDataErrorInfo
 {
     public virtual bool HasErrors => false;
     public virtual IEnumerable GetErrors(string propertyName) => Array.Empty<object>();

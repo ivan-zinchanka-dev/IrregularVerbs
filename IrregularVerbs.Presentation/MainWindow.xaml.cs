@@ -7,7 +7,7 @@ using IrregularVerbs.Presentation.Views;
 
 namespace IrregularVerbs.Presentation
 {
-    public partial class MainWindow : Window
+    internal partial class MainWindow : Window
     {
         private readonly ApplicationSettings _applicationSettings;
         private readonly PageManager _pageManager;

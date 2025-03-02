@@ -2,7 +2,7 @@
 
 namespace IrregularVerbs.Presentation.Services.Management;
 
-public class ThemeManager
+internal class ThemeManager
 {
     public BaseTheme CurrentBaseTheme { get; private set; }
 

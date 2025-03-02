@@ -11,7 +11,7 @@ using IrregularVerbs.Presentation.Views;
 
 namespace IrregularVerbs.Presentation.ViewModels;
 
-public class StartPageViewModel : BaseViewModel
+internal class StartPageViewModel : BaseViewModel
 {
     private ApplicationSettings _appSettings;
     private List<string> _languages;
