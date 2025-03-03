@@ -35,6 +35,7 @@ PrivilegesRequiredOverridesAllowed=dialog
 OutputBaseFilename=irregular-verbs-setup
 SolidCompression=yes
 WizardStyle=modern
+DisableDirPage=no
 
 [Languages]
 Name: "english"; MessagesFile: "compiler:Default.isl"
