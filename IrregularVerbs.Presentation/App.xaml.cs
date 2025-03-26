@@ -25,7 +25,6 @@ using ILogger = Serilog.ILogger;
 
 namespace IrregularVerbs.Presentation
 {
-    //TODO Rebuild setup
     public partial class App : Application
     {
         private IHost _host;
